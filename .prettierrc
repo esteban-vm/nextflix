@@ -1,0 +1,14 @@
+{
+  "semi": false,
+  "tabWidth": 2,
+  "printWidth": 120,
+  "singleQuote": true,
+  "trailingComma": "es5",
+  "bracketSpacing": true,
+  "jsxSingleQuote": true,
+  "endOfLine": "crlf",
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "pluginSearchDirs": false,
+  "tailwindFunctions": ["clsx", "cva", "cn"],
+  "tailwindConfig": "./tailwind.config.ts"
+}

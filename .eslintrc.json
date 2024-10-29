@@ -1,3 +1,45 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:tailwindcss/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["prettier", "tailwindcss", "jsx-a11y", "import", "sort-exports"],
+  "ignorePatterns": ["node_modules", "build", "public", ".next"],
+  "settings": {
+    "import/resolver": { "typescript": true, "node": true },
+    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
+  },
+  "rules": {
+    "prettier/prettier": "off",
+    "@typescript-eslint/consistent-type-imports": ["warn", { "disallowTypeAnnotations": false }],
+    "@typescript-eslint/consistent-type-definitions": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "import/consistent-type-specifier-style": ["warn", "prefer-top-level"],
+    "sort-exports/sort-exports": ["warn", { "sortDir": "asc" }],
+    "react/function-component-definition": [
+      "warn",
+      { "namedComponents": "function-declaration", "unnamedComponents": "arrow-function" }
+    ],
+    "react/jsx-sort-props": [
+      "warn",
+      { "callbacksLast": true, "multiline": "last", "reservedFirst": true, "shorthandLast": true }
+    ],
+    "import/order": [
+      "warn",
+      {
+        "newlines-between": "never",
+        "warnOnUnassignedImports": true,
+        "alphabetize": { "order": "asc", "caseInsensitive": true },
+        "groups": ["unknown", "type", "builtin", "external", "internal", "parent", "sibling", "index"],
+        "pathGroups": [{ "group": "unknown", "pattern": "{.,@}/**/*.{css,scss}", "position": "before" }]
+      }
+    ]
+  }
 }
