@@ -7,6 +7,7 @@ const tailwindConfig: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'selector',
   theme: {
     extend: {
       colors: {
@@ -55,6 +56,10 @@ const tailwindConfig: Config = {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
+      },
+      fontFamily: {
+        'geist-sans': 'var(--font-geist-sans)',
+        'geist-mono': 'var(--font-geist-mono)',
       },
     },
   },
