@@ -2,6 +2,7 @@ import '@/globals.css'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import localFont from 'next/font/local'
+import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
   title: 'Nextflix - Netflix Clone',
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`} suppressHydrationWarning>
+      <body className={cn('dark antialiased', geistMono.variable, geistSans.variable)} suppressHydrationWarning>
         {children}
       </body>
     </html>
