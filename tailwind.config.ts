@@ -1,12 +1,10 @@
 import type { Config } from 'tailwindcss'
+// @ts-ignore
+import twTextShadow from '@designbycode/tailwindcss-text-shadow'
 import twAnimate from 'tailwindcss-animate'
 
 const tailwindConfig: Config = {
-  content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./(app|components|pages)/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: 'selector',
   theme: {
     extend: {
@@ -63,7 +61,7 @@ const tailwindConfig: Config = {
       },
     },
   },
-  plugins: [twAnimate],
+  plugins: [twAnimate, twTextShadow],
 }
 
 export default tailwindConfig
