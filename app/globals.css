@@ -32,12 +32,16 @@
   }
 
   * {
-    @apply border-border;
+    @apply border-border font-geist-sans text-foreground selection:bg-primary selection:text-primary-foreground;
   }
 
   html,
   body {
-    @apply font-geist-sans h-full bg-background text-foreground dark:bg-background dark:text-foreground;
+    @apply h-full bg-background;
+  }
+
+  button {
+    @apply select-none;
   }
 
   .dark {
