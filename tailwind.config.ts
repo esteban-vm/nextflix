@@ -1,12 +1,18 @@
 import type { Config } from 'tailwindcss'
 // @ts-ignore
 import twTextShadow from '@designbycode/tailwindcss-text-shadow'
+import twFluid, { extract, fontSize, screens } from 'fluid-tailwind'
 import twAnimate from 'tailwindcss-animate'
 
 const tailwindConfig: Config = {
-  content: ['./(app|components|pages)/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: {
+    extract,
+    files: ['./(app|components|pages)/**/*.{js,ts,jsx,tsx,mdx}'],
+  },
   darkMode: 'selector',
   theme: {
+    fontSize,
+    screens,
     extend: {
       colors: {
         background: 'hsl(var(--background))',
@@ -61,7 +67,7 @@ const tailwindConfig: Config = {
       },
     },
   },
-  plugins: [twAnimate, twTextShadow],
+  plugins: [twFluid, twAnimate, twTextShadow],
 }
 
 export default tailwindConfig
