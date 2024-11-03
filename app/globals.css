@@ -32,7 +32,7 @@
   }
 
   * {
-    @apply border-border font-geist-sans text-foreground selection:bg-primary selection:text-primary-foreground;
+    @apply border-border font-geist-sans text-foreground ~text-sm/base selection:bg-primary selection:text-primary-foreground;
   }
 
   html,
