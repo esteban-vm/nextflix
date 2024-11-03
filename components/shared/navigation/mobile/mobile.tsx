@@ -1,4 +1,4 @@
-import { Menu, BellRing, Search, User } from 'lucide-react'
+import { LuMenu, LuBellRing, LuSearch, LuUser } from 'react-icons/lu'
 import {
   Sheet,
   SheetContent,
@@ -19,7 +19,7 @@ export function Mobile() {
         <Logo />
         <Sheet>
           <SheetTrigger>
-            <Menu className='cursor-pointer' />
+            <LuMenu className='size-6 cursor-pointer' />
           </SheetTrigger>
           <SheetContent>
             <SheetHeader>
@@ -30,11 +30,11 @@ export function Mobile() {
                 ))}
               </SheetDescription>
             </SheetHeader>
-            <SheetFooter className='mt-4 border-t border-white py-4 [&_svg]:cursor-pointer'>
+            <SheetFooter className='mt-4 border-t border-white py-4 [&_svg]:size-5'>
               <div className='flex w-full justify-between'>
-                <Search />
-                <BellRing />
-                <User />
+                <LuSearch />
+                <LuBellRing />
+                <LuUser />
               </div>
             </SheetFooter>
           </SheetContent>

@@ -1,6 +1,6 @@
 'use client'
 
-import { BellRing, Search, User } from 'lucide-react'
+import { LuBellRing, LuSearch, LuUser } from 'react-icons/lu'
 import { useScrollPosition } from '@/hooks'
 import { navigationItems } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -11,32 +11,24 @@ export function Desktop() {
   const { scrollPosition } = useScrollPosition()
 
   return (
-    <div className='mx-auto hidden md:block'>
-      <div
-        className={cn(
-          'fixed inset-x-0 top-0 z-30 h-16 w-full transition-all duration-300',
-          scrollPosition > 20 ? 'bg-black' : 'bg-transparent'
-        )}
-      >
-        <div className='mx-auto flex h-full items-center px-[4%]'>
-          <div className='flex w-full items-center justify-between gap-4'>
-            <div className='flex items-center gap-2'>
-              <Logo />
-              <div className='ml-10 flex gap-4'>
-                {navigationItems.map((link) => (
-                  <NavigationItem key={link.name} {...link} />
-                ))}
-              </div>
-            </div>
-            <div className='flex items-center gap-4 [&_svg]:cursor-pointer'>
-              <Search />
-              <BellRing />
-              <User />
-              {/* <div className='flex items-center gap-2'>
-                <p>Profile</p>
-              </div> */}
-            </div>
-          </div>
+    <div
+      className={cn(
+        'fixed inset-x-0 top-0 z-30 hidden w-full py-4 transition-all duration-300 md:block',
+        scrollPosition > 20 ? 'bg-black' : 'bg-transparent'
+      )}
+    >
+      <div className='mx-auto flex w-full max-w-screen-2xl items-center justify-between px-4 2xl:px-0'>
+        <div className='flex items-center gap-4'>
+          <Logo />
+          <div />
+          {navigationItems.map((link) => (
+            <NavigationItem key={link.name} {...link} />
+          ))}
+        </div>
+        <div className='flex gap-2 [&_svg]:cursor-pointer [&_svg]:~size-5/6'>
+          <LuSearch title='Búsqueda' />
+          <LuBellRing title='Notificaciones' />
+          <LuUser title='Perfil' />
         </div>
       </div>
     </div>
