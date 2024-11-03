@@ -4,5 +4,5 @@ export const navigationItems: NavigationItemProps[] = [
   { name: 'Inicio', link: '/' },
   { name: 'Películas', link: '/' },
   { name: 'Series', link: '/' },
-  { name: 'Mi lista', link: '/' },
+  { name: 'Mi lista', link: '/login' },
 ]
