@@ -1,3 +1,9 @@
-export default function Home() {
-  return <div className=''>Hello</div>
+import { SliderVideo } from '@/(home)/components'
+
+export default function HomePage() {
+  return (
+    <>
+      <SliderVideo />
+    </>
+  )
 }
