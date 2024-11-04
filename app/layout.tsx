@@ -2,6 +2,7 @@ import '@/globals.css'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import localFont from 'next/font/local'
+import { Navigation } from '@/components/shared'
 import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -15,7 +16,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
-      <body className={cn('dark antialiased', geistMono.variable, geistSans.variable)} suppressHydrationWarning>
+      <body
+        className={cn('dark relative size-full antialiased', geistMono.variable, geistSans.variable)}
+        suppressHydrationWarning
+      >
+        <Navigation />
         {children}
       </body>
     </html>
