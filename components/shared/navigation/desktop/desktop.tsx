@@ -11,12 +11,7 @@ export function Desktop() {
   const { scrollPosition } = useScrollPosition()
 
   return (
-    <div
-      className={cn(
-        'fixed inset-x-0 top-0 z-30 hidden w-full py-4 transition-all duration-300 md:block',
-        scrollPosition > 20 ? 'bg-black' : 'bg-transparent'
-      )}
-    >
+    <div className={cn('hidden py-4 md:block', scrollPosition > 20 ? 'bg-black' : 'bg-transparent')}>
       <div className='mx-auto flex w-full max-w-screen-2xl items-center justify-between px-4 2xl:px-0'>
         <div className='flex items-center gap-4'>
           <Logo />
