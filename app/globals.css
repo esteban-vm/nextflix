@@ -40,7 +40,8 @@
     @apply h-full bg-background;
   }
 
-  button {
+  button,
+  a {
     @apply select-none;
   }
 

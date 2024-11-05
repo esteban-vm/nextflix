@@ -1,22 +1,23 @@
 'use client'
 
-import type { LoginData } from '@/app/(auth)/validations'
+import type { RegisterData } from '@/app/(auth)/validations'
 import type { SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { loginSchema } from '@/app/(auth)/validations'
+import { registerSchema } from '@/app/(auth)/validations'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Button, Input } from '@/components/ui'
 
-export function LoginForm() {
-  const methods = useForm<LoginData>({
-    resolver: zodResolver(loginSchema),
+export function RegisterForm() {
+  const methods = useForm<RegisterData>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       email: '',
       password: '',
+      repeatPassword: '',
     },
   })
 
-  const onSubmit: SubmitHandler<LoginData> = (data) => {
+  const onSubmit: SubmitHandler<RegisterData> = (data) => {
     console.log(data)
   }
 
@@ -55,8 +56,24 @@ export function LoginForm() {
           }}
         />
 
+        <FormField
+          control={methods.control}
+          name='repeatPassword'
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Repite tu contraseña:</FormLabel>
+                <FormControl>
+                  <Input {...field} type='password' />
+                </FormControl>
+                <FormError />
+              </FormItem>
+            )
+          }}
+        />
+
         <Button className='bg-rose-700 text-white hover:bg-rose-600' type='submit'>
-          Iniciar sesión
+          Registrarse
         </Button>
       </form>
     </Form>

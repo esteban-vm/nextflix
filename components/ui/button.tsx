@@ -6,12 +6,13 @@ import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, type = 'button', ...props }, ref) => {
     const Comp = asChild ? Slot : 'button'
 
     return (
       <Comp
         ref={ref}
+        type={type}
         className={cn(
           buttonVariants({ variant, size, className }),
           'transition-all active:scale-95 disabled:cursor-not-allowed disabled:opacity-50'
