@@ -6,6 +6,7 @@ import type { ControllerProps, FieldPath, FieldValues } from 'react-hook-form'
 import { Slot } from '@radix-ui/react-slot'
 import { createContext, useContext, forwardRef, useId } from 'react'
 import { Controller, FormProvider, useFormContext } from 'react-hook-form'
+import { LuAlertTriangle } from 'react-icons/lu'
 import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
 
@@ -113,7 +114,7 @@ const FormDescription = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLPara
 
 FormDescription.displayName = 'FormDescription'
 
-const FormMessage = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
+const FormError = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphElement>>(
   ({ className, children, ...props }, ref) => {
     const { error, formMessageId } = useFormField()
     const body = error ? String(error?.message) : children
@@ -125,16 +126,16 @@ const FormMessage = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagrap
     return (
       <p
         ref={ref}
-        className={cn('text-[0.8rem] font-medium text-destructive', className)}
+        className={cn('rounded-md bg-destructive/50 px-3 py-1 text-[0.8rem] font-medium text-white', className)}
         id={formMessageId}
         {...props}
       >
-        {body}
+        <LuAlertTriangle className='inline motion-safe:animate-pulse' /> {body}
       </p>
     )
   }
 )
 
-FormMessage.displayName = 'FormMessage'
+FormError.displayName = 'FormError'
 
-export { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage, useFormField }
+export { Form, FormControl, FormDescription, FormError, FormField, FormItem, FormLabel, useFormField }
