@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
       <body
-        className={cn('dark relative size-full antialiased', geistMono.variable, geistSans.variable)}
+        className={cn('dark relative size-full antialiased', geistSans.variable, geistMono.variable)}
         suppressHydrationWarning
       >
         <Navigation />
@@ -28,13 +28,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 }
 
 const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
+  src: './fonts/geist-sans.woff',
   variable: '--font-geist-sans',
   weight: '100 900',
 })
 
 const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
+  src: './fonts/geist-mono.woff',
   variable: '--font-geist-mono',
   weight: '100 900',
 })
