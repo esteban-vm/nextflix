@@ -1,12 +1,12 @@
 import Link from 'next/link'
-import { Terms } from '@/(auth)/login/components/terms'
+import { LoginForm, LoginTerms } from '@/(auth)/login/components'
 import { Checkbox } from '@/components/ui'
 
 export default function LoginPage() {
   return (
     <div className='flex flex-col justify-center gap-2'>
       <h2 className='font-semibold ~text-xl/2xl'>Iniciar sesión</h2>
-      <div>Form login...</div>
+      <LoginForm />
       <div className='w-full'>
         <div className='flex justify-between'>
           <span className='flex w-fit items-center justify-center hover:opacity-90'>
@@ -29,7 +29,7 @@ export default function LoginPage() {
           </Link>
         </div>
       </div>
-      <Terms />
+      <LoginTerms />
     </div>
   )
 }

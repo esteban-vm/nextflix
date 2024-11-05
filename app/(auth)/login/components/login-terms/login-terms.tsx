@@ -1,7 +1,7 @@
 import { LuInfo } from 'react-icons/lu'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui'
 
-export function Terms() {
+export function LoginTerms() {
   return (
     <p className='text-center text-sm text-gray-600'>
       Esta página utiliza Google reCAPTCHA para verificar que no eres un robot&nbsp;
