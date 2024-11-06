@@ -1,7 +1,7 @@
 'use client'
 
 import type { RegisterData } from '@/app/(auth)/validations'
-import type { SubmitHandler } from 'react-hook-form'
+import type { SubmitErrorHandler, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { registerSchema } from '@/app/(auth)/validations'
@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Button, I
 
 export function RegisterForm() {
   const methods = useForm<RegisterData>({
+    mode: 'onChange',
     resolver: zodResolver(registerSchema),
     defaultValues: {
       email: '',
@@ -21,9 +22,19 @@ export function RegisterForm() {
     console.log(data)
   }
 
+  const onError: SubmitErrorHandler<RegisterData> = (errors) => {
+    console.log(errors)
+  }
+
   return (
     <Form {...methods}>
-      <form className='flex flex-col gap-3' noValidate onSubmit={methods.handleSubmit(onSubmit)}>
+      <form
+        autoComplete='off'
+        className='flex flex-col gap-3'
+        spellCheck={false}
+        noValidate
+        onSubmit={methods.handleSubmit(onSubmit, onError)}
+      >
         <FormField
           control={methods.control}
           name='email'
@@ -73,7 +84,7 @@ export function RegisterForm() {
         />
 
         <Button className='bg-rose-700 text-white hover:bg-rose-600' type='submit'>
-          Registrarse
+          Regístrate
         </Button>
       </form>
     </Form>

@@ -1,7 +1,7 @@
 'use client'
 
 import type { LoginData } from '@/app/(auth)/validations'
-import type { SubmitHandler } from 'react-hook-form'
+import type { SubmitErrorHandler, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { loginSchema } from '@/app/(auth)/validations'
@@ -20,9 +20,19 @@ export function LoginForm() {
     console.log(data)
   }
 
+  const onError: SubmitErrorHandler<LoginData> = (errors) => {
+    console.log(errors)
+  }
+
   return (
     <Form {...methods}>
-      <form className='flex flex-col gap-3' noValidate onSubmit={methods.handleSubmit(onSubmit)}>
+      <form
+        autoComplete='off'
+        className='flex flex-col gap-3'
+        spellCheck={false}
+        noValidate
+        onSubmit={methods.handleSubmit(onSubmit, onError)}
+      >
         <FormField
           control={methods.control}
           name='email'
