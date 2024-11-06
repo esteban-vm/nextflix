@@ -4,8 +4,9 @@ import type { LoginData } from '@/(auth)/validations'
 import type { SubmitErrorHandler, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
+import { FormButton } from '@/(auth)/components'
 import { loginSchema } from '@/(auth)/validations'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Button, Input } from '@/components/ui'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/components/ui'
 
 export function LoginForm() {
   const methods = useForm<LoginData>({
@@ -65,9 +66,7 @@ export function LoginForm() {
           }}
         />
 
-        <Button className='bg-rose-700 text-white hover:bg-rose-600' type='submit'>
-          Iniciar sesión
-        </Button>
+        <FormButton>Iniciar sesión</FormButton>
       </form>
     </Form>
   )
