@@ -13,7 +13,8 @@
   "ignorePatterns": ["node_modules", "build", "public", ".next"],
   "settings": {
     "import/resolver": { "typescript": true, "node": true },
-    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
+    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] },
+    "tailwindcss": { "whitelist": ["destructive"] }
   },
   "rules": {
     "prettier/prettier": "off",
