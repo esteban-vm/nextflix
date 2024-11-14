@@ -18,13 +18,17 @@ export function RegisterForm() {
     {
       actionProps: {
         onSuccess() {
-          resetFormAndAction()
-          toast({ title: 'Te has registrado correctamente', description: '¡Bienvenido/a!' })
           push('/login')
+          toast({ title: 'Te has registrado correctamente', description: '¡Bienvenido/a!' })
         },
         onError({ error }) {
           toast({ title: error.validationErrors?._errors?.[0], variant: 'destructive' })
+        },
+        onSettled() {
           resetFormAndAction()
+        },
+        onExecute() {
+          toast({ title: 'Creando cuenta', description: 'Un momento…' })
         },
       },
       formProps: {

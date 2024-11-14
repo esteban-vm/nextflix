@@ -15,15 +15,19 @@ export function LoginForm() {
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(login, zodResolver(loginSchema), {
     actionProps: {
       onSuccess() {
-        resetFormAndAction()
-        toast({ title: 'Sesión iniciada correctamente', description: '¡Bienvenido/a!' })
         push('/')
         refresh()
+        toast({ title: 'Sesión iniciada correctamente', description: '¡Bienvenido/a!' })
       },
       onError({ error }) {
         const errorTitle = error.validationErrors?._errors?.[0] ?? error.serverError
         toast({ title: errorTitle, variant: 'destructive' })
+      },
+      onSettled() {
         resetFormAndAction()
+      },
+      onExecute() {
+        toast({ title: 'Iniciando sesión', description: 'Un momento…' })
       },
     },
     formProps: {
