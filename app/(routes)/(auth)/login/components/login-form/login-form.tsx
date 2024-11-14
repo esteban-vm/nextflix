@@ -1,48 +1,62 @@
 'use client'
 
-import type { LoginData } from '@/(auth)/validations'
-import type { SubmitErrorHandler, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
+import { useRouter } from 'next/navigation'
 import { FormButton } from '@/(auth)/components'
-import { loginSchema } from '@/(auth)/validations'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/components/ui'
+import { login } from '@/actions'
+import { toast } from '@/hooks'
+import { loginSchema } from '@/lib/validations'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/ui'
 
 export function LoginForm() {
-  const methods = useForm<LoginData>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: '',
-      password: '',
+  const { push, refresh } = useRouter()
+
+  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(login, zodResolver(loginSchema), {
+    actionProps: {
+      onSuccess() {
+        resetFormAndAction()
+        toast({ title: 'Sesión iniciada correctamente', description: '¡Bienvenido/a!' })
+        push('/')
+        refresh()
+      },
+      onError({ error }) {
+        const errorTitle = error.validationErrors?._errors?.[0] ?? error.serverError
+        toast({ title: errorTitle, variant: 'destructive' })
+        resetFormAndAction()
+      },
+    },
+    formProps: {
+      defaultValues: {
+        email: '',
+        password: '',
+      },
     },
   })
 
-  const onSubmit: SubmitHandler<LoginData> = (data) => {
-    console.log(data)
-  }
-
-  const onError: SubmitErrorHandler<LoginData> = (errors) => {
-    console.log(errors)
-  }
+  const {
+    control,
+    formState: { isSubmitting },
+  } = form
 
   return (
-    <Form {...methods}>
+    <Form {...form}>
       <form
         autoComplete='off'
         className='flex flex-col gap-3'
         spellCheck={false}
         noValidate
-        onSubmit={methods.handleSubmit(onSubmit, onError)}
+        onSubmit={handleSubmitWithAction}
       >
         <FormField
-          control={methods.control}
+          control={control}
           name='email'
           render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel>Tu correo electrónico:</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder='correo@ejemplo.com' type='email' />
+                  <Input {...field} disabled={isSubmitting} placeholder='correo@ejemplo.com' type='email' />
                 </FormControl>
                 <FormError />
               </FormItem>
@@ -51,14 +65,14 @@ export function LoginForm() {
         />
 
         <FormField
-          control={methods.control}
+          control={control}
           name='password'
           render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel>Tu contraseña:</FormLabel>
                 <FormControl>
-                  <Input {...field} type='password' />
+                  <Input {...field} disabled={isSubmitting} type='password' />
                 </FormControl>
                 <FormError />
               </FormItem>
@@ -66,7 +80,7 @@ export function LoginForm() {
           }}
         />
 
-        <FormButton>Iniciar sesión</FormButton>
+        <FormButton disabled={isSubmitting}>Iniciar sesión</FormButton>
       </form>
     </Form>
   )

@@ -1,50 +1,66 @@
 'use client'
 
-import type { RegisterData } from '@/(auth)/validations'
-import type { SubmitErrorHandler, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
+import { useRouter } from 'next/navigation'
 import { FormButton } from '@/(auth)/components'
-import { registerSchema } from '@/(auth)/validations'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/components/ui'
+import { register } from '@/actions'
+import { toast } from '@/hooks'
+import { registerSchema } from '@/lib/validations'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/ui'
 
 export function RegisterForm() {
-  const methods = useForm<RegisterData>({
-    mode: 'onChange',
-    resolver: zodResolver(registerSchema),
-    defaultValues: {
-      email: '',
-      password: '',
-      repeatPassword: '',
-    },
-  })
+  const { push } = useRouter()
 
-  const onSubmit: SubmitHandler<RegisterData> = (data) => {
-    console.log(data)
-  }
+  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
+    register,
+    zodResolver(registerSchema),
+    {
+      actionProps: {
+        onSuccess() {
+          resetFormAndAction()
+          toast({ title: 'Te has registrado correctamente', description: '¡Bienvenido/a!' })
+          push('/login')
+        },
+        onError({ error }) {
+          toast({ title: error.validationErrors?._errors?.[0], variant: 'destructive' })
+          resetFormAndAction()
+        },
+      },
+      formProps: {
+        mode: 'onChange',
+        defaultValues: {
+          email: '',
+          password: '',
+          repeatPassword: '',
+        },
+      },
+    }
+  )
 
-  const onError: SubmitErrorHandler<RegisterData> = (errors) => {
-    console.log(errors)
-  }
+  const {
+    control,
+    formState: { isSubmitting },
+  } = form
 
   return (
-    <Form {...methods}>
+    <Form {...form}>
       <form
         autoComplete='off'
         className='flex flex-col gap-3'
         spellCheck={false}
         noValidate
-        onSubmit={methods.handleSubmit(onSubmit, onError)}
+        onSubmit={handleSubmitWithAction}
       >
         <FormField
-          control={methods.control}
+          control={control}
           name='email'
           render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel>Tu correo electrónico:</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder='correo@ejemplo.com' type='email' />
+                  <Input {...field} disabled={isSubmitting} placeholder='correo@ejemplo.com' type='email' />
                 </FormControl>
                 <FormError />
               </FormItem>
@@ -53,14 +69,14 @@ export function RegisterForm() {
         />
 
         <FormField
-          control={methods.control}
+          control={control}
           name='password'
           render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel>Tu contraseña:</FormLabel>
                 <FormControl>
-                  <Input {...field} type='password' />
+                  <Input {...field} disabled={isSubmitting} type='password' />
                 </FormControl>
                 <FormError />
               </FormItem>
@@ -69,14 +85,14 @@ export function RegisterForm() {
         />
 
         <FormField
-          control={methods.control}
+          control={control}
           name='repeatPassword'
           render={({ field }) => {
             return (
               <FormItem>
                 <FormLabel>Repite tu contraseña:</FormLabel>
                 <FormControl>
-                  <Input {...field} type='password' />
+                  <Input {...field} disabled={isSubmitting} type='password' />
                 </FormControl>
                 <FormError />
               </FormItem>
@@ -84,7 +100,7 @@ export function RegisterForm() {
           }}
         />
 
-        <FormButton>Regístrate</FormButton>
+        <FormButton disabled={isSubmitting}>Regístrate</FormButton>
       </form>
     </Form>
   )

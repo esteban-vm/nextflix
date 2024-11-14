@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import localFont from 'next/font/local'
 import { Navigation } from '@/components/shared'
+import { Toaster } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       >
         <Navigation />
         {children}
+        <Toaster />
       </body>
     </html>
   )
