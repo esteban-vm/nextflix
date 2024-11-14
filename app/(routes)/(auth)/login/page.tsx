@@ -1,11 +1,15 @@
 import Link from 'next/link'
 import { AuthTerms } from '@/(auth)/components'
 import { LoginForm } from '@/(auth)/login/components'
+import { auth } from '@/auth'
 import { Checkbox } from '@/components/ui'
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await auth()
+
   return (
     <>
+      <p>Session: {session?.user?.email ?? 'no session'}</p>
       <h2 className='font-semibold ~text-xl/2xl'>Iniciar sesión</h2>
       <LoginForm />
       <div className='w-full'>

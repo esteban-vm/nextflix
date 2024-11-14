@@ -1,9 +1,6 @@
 import { isEmail, isStrongPassword } from 'validator'
 import { z } from 'zod'
 
-export type LoginData = z.infer<typeof loginSchema>
-export type RegisterData = z.infer<typeof registerSchema>
-
 export const loginSchema = z.object({
   email: z
     .string()
