@@ -1,5 +1,5 @@
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
-import { FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/ui'
+import { FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/components/ui'
 
 export function AuthField<T extends FieldValues>({
   label,
