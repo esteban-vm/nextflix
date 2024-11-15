@@ -3,11 +3,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useRouter } from 'next/navigation'
-import { FormButton } from '@/(auth)/components'
+import { AuthField, AuthButton } from '@/(auth)/components'
 import { login } from '@/actions'
+import { Form } from '@/components/ui'
 import { toast } from '@/hooks'
 import { loginSchema } from '@/lib/validations'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/ui'
 
 export function LoginForm() {
   const { push, refresh } = useRouter()
@@ -45,46 +45,17 @@ export function LoginForm() {
 
   return (
     <Form {...form}>
-      <form
-        autoComplete='off'
-        className='flex flex-col gap-3'
-        spellCheck={false}
-        noValidate
-        onSubmit={handleSubmitWithAction}
-      >
-        <FormField
+      <form autoComplete='off' id='login-form' spellCheck={false} noValidate onSubmit={handleSubmitWithAction}>
+        <AuthField
           control={control}
+          disabled={isSubmitting}
+          label='Tu correo electrónico'
           name='email'
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Tu correo electrónico:</FormLabel>
-                <FormControl>
-                  <Input {...field} disabled={isSubmitting} placeholder='correo@ejemplo.com' type='email' />
-                </FormControl>
-                <FormError />
-              </FormItem>
-            )
-          }}
+          placeholder='correo@ejemplo.com'
+          type='email'
         />
-
-        <FormField
-          control={control}
-          name='password'
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Tu contraseña:</FormLabel>
-                <FormControl>
-                  <Input {...field} disabled={isSubmitting} type='password' />
-                </FormControl>
-                <FormError />
-              </FormItem>
-            )
-          }}
-        />
-
-        <FormButton disabled={isSubmitting}>Iniciar sesión</FormButton>
+        <AuthField control={control} disabled={isSubmitting} label='Tu contraseña' name='password' />
+        <AuthButton disabled={isSubmitting}>Iniciar sesión</AuthButton>
       </form>
     </Form>
   )

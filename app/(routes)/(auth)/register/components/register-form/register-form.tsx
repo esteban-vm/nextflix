@@ -3,11 +3,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useRouter } from 'next/navigation'
-import { FormButton } from '@/(auth)/components'
+import { AuthField, AuthButton } from '@/(auth)/components'
 import { register } from '@/actions'
+import { Form } from '@/components/ui'
 import { toast } from '@/hooks'
 import { registerSchema } from '@/lib/validations'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/ui'
 
 export function RegisterForm() {
   const { push } = useRouter()
@@ -49,62 +49,18 @@ export function RegisterForm() {
 
   return (
     <Form {...form}>
-      <form
-        autoComplete='off'
-        className='flex flex-col gap-3'
-        spellCheck={false}
-        noValidate
-        onSubmit={handleSubmitWithAction}
-      >
-        <FormField
+      <form autoComplete='off' id='register-form' spellCheck={false} noValidate onSubmit={handleSubmitWithAction}>
+        <AuthField
           control={control}
+          disabled={isSubmitting}
+          label='Tu correo electrónico'
           name='email'
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Tu correo electrónico:</FormLabel>
-                <FormControl>
-                  <Input {...field} disabled={isSubmitting} placeholder='correo@ejemplo.com' type='email' />
-                </FormControl>
-                <FormError />
-              </FormItem>
-            )
-          }}
+          placeholder='correo@ejemplo.com'
+          type='email'
         />
-
-        <FormField
-          control={control}
-          name='password'
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Tu contraseña:</FormLabel>
-                <FormControl>
-                  <Input {...field} disabled={isSubmitting} type='password' />
-                </FormControl>
-                <FormError />
-              </FormItem>
-            )
-          }}
-        />
-
-        <FormField
-          control={control}
-          name='repeatPassword'
-          render={({ field }) => {
-            return (
-              <FormItem>
-                <FormLabel>Repite tu contraseña:</FormLabel>
-                <FormControl>
-                  <Input {...field} disabled={isSubmitting} type='password' />
-                </FormControl>
-                <FormError />
-              </FormItem>
-            )
-          }}
-        />
-
-        <FormButton disabled={isSubmitting}>Regístrate</FormButton>
+        <AuthField control={control} disabled={isSubmitting} label='Tu contraseña' name='password' />
+        <AuthField control={control} disabled={isSubmitting} label='Repite tu contraseña' name='repeatPassword' />
+        <AuthButton disabled={isSubmitting}>Regístrate</AuthButton>
       </form>
     </Form>
   )
