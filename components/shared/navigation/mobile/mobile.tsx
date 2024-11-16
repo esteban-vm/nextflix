@@ -20,14 +20,14 @@ export function Mobile() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div className='md:hidden'>
+    <div className='lg:hidden'>
       <div className='flex justify-between p-4'>
         <Logo />
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger>
             <LuMenu className='size-6 cursor-pointer' />
           </SheetTrigger>
-          <SheetContent className='md:hidden'>
+          <SheetContent className='lg:hidden'>
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
               <SheetDescription className='flex flex-col gap-4'>

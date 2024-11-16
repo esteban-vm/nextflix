@@ -18,7 +18,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang='en'>
       <body
-        className={cn('dark relative size-full antialiased', geistSans.variable, geistMono.variable)}
+        className={cn(
+          'dark relative h-screen min-h-[28rem] w-full antialiased',
+          geistSans.variable,
+          geistMono.variable
+        )}
         suppressHydrationWarning
       >
         <Navigation />

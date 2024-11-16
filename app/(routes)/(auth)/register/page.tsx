@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { AuthTerms } from '@/(auth)/components'
 import { RegisterForm } from '@/(auth)/register/components'
 
 export default function RegisterPage() {
@@ -13,7 +12,6 @@ export default function RegisterPage() {
           Ingresar
         </Link>
       </div>
-      <AuthTerms />
     </>
   )
 }
