@@ -1,4 +1,8 @@
-import { LuMenu, LuBellRing, LuSearch, LuUser } from 'react-icons/lu'
+'use client'
+
+import { signOut } from 'next-auth/react'
+import { useState } from 'react'
+import { LuMenu, LuBellRing, LuSearch, LuUser, LuLogOut } from 'react-icons/lu'
 import {
   Sheet,
   SheetContent,
@@ -13,15 +17,17 @@ import { Logo } from '@/shared/logo'
 import { NavigationItem } from '@/shared/navigation-item'
 
 export function Mobile() {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div className='md:hidden'>
       <div className='flex justify-between p-4'>
         <Logo />
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger>
             <LuMenu className='size-6 cursor-pointer' />
           </SheetTrigger>
-          <SheetContent>
+          <SheetContent className='md:hidden'>
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
               <SheetDescription className='flex flex-col gap-4'>
@@ -35,6 +41,7 @@ export function Mobile() {
                 <LuSearch />
                 <LuBellRing />
                 <LuUser />
+                <LuLogOut onClick={() => signOut({ redirectTo: '/' })} />
               </div>
             </SheetFooter>
           </SheetContent>
