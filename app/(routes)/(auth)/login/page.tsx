@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { AuthTerms } from '@/(auth)/components'
 import { LoginForm } from '@/(auth)/login/components'
 import { auth } from '@/auth'
 import { Checkbox } from '@/components/ui'
@@ -34,7 +33,6 @@ export default async function LoginPage() {
           </Link>
         </div>
       </div>
-      <AuthTerms />
     </>
   )
 }
