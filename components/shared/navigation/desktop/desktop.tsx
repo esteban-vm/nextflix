@@ -1,6 +1,7 @@
 'use client'
 
-import { LuBellRing, LuSearch, LuUser } from 'react-icons/lu'
+import { signOut } from 'next-auth/react'
+import { LuBellRing, LuLogOut, LuSearch, LuUser } from 'react-icons/lu'
 import { useScrollPosition } from '@/hooks'
 import { navigationItems } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -24,6 +25,7 @@ export function Desktop() {
           <LuSearch title='Búsqueda' />
           <LuBellRing title='Notificaciones' />
           <LuUser title='Perfil' />
+          <LuLogOut title='Cerrar sesión' onClick={() => signOut({ redirectTo: '/' })} />
         </div>
       </div>
     </div>
