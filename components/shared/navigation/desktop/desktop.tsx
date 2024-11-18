@@ -2,7 +2,7 @@
 
 import { signOut } from 'next-auth/react'
 import { LuBellRing, LuLogOut, LuSearch, LuUser } from 'react-icons/lu'
-import { useScrollPosition } from '@/hooks'
+import { useCurrentSession, useScrollPosition } from '@/hooks'
 import { navigationItems } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { Logo } from '@/shared/logo'
@@ -10,6 +10,8 @@ import { NavigationItem } from '@/shared/navigation-item'
 
 export function Desktop() {
   const { scrollPosition } = useScrollPosition()
+  const { status } = useCurrentSession()
+  const isAuthenticated = status === 'authenticated'
 
   return (
     <div className={cn('hidden py-4 lg:block', scrollPosition > 20 ? 'bg-black' : 'bg-transparent')}>
@@ -23,9 +25,13 @@ export function Desktop() {
         </div>
         <div className='flex gap-2 [&_svg]:cursor-pointer [&_svg]:~size-5/6'>
           <LuSearch title='Búsqueda' />
-          <LuBellRing title='Notificaciones' />
-          <LuUser title='Perfil' />
-          <LuLogOut title='Cerrar sesión' onClick={() => signOut({ redirectTo: '/' })} />
+          {isAuthenticated && (
+            <>
+              <LuBellRing title='Notificaciones' />
+              <LuUser title='Perfil' />
+              <LuLogOut title='Cerrar sesión' onClick={() => signOut({ redirectTo: '/' })} />
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ export function useLoginForm() {
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(login, zodResolver(loginSchema), {
     actionProps: {
       onSuccess() {
-        push('/')
+        push('/profiles')
         refresh()
         toast({ title: 'Sesión iniciada correctamente', description: '¡Bienvenido/a!' })
       },

@@ -12,12 +12,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui'
+import { useCurrentSession } from '@/hooks'
 import { navigationItems } from '@/lib/constants'
 import { Logo } from '@/shared/logo'
 import { NavigationItem } from '@/shared/navigation-item'
 
 export function Mobile() {
   const [isOpen, setIsOpen] = useState(false)
+  const { status } = useCurrentSession()
+  const isAuthenticated = status === 'authenticated'
 
   return (
     <div className='lg:hidden'>
@@ -39,9 +42,13 @@ export function Mobile() {
             <SheetFooter className='mt-4 border-t border-white py-4 [&_svg]:size-5'>
               <div className='flex w-full justify-between'>
                 <LuSearch />
-                <LuBellRing />
-                <LuUser />
-                <LuLogOut onClick={() => signOut({ redirectTo: '/' })} />
+                {isAuthenticated && (
+                  <>
+                    <LuBellRing />
+                    <LuUser />
+                    <LuLogOut onClick={() => signOut({ redirectTo: '/' })} />
+                  </>
+                )}
               </div>
             </SheetFooter>
           </SheetContent>
