@@ -9,16 +9,18 @@ import { forwardRef } from 'react'
 import { cn } from '@/lib/utils'
 
 const SheetOverlay = forwardRef<ElementRef<typeof Overlay>, ComponentPropsWithoutRef<typeof Overlay>>(
-  ({ className, ...props }, ref) => (
-    <Overlay
-      className={cn(
-        'fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
-        className
-      )}
-      {...props}
-      ref={ref}
-    />
-  )
+  ({ className, ...props }, ref) => {
+    return (
+      <Overlay
+        className={cn(
+          'fixed inset-0 z-50 bg-black/80 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0',
+          className
+        )}
+        {...props}
+        ref={ref}
+      />
+    )
+  }
 )
 
 SheetOverlay.displayName = Overlay.displayName
@@ -41,8 +43,6 @@ const sheetVariants = cva(
     },
   }
 )
-
-type SheetContentProps = ComponentPropsWithoutRef<typeof Content> & VariantProps<typeof sheetVariants>
 
 const SheetContent = forwardRef<ElementRef<typeof Content>, SheetContentProps>(
   ({ side = 'right', className, children, ...props }, ref) => {
@@ -89,3 +89,4 @@ SheetDescription.displayName = Description.displayName
 
 export { Root as Sheet, Close as SheetClose, Trigger as SheetTrigger } from '@radix-ui/react-dialog'
 export { SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetOverlay, SheetPortal, SheetTitle }
+export type SheetContentProps = ComponentPropsWithoutRef<typeof Content> & VariantProps<typeof sheetVariants>

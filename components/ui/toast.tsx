@@ -1,5 +1,3 @@
-'use client'
-
 import type { VariantProps } from 'class-variance-authority'
 import type { ElementRef, ComponentPropsWithoutRef, ReactElement } from 'react'
 import { Cross2Icon } from '@radix-ui/react-icons'

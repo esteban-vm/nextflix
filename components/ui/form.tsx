@@ -1,3 +1,5 @@
+/* eslint-disable react/function-component-definition */
+
 'use client'
 
 import type { Root } from '@radix-ui/react-label'
@@ -21,7 +23,6 @@ interface FormFieldContextValue<
 
 const FormFieldContext = createContext<FormFieldContextValue>({} as FormFieldContextValue)
 
-// eslint-disable-next-line react/function-component-definition
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
