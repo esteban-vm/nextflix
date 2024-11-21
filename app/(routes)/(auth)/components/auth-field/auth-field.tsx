@@ -13,12 +13,12 @@ export function AuthField<T extends FieldValues>({
     <FormField
       control={control}
       name={name}
-      render={({ field }) => {
+      render={({ field, fieldState: { invalid } }) => {
         return (
           <FormItem>
             <FormLabel>{label}:</FormLabel>
             <FormControl>
-              <Input {...field} {...rest} placeholder={placeholder} type={type} />
+              <Input {...field} {...rest} aria-invalid={invalid} placeholder={placeholder} type={type} />
             </FormControl>
             <FormError />
           </FormItem>
