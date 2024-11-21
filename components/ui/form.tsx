@@ -129,6 +129,7 @@ const FormError = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphE
         ref={ref}
         className={cn('rounded-md bg-destructive/50 px-3 py-1 text-[0.8rem] font-medium text-white', className)}
         id={formMessageId}
+        role='alert'
         {...props}
       >
         <LuAlertTriangle className='inline motion-safe:animate-pulse' /> {body}
