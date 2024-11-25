@@ -1,8 +1,8 @@
-import type { NavigationItemProps } from '@/shared/navigation-item'
+import type { NavLinkProps } from '@/common'
 
 export type ProfileImagePath = `/profiles/profile-${1 | 2 | 3 | 4}.png`
 
-export const navigationItems: NavigationItemProps[] = [
+export const navLinks: NavLinkProps[] = [
   { name: 'Inicio', link: '/' },
   { name: 'Películas', link: '/' },
   { name: 'Series', link: '/' },

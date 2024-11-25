@@ -1,7 +1,7 @@
 import Link from 'next/link'
-import { LoginForm } from '@/(auth)/login/components'
 import { auth } from '@/auth'
-import { Checkbox } from '@/components/ui'
+import { LoginForm } from '@/forms'
+import { Checkbox } from '@/ui'
 
 export default async function LoginPage() {
   const session = await auth()

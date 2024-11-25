@@ -2,6 +2,11 @@ import { isEmail, isStrongPassword } from 'validator'
 import { z } from 'zod'
 import { profileImages } from '@/lib/constants'
 
+export type FormSchema = LoginSchema | RegisterSchema | ProfileSchema
+export type LoginSchema = z.infer<typeof loginSchema>
+export type ProfileSchema = z.infer<typeof profileSchema>
+export type RegisterSchema = z.infer<typeof registerSchema>
+
 export const loginSchema = z.object({
   email: z
     .string()

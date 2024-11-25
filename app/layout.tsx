@@ -1,10 +1,10 @@
-import '@/globals.css'
+import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import type { ReactNode } from 'react'
 import localFont from 'next/font/local'
-import { Navigation } from '@/components/shared'
-import { Toaster } from '@/components/ui'
 import { cn } from '@/lib/utils'
+import { Navigation } from '@/navigation'
+import { Toaster } from '@/ui'
 
 export const metadata: Metadata = {
   title: 'Nextflix - Netflix Clone',
@@ -34,13 +34,13 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 }
 
 const geistSans = localFont({
-  src: './fonts/geist-sans.woff',
+  src: '../public/fonts/geist-sans.woff',
   variable: '--font-geist-sans',
   weight: '100 900',
 })
 
 const geistMono = localFont({
-  src: './fonts/geist-mono.woff',
+  src: '../public/fonts/geist-mono.woff',
   variable: '--font-geist-mono',
   weight: '100 900',
 })
