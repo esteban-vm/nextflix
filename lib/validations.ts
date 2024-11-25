@@ -1,5 +1,11 @@
 import { isEmail, isStrongPassword } from 'validator'
 import { z } from 'zod'
+import { profileImages } from '@/lib/constants'
+
+export type FormSchema = LoginSchema | RegisterSchema | ProfileSchema
+export type LoginSchema = z.infer<typeof loginSchema>
+export type ProfileSchema = z.infer<typeof profileSchema>
+export type RegisterSchema = z.infer<typeof registerSchema>
 
 export const loginSchema = z.object({
   email: z
@@ -45,6 +51,11 @@ export const loginSchema = z.object({
         })
       }
     }),
+})
+
+export const profileSchema = z.object({
+  name: z.string().trim().min(2, 'Ingresa 2 caracteres como mínimo').max(50, 'Ingresa 50 caracteres como máximo'),
+  avatar: z.enum(profileImages),
 })
 
 export const registerSchema = loginSchema

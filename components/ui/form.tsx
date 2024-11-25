@@ -1,3 +1,5 @@
+/* eslint-disable react/function-component-definition */
+
 'use client'
 
 import type { Root } from '@radix-ui/react-label'
@@ -21,7 +23,6 @@ interface FormFieldContextValue<
 
 const FormFieldContext = createContext<FormFieldContextValue>({} as FormFieldContextValue)
 
-// eslint-disable-next-line react/function-component-definition
 const FormField = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
@@ -128,6 +129,7 @@ const FormError = forwardRef<HTMLParagraphElement, HTMLAttributes<HTMLParagraphE
         ref={ref}
         className={cn('rounded-md bg-destructive/50 px-3 py-1 text-[0.8rem] font-medium text-white', className)}
         id={formMessageId}
+        role='alert'
         {...props}
       >
         <LuAlertTriangle className='inline motion-safe:animate-pulse' /> {body}

@@ -3,6 +3,10 @@ import { hash } from 'bcryptjs'
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
 
+export const createProfile = async (userId: string, name: string, avatar: string) => {
+  await db.profile.create({ data: { userId, name, avatar } })
+}
+
 export const createUser = async (email: string, password: string) => {
   const hashedPassword = await hash(password, 10)
   await db.user.create({ data: { email, password: hashedPassword }, select: { id: true, email: true } })
