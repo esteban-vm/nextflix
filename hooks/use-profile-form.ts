@@ -3,7 +3,7 @@ import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hoo
 import { useRouter } from 'next/navigation'
 import { addProfile } from '@/actions'
 import { toast } from '@/hooks/use-toast'
-import { profileSchema } from '@/lib/validations'
+import { ProfileSchema } from '@/lib/validations'
 
 export interface UseProfileFormProps {
   modalOpen: (value: boolean) => void
@@ -14,7 +14,7 @@ export function useProfileForm({ modalOpen }: UseProfileFormProps) {
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     addProfile,
-    zodResolver(profileSchema),
+    zodResolver(ProfileSchema),
     {
       actionProps: {
         onSuccess() {
@@ -36,7 +36,7 @@ export function useProfileForm({ modalOpen }: UseProfileFormProps) {
       formProps: {
         defaultValues: {
           name: '',
-          avatar: '/profiles/profile-1.png',
+          avatar: 'avatar1',
         },
       },
     }

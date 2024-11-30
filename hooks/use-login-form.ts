@@ -3,12 +3,12 @@ import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hoo
 import { useRouter } from 'next/navigation'
 import { login } from '@/actions'
 import { toast } from '@/hooks/use-toast'
-import { loginSchema } from '@/lib/validations'
+import { LoginSchema } from '@/lib/validations'
 
 export function useLoginForm() {
   const { push, refresh } = useRouter()
 
-  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(login, zodResolver(loginSchema), {
+  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(login, zodResolver(LoginSchema), {
     actionProps: {
       onSuccess() {
         push('/profiles')
