@@ -1,7 +1,7 @@
 'use server'
 
 import { returnValidationErrors } from 'next-safe-action'
-import { createUser, isEmailAvailable } from '@/lib/db'
+import { createUser, isEmailAvailable } from '@/lib/api'
 import { actionClient } from '@/lib/safe-action'
 import { RegisterSchema } from '@/lib/validations'
 

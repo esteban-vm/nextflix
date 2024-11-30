@@ -2,7 +2,7 @@
 
 import { returnValidationErrors } from 'next-safe-action'
 import { signIn } from '@/auth'
-import { isEmailAvailable } from '@/lib/db'
+import { isEmailAvailable } from '@/lib/api'
 import { actionClient } from '@/lib/safe-action'
 import { LoginSchema } from '@/lib/validations'
 
