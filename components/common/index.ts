@@ -1,4 +1,5 @@
 export * from './app-logo'
+export * from './avatar-image'
 export * from './form-button'
 export * from './form-input'
 export * from './form-radio-group'
