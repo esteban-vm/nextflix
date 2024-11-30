@@ -4,7 +4,7 @@ import { compare } from 'bcryptjs'
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import { db } from '@/lib/db'
-import { loginSchema } from '@/lib/validations'
+import { LoginSchema } from '@/lib/validations'
 
 const authConfig: NextAuthConfig = {
   trustHost: true,
@@ -20,7 +20,7 @@ const authConfig: NextAuthConfig = {
     Credentials({
       name: 'Credentials',
       async authorize(credentials) {
-        const { data, success } = loginSchema.safeParse(credentials)
+        const { data, success } = LoginSchema.safeParse(credentials)
         if (!success) return null
         const user = await db.user.findUnique({ where: { email: data.email } })
         if (!user) return null

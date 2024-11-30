@@ -3,14 +3,14 @@ import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hoo
 import { useRouter } from 'next/navigation'
 import { register } from '@/actions'
 import { toast } from '@/hooks/use-toast'
-import { registerSchema } from '@/lib/validations'
+import { RegisterSchema } from '@/lib/validations'
 
 export function useRegisterForm() {
   const { push } = useRouter()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     register,
-    zodResolver(registerSchema),
+    zodResolver(RegisterSchema),
     {
       actionProps: {
         onSuccess() {
