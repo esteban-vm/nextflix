@@ -1,10 +1,10 @@
-import type { FormSchema } from '@/lib/validations'
+import type { FormSchemaType } from '@/lib/validations'
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
 import { FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/ui'
 
 export type BaseFormInputProps = Omit<Parameters<typeof Input>[number], 'ref' | 'name' | 'children'>
 
-export function FormInput<T extends FormSchema>({ label, control, name, ...rest }: FormInputProps<T>) {
+export function FormInput<T extends FormSchemaType>({ label, control, name, ...rest }: FormInputProps<T>) {
   return (
     <FormField
       control={control}
