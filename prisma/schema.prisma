@@ -17,7 +17,7 @@ model User {
   id            String   @id @default(cuid())
   email         String   @unique
   password      String
-  profile       Profile[]
+  profiles      Profile[]
   role          Role     @default(USER)
   gender        Gender?
   createdAt     DateTime @default(now())

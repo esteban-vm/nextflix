@@ -18,7 +18,9 @@ export function useRegisterForm() {
           toast({ title: 'Te has registrado correctamente', description: '¡Bienvenido/a!' })
         },
         onError({ error }) {
-          toast({ title: error.validationErrors?._errors?.[0], variant: 'destructive' })
+          const errorTitle = error.validationErrors?._errors?.[0] ?? error.serverError
+          toast({ title: errorTitle, variant: 'destructive' })
+          setFocus('email')
         },
         onSettled() {
           resetFormAndAction()
@@ -40,6 +42,7 @@ export function useRegisterForm() {
 
   const {
     control,
+    setFocus,
     formState: { isSubmitting },
   } = form
 

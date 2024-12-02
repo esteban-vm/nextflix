@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { DeleteProfileDialog } from '@/dialogs'
 import { cn } from '@/lib/utils'
 
-export function AvatarImage({ name, image, isEditing }: AvatarImageProps) {
+export function ProfileItem({ name, image, isEditing }: ProfileItemProps) {
   return (
     <div className='group flex cursor-pointer select-none flex-col items-center justify-center gap-2 transition-all ~size-28/32'>
       <div className='relative size-3/4'>
@@ -25,7 +25,7 @@ export function AvatarImage({ name, image, isEditing }: AvatarImageProps) {
   )
 }
 
-export interface AvatarImageProps {
+export interface ProfileItemProps {
   name: string
   image: Avatar
   isEditing: boolean

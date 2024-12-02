@@ -18,6 +18,7 @@ export function useLoginForm() {
       onError({ error }) {
         const errorTitle = error.validationErrors?._errors?.[0] ?? error.serverError
         toast({ title: errorTitle, variant: 'destructive' })
+        setFocus('email')
       },
       onSettled() {
         resetFormAndAction()
@@ -36,6 +37,7 @@ export function useLoginForm() {
 
   const {
     control,
+    setFocus,
     formState: { isSubmitting },
   } = form
 

@@ -2,7 +2,6 @@
 
 import { returnValidationErrors } from 'next-safe-action'
 import { signIn } from '@/auth'
-import { isEmailAvailable } from '@/lib/db'
 import { actionClient } from '@/lib/safe-action'
 import { LoginSchema } from '@/lib/validations'
 
@@ -14,12 +13,6 @@ export const login = actionClient.schema(LoginSchema).action(async ({ parsedInpu
   }
 
   const { email, password } = data
-  const emailExists = await isEmailAvailable(email)
-
-  if (!emailExists) {
-    returnValidationErrors(LoginSchema, { _errors: ['El correo electrónico no existe'] })
-  }
-
   await signIn('credentials', { email, password, redirect: false })
   return { successful: true }
 })
