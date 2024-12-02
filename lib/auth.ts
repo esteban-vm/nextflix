@@ -1,43 +1,27 @@
 'use server'
 
-import type { Avatar } from '@prisma/client'
+import type { Avatar, Profile } from '@prisma/client'
 import { compare, hash } from 'bcryptjs'
 import { db } from '@/lib/db'
 import { CustomAuthError } from '@/lib/errors'
 
-export const createProfile = async (userId: string, name: string, avatar: Avatar) => {
-  const profile = await db.profile.create({
-    data: { userId, name, avatar },
-    select: { id: true, name: true, avatar: true, userId: true },
-  })
-
+export const createProfile = async (userId: string, name: string, avatar: Avatar): Promise<Profile> => {
+  const profile = await db.profile.create({ data: { userId, name, avatar } })
   return profile
 }
 
-export const deleteProfile = async (id: string, userId: string) => {
-  const profile = await db.profile.delete({
-    where: { id, userId },
-    select: { id: true, name: true, avatar: true, userId: true },
-  })
-
+export const deleteProfile = async (id: string, userId: string): Promise<Profile> => {
+  const profile = await db.profile.delete({ where: { id, userId } })
   return profile
 }
 
-export const getProfilesByUserId = async (userId: string) => {
-  const profiles = await db.profile.findMany({
-    where: { userId },
-    select: { id: true, name: true, avatar: true, userId: true },
-    orderBy: { createdAt: 'desc' },
-  })
-
+export const getProfilesByUserId = async (userId: string): Promise<Profile[]> => {
+  const profiles = await db.profile.findMany({ where: { userId }, orderBy: { createdAt: 'desc' } })
   return profiles
 }
 
-export const handleLogin = async (email: string, password: string) => {
-  const user = await db.user.findUnique({
-    where: { email: email.toLowerCase() },
-    select: { id: true, email: true, password: true },
-  })
+export const handleLogin = async (email: string, password: string): Promise<AppUser> => {
+  const user = await db.user.findUnique({ where: { email: email.toLowerCase() } })
 
   if (!user) {
     throw new CustomAuthError('Correo electrónico no registrado')
@@ -49,16 +33,17 @@ export const handleLogin = async (email: string, password: string) => {
     throw new CustomAuthError('Contraseña inválida')
   }
 
-  return { id: user.id, email: user.email }
+  const { password: _, ...loggedInUser } = user
+  return loggedInUser
 }
 
-export const handleRegister = async (email: string, password: string) => {
+export const handleRegister = async (email: string, password: string): Promise<AppUser> => {
   const hashedPassword = await hash(password, 10)
 
-  const user = await db.user.create({
+  const newUser = await db.user.create({
     data: { email: email.toLowerCase(), password: hashedPassword },
-    select: { id: true, email: true },
+    select: { id: true, email: true, role: true, gender: true, createdAt: true, updatedAt: true },
   })
 
-  return user
+  return newUser
 }
