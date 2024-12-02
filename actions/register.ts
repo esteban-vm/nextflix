@@ -1,7 +1,7 @@
 'use server'
 
 import { returnValidationErrors } from 'next-safe-action'
-import { createUser, isEmailAvailable } from '@/lib/api'
+import { handleRegister } from '@/lib/auth'
 import { actionClient } from '@/lib/safe-action'
 import { RegisterSchema } from '@/lib/validations'
 
@@ -13,12 +13,6 @@ export const register = actionClient.schema(RegisterSchema).action(async ({ pars
   }
 
   const { email, password } = data
-  const emailExists = await isEmailAvailable(email)
-
-  if (emailExists) {
-    returnValidationErrors(RegisterSchema, { _errors: ['El correo electrónico ya está registrado'] })
-  }
-
-  await createUser(email, password)
+  await handleRegister(email, password)
   return { successful: true }
 })

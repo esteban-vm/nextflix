@@ -2,7 +2,7 @@
 
 import { returnValidationErrors } from 'next-safe-action'
 import { auth } from '@/auth'
-import { createProfile } from '@/lib/api'
+import { createProfile } from '@/lib/auth'
 import { actionClient } from '@/lib/safe-action'
 import { ProfileSchema } from '@/lib/validations'
 
