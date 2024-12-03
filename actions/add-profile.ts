@@ -8,11 +8,7 @@ import { ProfileSchema } from '@/lib/validations'
 
 export const addProfile = actionClient.schema(ProfileSchema).action(async ({ parsedInput }) => {
   const session = await auth()
-
-  if (!session?.user?.id) {
-    return { error: 'No autorizado' }
-  }
-
+  if (!session?.user.id) return null
   const { data, success } = ProfileSchema.safeParse(parsedInput)
 
   if (!success) {

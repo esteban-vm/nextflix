@@ -20,7 +20,18 @@
     "prettier/prettier": "off",
     "@typescript-eslint/consistent-type-imports": ["warn", { "disallowTypeAnnotations": false }],
     "@typescript-eslint/consistent-type-definitions": "warn",
-    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "args": "all",
+        "argsIgnorePattern": "^_",
+        "caughtErrors": "all",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "ignoreRestSiblings": true
+      }
+    ],
     "@typescript-eslint/ban-ts-comment": "off",
     "import/consistent-type-specifier-style": ["warn", "prefer-top-level"],
     "sort-exports/sort-exports": ["warn", { "sortDir": "asc" }],
