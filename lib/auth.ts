@@ -2,6 +2,7 @@
 
 import type { Avatar, Profile } from '@prisma/client'
 import { compare, hash } from 'bcryptjs'
+import { revalidatePath } from 'next/cache'
 import { db } from '@/lib/db'
 import { CustomAuthError } from '@/lib/errors'
 
@@ -10,8 +11,9 @@ export const createProfile = async (userId: string, name: string, avatar: Avatar
   return profile
 }
 
-export const deleteProfile = async (id: string, userId: string): Promise<Profile> => {
-  const profile = await db.profile.delete({ where: { id, userId } })
+export const deleteProfile = async (profileId: string, userId: string): Promise<Profile> => {
+  const profile = await db.profile.delete({ where: { id: profileId, userId } })
+  revalidatePath('/(routes)/profiles', 'page')
   return profile
 }
 
