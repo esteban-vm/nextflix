@@ -1,3 +1,4 @@
+import type { Profile } from '@prisma/client'
 import { LuTrash2 } from 'react-icons/lu'
 import { useProfileContext } from '@/hooks'
 import { deleteProfile } from '@/lib/auth'
@@ -14,11 +15,11 @@ import {
   Button,
 } from '@/ui'
 
-export function DeleteProfileDialog({ profileId, userId }: DeleteProfileDialogProps) {
+export function DeleteProfileDialog({ id, userId }: Pick<Profile, 'id' | 'userId'>) {
   const { setIsDeleting } = useProfileContext()
 
   const onDelete = async () => {
-    await deleteProfile(profileId, userId)
+    await deleteProfile(id, userId)
     setIsDeleting(false)
   }
 
@@ -41,9 +42,4 @@ export function DeleteProfileDialog({ profileId, userId }: DeleteProfileDialogPr
       </AlertDialogContent>
     </AlertDialog>
   )
-}
-
-export interface DeleteProfileDialogProps {
-  profileId: string
-  userId: string
 }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { LuMenu } from 'react-icons/lu'
-import { AppLogo, NavIcons, NavLink } from '@/common'
+import { AppLogo, NavLink } from '@/common'
+import { NavIcons } from '@/containers'
 import { navLinks } from '@/lib/constants'
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/ui'
 

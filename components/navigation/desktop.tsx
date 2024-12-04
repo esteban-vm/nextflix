@@ -1,4 +1,5 @@
-import { AppLogo, NavIcons, NavLink } from '@/common'
+import { AppLogo, NavLink } from '@/common'
+import { NavIcons } from '@/containers'
 import { useScrollPosition } from '@/hooks'
 import { navLinks } from '@/lib/constants'
 import { cn } from '@/lib/utils'
