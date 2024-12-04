@@ -4,7 +4,7 @@ import { useProfileContext } from '@/hooks'
 import { Button } from '@/ui'
 
 export function ProfileManager() {
-  const { profiles, onToggleManaging } = useProfileContext()
+  const { profiles, isDeleting, setIsDeleting } = useProfileContext()
 
   return (
     <>
@@ -15,7 +15,7 @@ export function ProfileManager() {
         <AddProfileDialog />
       </div>
       {!!profiles.length && (
-        <Button size='lg' variant='outline' onClick={onToggleManaging}>
+        <Button size='lg' variant='outline' onClick={() => setIsDeleting(!isDeleting)}>
           Administrar perfiles
         </Button>
       )}

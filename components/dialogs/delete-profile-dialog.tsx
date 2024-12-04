@@ -1,5 +1,6 @@
 import { LuTrash2 } from 'react-icons/lu'
 import { useProfileContext } from '@/hooks'
+import { deleteProfile } from '@/lib/auth'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,7 +15,12 @@ import {
 } from '@/ui'
 
 export function DeleteProfileDialog({ profileId, userId }: DeleteProfileDialogProps) {
-  const { onDeleteProfile } = useProfileContext()
+  const { setIsDeleting } = useProfileContext()
+
+  const onDelete = async () => {
+    await deleteProfile(profileId, userId)
+    setIsDeleting(false)
+  }
 
   return (
     <AlertDialog>
@@ -30,7 +36,7 @@ export function DeleteProfileDialog({ profileId, userId }: DeleteProfileDialogPr
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Volver</AlertDialogCancel>
-          <AlertDialogAction onClick={() => onDeleteProfile(profileId, userId)}>Eliminar</AlertDialogAction>
+          <AlertDialogAction onClick={onDelete}>Eliminar</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
