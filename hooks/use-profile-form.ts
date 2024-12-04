@@ -1,23 +1,20 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
-import { useRouter } from 'next/navigation'
-import { addProfile } from '@/actions'
+import { Profiles } from '@/actions'
 import { useProfileContext } from '@/hooks/use-profile-context'
 import { toast } from '@/hooks/use-toast'
 import { ProfileSchema } from '@/lib/validations'
 
 export function useProfileForm() {
   const { setIsAdding } = useProfileContext()
-  const { refresh } = useRouter()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
-    addProfile,
+    Profiles.createNew,
     zodResolver(ProfileSchema),
     {
       actionProps: {
         onSuccess() {
           setIsAdding(false)
-          refresh()
           toast({ title: 'Perfil creado correctamente' })
         },
         onError({ error }) {

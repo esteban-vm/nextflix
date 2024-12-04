@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useRouter } from 'next/navigation'
-import { register } from '@/actions'
+import { Auth } from '@/actions'
 import { toast } from '@/hooks/use-toast'
 import { RegisterSchema } from '@/lib/validations'
 
@@ -9,7 +9,7 @@ export function useRegisterForm() {
   const { push } = useRouter()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
-    register,
+    Auth.register,
     zodResolver(RegisterSchema),
     {
       actionProps: {

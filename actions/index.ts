@@ -1,3 +1,2 @@
-export * from './add-profile'
-export * from './login'
-export * from './register'
+export * as Auth from './auth-actions'
+export * as Profiles from './profile-actions'

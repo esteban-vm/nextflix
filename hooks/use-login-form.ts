@@ -1,14 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useRouter } from 'next/navigation'
-import { login } from '@/actions'
+import { Auth } from '@/actions'
 import { toast } from '@/hooks/use-toast'
 import { LoginSchema } from '@/lib/validations'
 
 export function useLoginForm() {
   const { push, refresh } = useRouter()
 
-  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(login, zodResolver(LoginSchema), {
+  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(Auth.login, zodResolver(LoginSchema), {
     actionProps: {
       onSuccess() {
         push('/profiles')

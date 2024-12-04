@@ -1,17 +1,14 @@
 import { redirect } from 'next/navigation'
+import { Profiles } from '@/actions'
 import { auth } from '@/auth'
 import { ProfileManager } from '@/containers'
 import { ProfileContextProvider } from '@/contexts'
-import { getProfilesByUserId } from '@/lib/auth'
 
 export default async function ProfilesPage() {
   const session = await auth()
+  if (!session?.user) redirect('/login')
 
-  if (!session?.user) {
-    redirect('/login')
-  }
-
-  const profiles = await getProfilesByUserId(session.user.id)
+  const profiles = await Profiles.getUserProfiles()
 
   return (
     <div className='flex size-full flex-col items-center justify-center ~gap-3/4'>
