@@ -1,13 +1,13 @@
-import { useState } from 'react'
 import { LuPlusCircle } from 'react-icons/lu'
 import { ProfileForm } from '@/forms'
+import { useProfileContext } from '@/hooks'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/ui'
 
 export function AddProfileDialog() {
-  const [isOpen, setIsOpen] = useState(false)
+  const { isAdding, setIsAdding } = useProfileContext()
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isAdding} onOpenChange={setIsAdding}>
       <DialogTrigger className='flex flex-col items-center justify-center gap-2 transition-all ~size-28/32 hover:opacity-90 active:scale-95'>
         <div className='flex size-3/4 items-center justify-center'>
           <LuPlusCircle className='size-5/6 stroke-gray-500' />
@@ -19,7 +19,7 @@ export function AddProfileDialog() {
           <DialogTitle>Añadir perfil</DialogTitle>
           <DialogDescription>Añade los diferentes perfiles a tu usuario.</DialogDescription>
         </DialogHeader>
-        <ProfileForm modalOpen={setIsOpen} />
+        <ProfileForm />
       </DialogContent>
     </Dialog>
   )

@@ -1,11 +1,10 @@
-import type { UseProfileFormProps as ProfileFormProps } from '@/hooks'
 import { LuCheck } from 'react-icons/lu'
 import { FormButton, FormInput, FormRadioGroup, FormWrapper } from '@/common'
 import { useProfileForm } from '@/hooks'
 import { Form } from '@/ui'
 
-export function ProfileForm(props: ProfileFormProps) {
-  const { form, control, isSubmitting, handleSubmitWithAction } = useProfileForm(props)
+export function ProfileForm() {
+  const { form, control, isSubmitting, handleSubmitWithAction } = useProfileForm()
 
   return (
     <Form {...form}>

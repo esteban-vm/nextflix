@@ -5,7 +5,7 @@ import { useProfileContext } from '@/hooks'
 import { cn } from '@/lib/utils'
 
 export function ProfileItem({ id, avatar, name, userId }: Profile) {
-  const { isManagingProfiles } = useProfileContext()
+  const { isDeleting } = useProfileContext()
 
   return (
     <div className='group flex cursor-pointer select-none flex-col items-center justify-center gap-2 transition-all ~size-28/32'>
@@ -15,14 +15,11 @@ export function ProfileItem({ id, avatar, name, userId }: Profile) {
           src={`/avatars/${avatar}.png`}
           className={cn(
             'rounded-md border-2 border-transparent bg-cover',
-            isManagingProfiles ? 'blur-md' : 'group-hover:border-gray-500'
+            isDeleting ? 'blur-md' : 'group-hover:border-gray-500'
           )}
           fill
         />
-
-        <div
-          className={cn('absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2', !isManagingProfiles && 'hidden')}
-        >
+        <div className={cn('absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2', !isDeleting && 'hidden')}>
           <DeleteProfileDialog profileId={id} userId={userId} />
         </div>
       </div>
