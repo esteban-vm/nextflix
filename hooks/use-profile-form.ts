@@ -9,7 +9,7 @@ export function useProfileForm() {
   const { setIsAdding } = useProfileContext()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
-    Profiles.createNew,
+    Profiles.createOne,
     zodResolver(ProfileSchema),
     {
       actionProps: {

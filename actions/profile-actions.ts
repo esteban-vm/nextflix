@@ -9,7 +9,7 @@ import { CustomAuthError } from '@/lib/errors'
 import { actionClient } from '@/lib/safe-action'
 import { ProfileSchema } from '@/lib/validations'
 
-export const createNew = actionClient.schema(ProfileSchema).action(async ({ parsedInput }): Promise<Profile> => {
+export const createOne = actionClient.schema(ProfileSchema).action(async ({ parsedInput }): Promise<Profile> => {
   const { data, success } = ProfileSchema.safeParse(parsedInput)
 
   if (!success) {
@@ -19,7 +19,7 @@ export const createNew = actionClient.schema(ProfileSchema).action(async ({ pars
   const userId = await getUserId()
   const { name, avatar } = data
   const profile = await db.profile.create({ data: { userId, name, avatar } })
-  revalidatePath('/(routes)/profiles', 'page')
+  refreshProfilesPage()
   return profile
 })
 
@@ -32,7 +32,7 @@ export const getUserProfiles = async (): Promise<Profile[]> => {
 export const removeOne = async (id: string): Promise<Profile> => {
   const userId = await getUserId()
   const profile = await db.profile.delete({ where: { id: id, userId } })
-  revalidatePath('/(routes)/profiles', 'page')
+  refreshProfilesPage()
   return profile
 }
 
@@ -44,4 +44,8 @@ const getUserId = async () => {
   }
 
   return session.user.id
+}
+
+const refreshProfilesPage = () => {
+  revalidatePath('/(routes)/profiles', 'page')
 }
