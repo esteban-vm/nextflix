@@ -1,5 +1,3 @@
-'use client'
-
 import { signOut } from 'next-auth/react'
 import { LuBellRing, LuLogOut, LuSearch, LuUser } from 'react-icons/lu'
 import { useCurrentSession } from '@/hooks'
