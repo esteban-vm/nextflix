@@ -2,7 +2,6 @@ import { redirect } from 'next/navigation'
 import { Profiles } from '@/actions'
 import { auth } from '@/auth'
 import { ProfileManager } from '@/containers'
-import { ProfileContextProvider } from '@/contexts'
 
 export default async function ProfilesPage() {
   const session = await auth()
@@ -14,9 +13,7 @@ export default async function ProfilesPage() {
     <div className='flex size-full flex-col items-center justify-center ~gap-3/4'>
       <h2 className='~text-2xl/4xl'>¿Quién eres?</h2>
       <h3 className='italic ~text-lg/2xl'>Elige tu perfil</h3>
-      <ProfileContextProvider profiles={profiles}>
-        <ProfileManager />
-      </ProfileContextProvider>
+      <ProfileManager profiles={profiles} />
     </div>
   )
 }

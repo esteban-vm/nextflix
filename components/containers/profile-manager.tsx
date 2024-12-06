@@ -1,10 +1,11 @@
+import type { Profile } from '@prisma/client'
 import { ProfileItem } from '@/common'
 import { AddProfileDialog } from '@/dialogs'
-import { useProfileContext } from '@/hooks'
+import { useProfileManagement } from '@/hooks'
 import { Button } from '@/ui'
 
-export function ProfileManager() {
-  const { profiles, isDeleting, setIsDeleting } = useProfileContext()
+export function ProfileManager({ profiles }: ProfileManagerProps) {
+  const { toggle } = useProfileManagement()
 
   return (
     <>
@@ -15,10 +16,14 @@ export function ProfileManager() {
         <AddProfileDialog />
       </div>
       {!!profiles.length && (
-        <Button size='lg' variant='outline' onClick={() => setIsDeleting(!isDeleting)}>
+        <Button size='lg' variant='outline' onClick={() => toggle('deleting')}>
           Administrar perfiles
         </Button>
       )}
     </>
   )
+}
+
+export interface ProfileManagerProps {
+  profiles: Profile[]
 }

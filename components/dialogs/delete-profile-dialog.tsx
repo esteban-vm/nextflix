@@ -1,6 +1,6 @@
 import { LuTrash2 } from 'react-icons/lu'
 import { Profiles } from '@/actions'
-import { useProfileContext } from '@/hooks'
+import { useProfileManagement } from '@/hooks'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,11 +15,11 @@ import {
 } from '@/ui'
 
 export function DeleteProfileDialog({ id }: { id: string }) {
-  const { setIsDeleting } = useProfileContext()
+  const { end } = useProfileManagement()
 
   const onDelete = async () => {
     await Profiles.removeOne(id)
-    setIsDeleting(false)
+    end('deleting')
   }
 
   return (
