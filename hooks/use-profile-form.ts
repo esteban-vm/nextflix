@@ -1,12 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { Profiles } from '@/actions'
-import { useProfileContext } from '@/hooks/use-profile-context'
+import { useProfileManagement } from '@/hooks/use-profile-management'
 import { toast } from '@/hooks/use-toast'
 import { ProfileSchema } from '@/lib/validations'
 
 export function useProfileForm() {
-  const { setIsAdding } = useProfileContext()
+  const { end } = useProfileManagement()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     Profiles.createOne,
@@ -14,7 +14,7 @@ export function useProfileForm() {
     {
       actionProps: {
         onSuccess() {
-          setIsAdding(false)
+          end('adding')
           toast({ title: 'Perfil creado correctamente' })
         },
         onError({ error }) {
