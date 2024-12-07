@@ -4,13 +4,7 @@ import { Button } from '@/ui'
 export default function HomePage() {
   return (
     <div className='relative h-[90vw] md:h-[56.25vw] lg:h-[45vw]'>
-      <video
-        className='absolute size-full object-fill brightness-50'
-        src='/videos/video-trailer-test.mp4'
-        autoPlay
-        loop
-        muted
-      />
+      <video className='absolute size-full object-fill brightness-50' src='/videos/video1.mp4' autoPlay loop muted />
       <div className='absolute inset-x-0 top-full z-20 -translate-y-full md:top-1/2 md:-translate-y-1/2'>
         <div className='mx-auto w-full max-w-screen-2xl p-4 2xl:p-0'>
           <h2 className='font-geist-mono font-bold tracking-tighter drop-shadow-xl ~text-3xl/7xl'>Test</h2>
