@@ -1,5 +1,5 @@
 import { AuthError } from 'next-auth'
-import { createSafeActionClient } from 'next-safe-action'
+import { createSafeActionClient, DEFAULT_SERVER_ERROR_MESSAGE } from 'next-safe-action'
 import { Prisma } from 'prisma/prisma-client'
 import { CustomAuthError } from '@/lib/errors'
 
@@ -36,5 +36,7 @@ export const actionClient = createSafeActionClient({
         }
       }
     }
+
+    return DEFAULT_SERVER_ERROR_MESSAGE
   },
 })

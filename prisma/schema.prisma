@@ -50,3 +50,16 @@ enum Avatar {
   avatar3
   avatar4
 }
+
+model Movie {
+  id            String   @id @default(cuid())
+  title         String
+  thumbnail     String
+  genre         String[]
+  age           String
+  duration      String
+  trailer       String
+  video         String
+  ranking       Int?
+  createdAt     DateTime? @default(now())
+}
