@@ -10,11 +10,11 @@ export function ProfileItem(profile: Profile) {
   const { avatar, name, id } = profile
   const { push } = useRouter()
   const { deleting } = useProfileManagement()
-  const { changeProfile } = useCurrentProfile()
+  const { change } = useCurrentProfile()
 
-  const handleClick = () => {
+  const onChangeProfile = () => {
     if (!deleting) {
-      changeProfile(profile)
+      change(profile)
       push('/')
     }
   }
@@ -23,7 +23,7 @@ export function ProfileItem(profile: Profile) {
     <div
       aria-hidden='true'
       className='group flex cursor-pointer select-none flex-col items-center justify-center gap-2 transition-all ~size-28/32'
-      onClick={handleClick}
+      onClick={onChangeProfile}
     >
       <div className='relative size-3/4'>
         <Image
