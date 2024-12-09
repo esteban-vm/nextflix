@@ -4,7 +4,7 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 export interface UseCurrentProfile {
   profile: Profile | null
-  change: (nextProfile: Profile) => void
+  change: (nextProfile: Profile | null) => void
 }
 
 export const useCurrentProfile = create(
