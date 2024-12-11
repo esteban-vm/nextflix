@@ -157,6 +157,9 @@ async function main() {
 }
 
 main()
+  .then(() => {
+    console.log('Seeding complete')
+  })
   .catch((error) => {
     console.error(error)
     process.exit(1)
