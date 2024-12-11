@@ -150,20 +150,15 @@ const trendingMovies: TrendingMovie[] = [
   },
 ]
 
-async function main() {
-  await db.movie.deleteMany({})
-  await db.movie.createMany({ data: playingMovies })
-  await db.movie.createMany({ data: trendingMovies })
-}
-
-main()
-  .then(() => {
+void (async () => {
+  try {
+    await db.movie.deleteMany({})
+    await db.movie.createMany({ data: playingMovies })
+    await db.movie.createMany({ data: trendingMovies })
     console.log('Seeding complete')
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error(error)
-    process.exit(1)
-  })
-  .finally(async () => {
+  } finally {
     await db.$disconnect()
-  })
+  }
+})()
