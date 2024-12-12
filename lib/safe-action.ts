@@ -1,6 +1,7 @@
 import { AuthError } from 'next-auth'
 import { createSafeActionClient, DEFAULT_SERVER_ERROR_MESSAGE } from 'next-safe-action'
 import { Prisma } from 'prisma/prisma-client'
+import { getUserId } from '@/lib/auth'
 import { CustomAuthError } from '@/lib/errors'
 
 export const actionClient = createSafeActionClient({
@@ -39,4 +40,9 @@ export const actionClient = createSafeActionClient({
 
     return DEFAULT_SERVER_ERROR_MESSAGE
   },
+})
+
+export const authClient = actionClient.use(async ({ next }) => {
+  const userId = await getUserId()
+  return next({ ctx: { userId } })
 })

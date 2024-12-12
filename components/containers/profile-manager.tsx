@@ -4,7 +4,7 @@ import { AddProfileDialog } from '@/dialogs'
 import { useProfileManagement } from '@/hooks'
 import { Button } from '@/ui'
 
-export function ProfileManager({ profiles }: ProfileManagerProps) {
+export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
   const { toggle } = useProfileManagement()
 
   return (
@@ -25,5 +25,5 @@ export function ProfileManager({ profiles }: ProfileManagerProps) {
 }
 
 export interface ProfileManagerProps {
-  profiles: Profile[]
+  profiles?: Profile[]
 }
