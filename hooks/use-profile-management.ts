@@ -1,10 +1,10 @@
 import { create } from 'zustand'
 
-export type ActionFunctionName = 'start' | 'end' | 'toggle'
-export type ActionFunctions = Record<ActionFunctionName, (action: ActionName) => void>
-export type ActionName = 'adding' | 'deleting'
-export type Actions = Record<ActionName, boolean>
-export type UseProfileManagement = Actions & ActionFunctions
+export type ManagementActionName = 'adding' | 'deleting'
+export type ManagementActions = Record<ManagementActionName, boolean>
+export type ManagementFunctionName = 'start' | 'end' | 'toggle'
+export type ManagementFunctions = Record<ManagementFunctionName, (action: ManagementActionName) => void>
+export type UseProfileManagement = ManagementActions & ManagementFunctions
 
 export const useProfileManagement = create<UseProfileManagement>((set) => {
   return {
