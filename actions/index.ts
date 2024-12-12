@@ -1,2 +1,2 @@
-export * as Auth from './auth-actions'
-export * as Profiles from './profile-actions'
+export * as AuthActions from './auth-actions'
+export * as ProfileActions from './profile-actions'

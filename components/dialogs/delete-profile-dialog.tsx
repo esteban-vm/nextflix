@@ -1,6 +1,7 @@
+import { useAction } from 'next-safe-action/hooks'
 import { LuTrash2 } from 'react-icons/lu'
-import { Profiles } from '@/actions'
-import { useCurrentProfile, useProfileManagement } from '@/hooks'
+import { ProfileActions } from '@/actions'
+import { useCurrentProfile, useProfileManagement, toast } from '@/hooks'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,14 +19,19 @@ export function DeleteProfileDialog({ id }: { id: string }) {
   const { end } = useProfileManagement()
   const { profile, change } = useCurrentProfile()
 
-  const onDelete = async () => {
-    await Profiles.removeOne(id)
-    end('deleting')
-
-    if (profile?.id === id) {
-      change(null)
-    }
-  }
+  const { execute, isPending } = useAction(ProfileActions.deleteOne, {
+    onSuccess() {
+      if (profile?.id === id) change(null)
+      end('deleting')
+      toast({ title: 'Perfil eliminado correctamente' })
+    },
+    onError() {
+      toast({ title: 'Error al eliminar perfil', variant: 'destructive' })
+    },
+    onExecute() {
+      toast({ title: 'Eliminando perfil', description: 'Un momento…' })
+    },
+  })
 
   return (
     <AlertDialog>
@@ -41,7 +47,9 @@ export function DeleteProfileDialog({ id }: { id: string }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Volver</AlertDialogCancel>
-          <AlertDialogAction onClick={onDelete}>Eliminar</AlertDialogAction>
+          <AlertDialogAction disabled={isPending} onClick={() => execute({ id })}>
+            Eliminar
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

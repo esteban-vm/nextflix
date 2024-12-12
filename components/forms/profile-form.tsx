@@ -1,10 +1,47 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { LuCheck } from 'react-icons/lu'
+import { ProfileActions } from '@/actions'
 import { FormButton, FormInput, FormRadioGroup, FormWrapper } from '@/common'
-import { useProfileForm } from '@/hooks'
+import { useProfileManagement, toast } from '@/hooks'
+import { ProfileSchema } from '@/lib/validations'
 import { Form } from '@/ui'
 
 export function ProfileForm() {
-  const { form, control, isSubmitting, handleSubmitWithAction } = useProfileForm()
+  const { end } = useProfileManagement()
+
+  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
+    ProfileActions.createOne,
+    zodResolver(ProfileSchema),
+    {
+      actionProps: {
+        onSuccess() {
+          end('adding')
+          toast({ title: 'Perfil creado correctamente' })
+        },
+        onError({ error }) {
+          toast({ title: error.serverError, variant: 'destructive' })
+        },
+        onSettled() {
+          resetFormAndAction()
+        },
+        onExecute() {
+          toast({ title: 'Creando perfil', description: 'Un momento…' })
+        },
+      },
+      formProps: {
+        defaultValues: {
+          name: '',
+          avatar: 'avatar1',
+        },
+      },
+    }
+  )
+
+  const {
+    control,
+    formState: { isSubmitting },
+  } = form
 
   return (
     <Form {...form}>
