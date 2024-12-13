@@ -1,12 +1,9 @@
-import { redirect } from 'next/navigation'
 import { ProfileActions } from '@/actions'
-import { auth } from '@/auth'
 import { ProfileManager } from '@/containers'
+import { checkUserSession } from '@/lib/auth'
 
 export default async function ProfilesPage() {
-  const session = await auth()
-  if (!session?.user) redirect('/login')
-
+  await checkUserSession()
   const profiles = await ProfileActions.findAll()
 
   return (

@@ -1,7 +1,10 @@
 import { LuInfo, LuPlay } from 'react-icons/lu'
+import { checkUserSession } from '@/lib/auth'
 import { Button } from '@/ui'
 
-export default function HomePage() {
+export default async function HomePage() {
+  await checkUserSession()
+
   return (
     <div className='relative h-[90vw] md:h-[56.25vw] lg:h-[45vw]'>
       <video className='absolute size-full object-fill brightness-50' src='/videos/video1.mp4' autoPlay loop muted />
