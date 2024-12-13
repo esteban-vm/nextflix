@@ -1,6 +1,7 @@
 'use server'
 
 import type { Profile } from '@prisma/client'
+import type { Route } from 'next'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { db } from '@/lib/db'
@@ -29,5 +30,6 @@ export const findAll = authClient.action(async ({ ctx: { userId } }): Promise<Pr
 })
 
 const refreshProfilesPage = () => {
-  revalidatePath('/(routes)/profiles', 'page')
+  const path: Route = '/profiles'
+  revalidatePath(path, 'page')
 }
