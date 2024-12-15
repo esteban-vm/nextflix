@@ -3,10 +3,9 @@
 import type { Profile } from '@prisma/client'
 import type { Route } from 'next'
 import { revalidatePath } from 'next/cache'
-import { z } from 'zod'
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
-import { ProfileSchema } from '@/lib/validations'
+import { ProfileSchema, WithID } from '@/lib/validations'
 
 export const createOne = authClient
   .schema(ProfileSchema)
@@ -17,7 +16,7 @@ export const createOne = authClient
   })
 
 export const deleteOne = authClient
-  .schema(z.object({ id: z.string() }))
+  .schema(WithID)
   .action(async ({ parsedInput: { id }, ctx: { userId } }): Promise<Profile> => {
     const profile = await db.profile.delete({ where: { id, userId } })
     refreshProfilesPage()

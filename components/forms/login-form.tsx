@@ -22,7 +22,6 @@ export function LoginForm() {
         },
         onError({ error }) {
           toast({ title: error.serverError, variant: 'destructive' })
-          setFocus('email')
         },
         onSettled() {
           resetFormAndAction()
@@ -42,7 +41,6 @@ export function LoginForm() {
 
   const {
     control,
-    setFocus,
     formState: { isSubmitting },
   } = form
 

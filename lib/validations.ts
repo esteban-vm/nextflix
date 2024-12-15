@@ -2,66 +2,67 @@ import { Avatar } from '@prisma/client'
 import { isEmail, isStrongPassword } from 'validator'
 import { z } from 'zod'
 
-export type FormSchemaType = LoginSchemaType | RegisterSchemaType | ProfileSchemaType
-
-export const LoginSchema = z.object({
+const EmailSchema = z.object({
   email: z
     .string()
     .trim()
-    .superRefine((value, context) => {
+    .toLowerCase()
+    .superRefine((value, ctx) => {
       if (value.length === 0) {
-        context.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'El correo electrónico no puede estar vacío',
+        ctx.addIssue({
           fatal: true,
+          code: z.ZodIssueCode.custom,
+          message: 'Este campo es requerido',
         })
 
         return z.NEVER
       }
 
       if (!isEmail(value)) {
-        context.addIssue({
+        ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: 'El correo electrónico no es válido',
+          message: 'El correo electrónico debe ser válido',
         })
       }
     }),
+})
 
+export const LoginSchema = EmailSchema.extend({
   password: z
     .string()
     .trim()
-    .superRefine((value, context) => {
+    .superRefine((value, ctx) => {
       if (value.length === 0) {
-        context.addIssue({
+        ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: 'La contraseña no puede estar vacía',
-          fatal: true,
-        })
-
-        return z.NEVER
-      }
-
-      if (!isStrongPassword(value)) {
-        context.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: 'La contraseña no es lo suficientemente segura',
+          message: 'Este campo es requerido',
         })
       }
     }),
 })
 
-export type LoginSchemaType = z.infer<typeof LoginSchema>
-
 export const ProfileSchema = z.object({
-  name: z.string().trim().min(2, 'Ingresa 2 caracteres como mínimo').max(50, 'Ingresa 50 caracteres como máximo'),
+  name: z.string().trim().min(2, { message: '2 caracteres como mínimo' }),
   avatar: z.nativeEnum(Avatar),
 })
 
-export type ProfileSchemaType = z.infer<typeof ProfileSchema>
+export const RegisterSchema = EmailSchema.extend({
+  password: z
+    .string()
+    .trim()
+    .superRefine((value, ctx) => {
+      if (!isStrongPassword(value, { minLength: 5 })) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: '5 caracteres como mínimo, una minúscula, una mayúscula, un número y un símbolo',
+        })
+      }
+    }),
 
-export const RegisterSchema = LoginSchema.extend({ repeatPassword: z.string() }).refine(
-  (data) => data.password === data.repeatPassword,
-  { path: ['repeatPassword'], message: 'Las contraseñas deben coincidir' }
-)
+  repeatPassword: z.string().trim(),
+}).refine((value) => value.password === value.repeatPassword, {
+  path: ['repeatPassword'],
+  message: 'Las contraseñas deben coincidir',
+})
 
-export type RegisterSchemaType = z.infer<typeof RegisterSchema>
+export const WithID = z.object({ id: z.string() })
