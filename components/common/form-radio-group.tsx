@@ -1,4 +1,3 @@
-import type { ProfileSchemaType } from '@/lib/validations'
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
 import { Avatar } from '@prisma/client'
 import Image from 'next/image'
@@ -33,7 +32,7 @@ export interface FormRadioButtonProps {
   isActive: boolean
 }
 
-export function FormRadioGroup<T extends ProfileSchemaType>({ label, control, name }: FormRadioGroupProps<T>) {
+export function FormRadioGroup<T extends FormSchemas.Profile>({ label, control, name }: FormRadioGroupProps<T>) {
   return (
     <FormField
       control={control}

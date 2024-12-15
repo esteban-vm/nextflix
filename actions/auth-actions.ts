@@ -13,6 +13,6 @@ export const login = actionClient.schema(LoginSchema).action(async ({ parsedInpu
 
 export const register = actionClient.schema(RegisterSchema).action(async ({ parsedInput: { email, password } }) => {
   const hashedPassword = await hash(password, 10)
-  await db.user.create({ data: { email: email.toLowerCase(), password: hashedPassword } })
+  await db.user.create({ data: { email, password: hashedPassword } })
   return { successful: true }
 })

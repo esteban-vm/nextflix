@@ -21,7 +21,6 @@ export function RegisterForm() {
         },
         onError({ error }) {
           toast({ title: error.serverError, variant: 'destructive' })
-          setFocus('email')
         },
         onSettled() {
           resetFormAndAction()
@@ -43,7 +42,6 @@ export function RegisterForm() {
 
   const {
     control,
-    setFocus,
     formState: { isSubmitting },
   } = form
 
