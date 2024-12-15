@@ -16,14 +16,15 @@ export function ProfileForm() {
     {
       actionProps: {
         onSuccess() {
-          end('adding')
           toast({ title: 'Perfil creado correctamente' })
         },
         onError({ error }) {
-          toast({ title: error.serverError, variant: 'destructive' })
+          const title = error.validationErrors?._errors?.[0] ?? error.serverError
+          toast({ title, variant: 'destructive' })
         },
         onSettled() {
           resetFormAndAction()
+          end('adding')
         },
         onExecute() {
           toast({ title: 'Creando perfil', description: 'Un momento…' })
