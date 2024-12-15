@@ -7,15 +7,18 @@ import { Button } from '@/ui'
 export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
   const { toggle } = useProfileManagement()
 
+  const shouldDisplayDialog = profiles.length < 5
+  const shouldDisplayButton = !!profiles.length
+
   return (
     <>
       <div className='flex flex-wrap items-center justify-center ~gap-3/5'>
         {profiles.map((profile) => (
           <ProfileItem key={profile.id} {...profile} />
         ))}
-        <AddProfileDialog />
+        {shouldDisplayDialog && <AddProfileDialog />}
       </div>
-      {!!profiles.length && (
+      {shouldDisplayButton && (
         <Button size='lg' variant='outline' onClick={() => toggle('deleting')}>
           Administrar perfiles
         </Button>
