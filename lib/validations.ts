@@ -42,7 +42,7 @@ export const LoginSchema = EmailSchema.extend({
 })
 
 export const ProfileSchema = z.object({
-  name: z.string().trim().min(2, { message: '2 caracteres como mínimo' }),
+  name: z.string().trim().min(2, { message: '2 caracteres como mínimo' }).toLowerCase(),
   avatar: z.nativeEnum(Avatar),
 })
 

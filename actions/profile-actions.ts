@@ -3,6 +3,7 @@
 import type { Profile } from '@prisma/client'
 import type { Route } from 'next'
 import { revalidatePath } from 'next/cache'
+import { returnValidationErrors } from 'next-safe-action'
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
 import { ProfileSchema, WithID } from '@/lib/validations'
@@ -10,22 +11,34 @@ import { ProfileSchema, WithID } from '@/lib/validations'
 export const createOne = authClient
   .schema(ProfileSchema)
   .action(async ({ parsedInput: { name, avatar }, ctx: { userId } }): Promise<Profile> => {
-    const profile = await db.profile.create({ data: { userId, name, avatar } })
+    const userProfiles = await db.profile.count({ where: { userId } })
+
+    if (userProfiles === 5) {
+      returnValidationErrors(ProfileSchema, { _errors: ['Ya no puedes crear más perfiles'] })
+    }
+
+    const existingProfile = await db.profile.findFirst({ where: { name, userId } })
+
+    if (existingProfile) {
+      returnValidationErrors(ProfileSchema, { _errors: ['Ya existe un perfil con el nombre ingresado'] })
+    }
+
+    const createdProfile = await db.profile.create({ data: { userId, name, avatar } })
     refreshProfilesPage()
-    return profile
+    return createdProfile
   })
 
 export const deleteOne = authClient
   .schema(WithID)
   .action(async ({ parsedInput: { id }, ctx: { userId } }): Promise<Profile> => {
-    const profile = await db.profile.delete({ where: { id, userId } })
+    const deletedProfile = await db.profile.delete({ where: { id, userId } })
     refreshProfilesPage()
-    return profile
+    return deletedProfile
   })
 
 export const findAll = authClient.action(async ({ ctx: { userId } }): Promise<Profile[]> => {
-  const profiles = await db.profile.findMany({ where: { userId }, orderBy: { createdAt: 'desc' } })
-  return profiles
+  const allProfiles = await db.profile.findMany({ where: { userId }, orderBy: { name: 'asc' } })
+  return allProfiles
 })
 
 const refreshProfilesPage = () => {
