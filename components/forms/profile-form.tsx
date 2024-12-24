@@ -3,12 +3,12 @@ import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hoo
 import { LuCheck } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FormButton, FormInput, FormRadioGroup, FormWrapper } from '@/common'
-import { useProfileManagement, toast } from '@/hooks'
+import { useProfileStore, toast } from '@/hooks'
 import { ProfileSchema } from '@/lib/validations'
 import { Form } from '@/ui'
 
 export function ProfileForm() {
-  const { end } = useProfileManagement()
+  const { endAction } = useProfileStore()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     ProfileActions.createOne,
@@ -24,7 +24,7 @@ export function ProfileForm() {
         },
         onSettled() {
           resetFormAndAction()
-          end('adding')
+          endAction('isAdding')
         },
         onExecute() {
           toast({ title: 'Creando perfil', description: 'Un momento…' })
