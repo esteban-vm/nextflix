@@ -5,7 +5,7 @@ import type { z } from 'zod'
 declare global {
   type AppUser = Omit<User, 'password'>
 
-  namespace FormSchemas {
+  namespace Validations {
     type Login = z.infer<typeof LoginSchema>
     type Profile = z.infer<typeof ProfileSchema>
     type Register = z.infer<typeof RegisterSchema>

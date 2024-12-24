@@ -32,7 +32,7 @@ export interface FormRadioButtonProps {
   isActive: boolean
 }
 
-export function FormRadioGroup<T extends FormSchemas.Profile>({ label, control, name }: FormRadioGroupProps<T>) {
+export function FormRadioGroup<T extends Validations.Profile>({ label, control, name }: FormRadioGroupProps<T>) {
   return (
     <FormField
       control={control}

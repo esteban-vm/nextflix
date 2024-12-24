@@ -14,7 +14,7 @@ export default {
   providers: [
     Credentials({
       async authorize(credentials): Promise<AppUser> {
-        const { email, password } = <FormSchemas.Login>credentials
+        const { email, password } = <Validations.Login>credentials
         const user = await db.user.findUnique({ where: { email } })
 
         if (!user) {

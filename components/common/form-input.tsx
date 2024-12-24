@@ -1,7 +1,7 @@
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
 import { FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/ui'
 
-export function FormInput<T extends FormSchemas.Forms>({ label, control, name, ...rest }: FormInputProps<T>) {
+export function FormInput<T extends Validations.Forms>({ label, control, name, ...rest }: FormInputProps<T>) {
   return (
     <FormField
       control={control}
