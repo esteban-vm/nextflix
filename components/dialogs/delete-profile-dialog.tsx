@@ -1,7 +1,7 @@
 import { useAction } from 'next-safe-action/hooks'
 import { LuTrash2 } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
-import { useCurrentProfile, useProfileManagement, toast } from '@/hooks'
+import { useProfileStore, toast } from '@/hooks'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -15,14 +15,16 @@ import {
   Button,
 } from '@/ui'
 
-export function DeleteProfileDialog({ id }: { id: string }) {
-  const { end } = useProfileManagement()
-  const { profile, change } = useCurrentProfile()
+export function DeleteProfileDialog({ profileId }: DeleteProfileDialogProps) {
+  const { endAction, currentProfile, setCurrentProfile } = useProfileStore()
 
   const { execute, isPending } = useAction(ProfileActions.deleteOne, {
     onSuccess() {
-      if (profile?.id === id) change(null)
-      end('deleting')
+      if (currentProfile?.id === profileId) {
+        setCurrentProfile(null)
+      }
+
+      endAction('isDeleting')
       toast({ title: 'Perfil eliminado correctamente' })
     },
     onError() {
@@ -47,11 +49,15 @@ export function DeleteProfileDialog({ id }: { id: string }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Volver</AlertDialogCancel>
-          <AlertDialogAction disabled={isPending} onClick={() => execute({ id })}>
+          <AlertDialogAction disabled={isPending} onClick={() => execute({ id: profileId })}>
             Eliminar
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   )
+}
+
+export interface DeleteProfileDialogProps {
+  profileId: string
 }

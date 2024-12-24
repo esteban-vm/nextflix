@@ -1,14 +1,15 @@
 import type { Profile } from '@prisma/client'
 import { ProfileItem } from '@/common'
 import { AddProfileDialog } from '@/dialogs'
-import { useProfileManagement } from '@/hooks'
+import { useProfileStore } from '@/hooks'
 import { Button } from '@/ui'
 
 export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
-  const { toggle } = useProfileManagement()
+  const { toggleAction } = useProfileStore()
 
-  const shouldDisplayDialog = profiles.length < 5
-  const shouldDisplayButton = !!profiles.length
+  const total = profiles.length
+  const shouldDisplayDialog = total < 5
+  const shouldDisplayButton = total > 0
 
   return (
     <>
@@ -16,10 +17,10 @@ export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
         {profiles.map((profile) => (
           <ProfileItem key={profile.id} {...profile} />
         ))}
-        {shouldDisplayDialog && <AddProfileDialog />}
+        {shouldDisplayDialog && <AddProfileDialog remaining={5 - total} />}
       </div>
       {shouldDisplayButton && (
-        <Button size='lg' variant='outline' onClick={() => toggle('deleting')}>
+        <Button size='lg' variant='outline' onClick={() => toggleAction('isDeleting')}>
           Administrar perfiles
         </Button>
       )}
