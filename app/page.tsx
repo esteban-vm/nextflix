@@ -1,9 +1,16 @@
 import { LuInfo, LuPlay } from 'react-icons/lu'
+import { MovieActions } from '@/actions'
 import { checkUserSession } from '@/lib/auth'
 import { Button } from '@/ui'
 
 export default async function HomePage() {
   await checkUserSession()
+
+  const trendingMovies = await MovieActions.findTrending()
+  const playingMovies = await MovieActions.findPlaying()
+
+  console.log({ trendingMovies: trendingMovies?.data })
+  console.log({ playingMovies: playingMovies?.data })
 
   return (
     <div className='relative h-[90vw] md:h-[56.25vw] lg:h-[45vw]'>
