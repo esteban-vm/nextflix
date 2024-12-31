@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { LuMenu } from 'react-icons/lu'
 import { AppLogo, NavLink } from '@/common'
 import { NavIcons } from '@/containers'
@@ -6,13 +5,11 @@ import { navLinks } from '@/lib/constants'
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/ui'
 
 export function Mobile() {
-  const [isOpen, setIsOpen] = useState(false)
-
   return (
     <div className='lg:hidden'>
       <div className='flex justify-between p-4'>
         <AppLogo />
-        <Sheet open={isOpen} onOpenChange={setIsOpen}>
+        <Sheet>
           <SheetTrigger>
             <LuMenu className='size-6 cursor-pointer' />
           </SheetTrigger>
@@ -25,10 +22,8 @@ export function Mobile() {
                 ))}
               </SheetDescription>
             </SheetHeader>
-            <SheetFooter className='mt-4 border-t border-white py-4 [&_svg]:size-5'>
-              <div className='flex w-full justify-between'>
-                <NavIcons />
-              </div>
+            <SheetFooter className='mt-4 border-t border-white py-4'>
+              <NavIcons />
             </SheetFooter>
           </SheetContent>
         </Sheet>
