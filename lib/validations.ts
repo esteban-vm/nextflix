@@ -12,7 +12,7 @@ const EmailSchema = z.object({
         ctx.addIssue({
           fatal: true,
           code: z.ZodIssueCode.custom,
-          message: 'Este campo es requerido',
+          message: 'El correo electrónico es requerido',
         })
 
         return z.NEVER
@@ -35,14 +35,24 @@ export const LoginSchema = EmailSchema.extend({
       if (value.length === 0) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: 'Este campo es requerido',
+          message: 'La contraseña es requerida',
         })
       }
     }),
 })
 
 export const ProfileSchema = z.object({
-  name: z.string().trim().min(2, { message: '2 caracteres como mínimo' }).toLowerCase(),
+  name: z
+    .string()
+    .trim()
+    .min(2, { message: 'El nombre debe tener 2 caracteres como mínimo' })
+    .transform((value) => {
+      return value
+        .split(' ')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ')
+    }),
+
   avatar: z.nativeEnum(Avatar),
 })
 
@@ -54,7 +64,8 @@ export const RegisterSchema = EmailSchema.extend({
       if (!isStrongPassword(value, { minLength: 5 })) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: '5 caracteres como mínimo, una minúscula, una mayúscula, un número y un símbolo',
+          message:
+            'La contraseña debe tener 5 caracteres como mínimo, una minúscula, una mayúscula, un número y un símbolo',
         })
       }
     }),

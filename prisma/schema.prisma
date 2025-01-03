@@ -14,24 +14,37 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(cuid())
-  email         String   @unique
-  password      String
-  profiles      Profile[]
-  role          Role     @default(USER)
-  gender        Gender?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id        String    @id @default(cuid())
+  email     String    @unique
+  password  String
+  profiles  Profile[]
+  role      Role      @default(USER)
+  gender    Gender?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 model Profile {
-  id            String   @id @default(cuid())
-  name          String
-  avatar        Avatar
-  userId        String
-  user          User     @relation(fields: [userId], references: [id])
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  avatar    Avatar
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Movie {
+  id        String    @id @default(cuid())
+  title     String
+  thumbnail String
+  genre     String[]
+  age       String
+  duration  String
+  trailer   String
+  video     String
+  ranking   Int?
+  createdAt DateTime? @default(now())
 }
 
 enum Role {
@@ -49,17 +62,4 @@ enum Avatar {
   avatar2
   avatar3
   avatar4
-}
-
-model Movie {
-  id            String   @id @default(cuid())
-  title         String
-  thumbnail     String
-  genre         String[]
-  age           String
-  duration      String
-  trailer       String
-  video         String
-  ranking       Int?
-  createdAt     DateTime? @default(now())
 }

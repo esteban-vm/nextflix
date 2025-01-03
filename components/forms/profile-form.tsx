@@ -1,5 +1,6 @@
+import type { Profile } from '@prisma/client'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
+import { useHookFormOptimisticAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { LuCheck } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FormButton, FormInput, FormRadioGroup, FormWrapper } from '@/common'
@@ -7,14 +8,18 @@ import { useProfileStore, toast } from '@/hooks'
 import { ProfileSchema } from '@/lib/validations'
 import { Form } from '@/ui'
 
-export function ProfileForm() {
+export function ProfileForm({ profiles }: ProfileFormProps) {
   const { endAction } = useProfileStore()
 
-  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
+  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormOptimisticAction(
     ProfileActions.createOne,
     zodResolver(ProfileSchema),
     {
       actionProps: {
+        currentState: { profiles },
+        updateFn(state, input) {
+          return { profiles: [...state.profiles, input] }
+        },
         onSuccess() {
           toast({ title: 'Perfil creado correctamente' })
         },
@@ -55,4 +60,8 @@ export function ProfileForm() {
       </FormWrapper>
     </Form>
   )
+}
+
+export interface ProfileFormProps {
+  profiles: Partial<Profile>[]
 }

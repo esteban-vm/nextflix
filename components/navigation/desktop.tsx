@@ -17,9 +17,7 @@ export function Desktop() {
             <NavLink key={link.name} {...link} />
           ))}
         </div>
-        <div className='flex gap-2 [&_svg]:cursor-pointer [&_svg]:~size-5/6'>
-          <NavIcons />
-        </div>
+        <NavIcons />
       </div>
     </div>
   )

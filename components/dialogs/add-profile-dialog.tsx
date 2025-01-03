@@ -1,9 +1,10 @@
+import type { Profile } from '@prisma/client'
 import { LuPlusCircle } from 'react-icons/lu'
 import { ProfileForm } from '@/forms'
 import { useProfileStore } from '@/hooks'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/ui'
 
-export function AddProfileDialog({ remaining }: AddProfileDialogProps) {
+export function AddProfileDialog({ profiles, remaining }: AddProfileDialogProps) {
   const { isAdding, toggleAction } = useProfileStore()
 
   return (
@@ -20,12 +21,13 @@ export function AddProfileDialog({ remaining }: AddProfileDialogProps) {
           <DialogTitle>Añadir perfil</DialogTitle>
           <DialogDescription>Añade los diferentes perfiles a tu usuario.</DialogDescription>
         </DialogHeader>
-        <ProfileForm />
+        <ProfileForm profiles={profiles} />
       </DialogContent>
     </Dialog>
   )
 }
 
 export interface AddProfileDialogProps {
+  profiles: Profile[]
   remaining: number
 }
