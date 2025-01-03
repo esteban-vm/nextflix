@@ -3,6 +3,20 @@ import type { StateCreator } from 'zustand'
 import { create } from 'zustand'
 import { devtools, persist, createJSONStorage } from 'zustand/middleware'
 
+interface ProfileListSlice {
+  profileList: Profile[]
+  setProfileList: (value: Profile[]) => void
+}
+
+const profileListSlice: StateCreator<ProfileStore, [['zustand/devtools', never]], [], ProfileListSlice> = (set) => {
+  return {
+    profileList: [],
+    setProfileList(value) {
+      set({ profileList: value }, undefined, 'Profile List, set')
+    },
+  }
+}
+
 interface CurrentProfileSlice {
   currentProfile: Profile | null
   setCurrentProfile: (value: Profile | null) => void
@@ -43,15 +57,16 @@ const profileManagementSlice: StateCreator<ProfileStore, [['zustand/devtools', n
   }
 }
 
-type ProfileStore = CurrentProfileSlice & ProfileManagementSlice
+type ProfileStore = ProfileListSlice & CurrentProfileSlice & ProfileManagementSlice
 
 export const useProfileStore = create<ProfileStore>()(
   devtools(
     persist(
       (...args) => {
         return {
-          ...profileManagementSlice(...args),
+          ...profileListSlice(...args),
           ...currentProfileSlice(...args),
+          ...profileManagementSlice(...args),
         }
       },
       {
