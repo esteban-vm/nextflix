@@ -16,7 +16,7 @@ export function LoginForm() {
     {
       actionProps: {
         onSuccess() {
-          push('/')
+          push('/profiles')
           refresh()
           toast({ title: 'Has iniciado sesión correctamente', description: '¡Bienvenido/a!' })
         },
