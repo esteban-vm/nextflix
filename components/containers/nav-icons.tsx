@@ -16,7 +16,7 @@ import {
 } from '@/ui'
 
 export function NavIcons() {
-  const { currentProfile } = useProfileStore()
+  const { profileList, currentProfile } = useProfileStore()
   const { status } = useCurrentSession()
   const isAuthenticated = status === 'authenticated'
 
@@ -46,12 +46,14 @@ export function NavIcons() {
             <DropdownMenuLabel>Mis Perfiles</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className='cursor-pointer'>Profile</DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'>Billing</DropdownMenuItem>
-              <DropdownMenuItem className='cursor-pointer'>Settings</DropdownMenuItem>
+              {profileList.map(({ id, name }) => (
+                <DropdownMenuItem key={id} className='cursor-pointer'>
+                  {name}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className='cursor-pointer' onClick={() => signOut({ redirectTo: '/' })}>
+            <DropdownMenuItem className='cursor-pointer' onClick={() => signOut({ redirectTo: '/login' })}>
               Cerrar sesión
             </DropdownMenuItem>
           </DropdownMenuContent>

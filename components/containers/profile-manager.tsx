@@ -1,13 +1,19 @@
 import type { Profile } from '@prisma/client'
+import { useEffect } from 'react'
 import { ProfileItem } from '@/common'
 import { AddProfileDialog } from '@/dialogs'
 import { useProfileStore } from '@/hooks'
 import { Button } from '@/ui'
 
 export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
-  const { toggleAction } = useProfileStore()
+  const { setProfileList, toggleAction } = useProfileStore()
+
+  useEffect(() => {
+    setProfileList(profiles)
+  }, [profiles, setProfileList])
 
   const total = profiles.length
+  const remaining = 5 - total
   const shouldDisplayDialog = total < 5
   const shouldDisplayButton = total > 0
 
@@ -17,7 +23,7 @@ export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
         {profiles.map((profile) => (
           <ProfileItem key={profile.id} {...profile} />
         ))}
-        {shouldDisplayDialog && <AddProfileDialog remaining={5 - total} />}
+        {shouldDisplayDialog && <AddProfileDialog profiles={profiles} remaining={remaining} />}
       </div>
       {shouldDisplayButton && (
         <Button size='lg' variant='outline' onClick={() => toggleAction('isDeleting')}>
