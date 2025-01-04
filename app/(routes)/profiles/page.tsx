@@ -1,9 +1,9 @@
 import { ProfileActions } from '@/actions'
 import { ProfileManager } from '@/containers'
-import { checkUserSession } from '@/lib/auth'
+import { verifySession } from '@/lib/auth'
 
 export default async function ProfilesPage() {
-  await checkUserSession()
+  await verifySession()
   const profiles = await ProfileActions.findAll()
 
   return (
