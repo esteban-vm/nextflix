@@ -1,16 +1,11 @@
 import type { Profile } from '@prisma/client'
-import { useEffect } from 'react'
 import { ProfileItem } from '@/common'
 import { AddProfileDialog } from '@/dialogs'
 import { useProfileStore } from '@/hooks'
 import { Button } from '@/ui'
 
 export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
-  const { setProfileList, toggleAction } = useProfileStore()
-
-  useEffect(() => {
-    setProfileList(profiles)
-  }, [profiles, setProfileList])
+  const { toggleAction } = useProfileStore()
 
   const total = profiles.length
   const remaining = 5 - total

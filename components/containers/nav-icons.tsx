@@ -1,5 +1,8 @@
 import { signOut } from 'next-auth/react'
+import { useAction } from 'next-safe-action/hooks'
+import { useEffect } from 'react'
 import { LuBellRing, LuSearch, LuUser } from 'react-icons/lu'
+import { ProfileActions } from '@/actions'
 import { useCurrentSession, useProfileStore } from '@/hooks'
 import { avatarPaths } from '@/lib/constants'
 import {
@@ -16,9 +19,25 @@ import {
 } from '@/ui'
 
 export function NavIcons() {
-  const { profileList, currentProfile } = useProfileStore()
   const { status } = useCurrentSession()
+  const { isFinished, endAction, currentProfile } = useProfileStore()
+  const { execute, result } = useAction(ProfileActions.findAll)
   const isAuthenticated = status === 'authenticated'
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      execute()
+      // console.log('isAuthenticated effect')
+    }
+  }, [execute, isAuthenticated])
+
+  useEffect(() => {
+    if (isFinished) {
+      execute()
+      endAction('isFinished')
+      // console.log('isFinished effect')
+    }
+  }, [endAction, execute, isFinished])
 
   return (
     <div className='flex w-full items-center justify-between gap-0 lg:w-fit lg:justify-center lg:gap-2'>
@@ -46,11 +65,13 @@ export function NavIcons() {
             <DropdownMenuLabel>Mis Perfiles</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              {profileList.map(({ id, name }) => (
-                <DropdownMenuItem key={id} className='cursor-pointer'>
-                  {name}
-                </DropdownMenuItem>
-              ))}
+              {result.data?.map(({ id, name }) => {
+                return (
+                  <DropdownMenuItem key={id} className='cursor-pointer'>
+                    {name}
+                  </DropdownMenuItem>
+                )
+              })}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem className='cursor-pointer' onClick={() => signOut({ redirectTo: '/login' })}>
