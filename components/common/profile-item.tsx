@@ -9,11 +9,11 @@ import { cn } from '@/lib/utils'
 export function ProfileItem(profile: Profile) {
   const { avatar, name, id } = profile
   const { push } = useRouter()
-  const { isDeleting, setCurrentProfile } = useProfileStore()
+  const { isDeleting, setProfile } = useProfileStore()
 
   const onChangeProfile = () => {
     if (!isDeleting) {
-      setCurrentProfile(profile)
+      setProfile(profile)
       push('/')
     }
   }

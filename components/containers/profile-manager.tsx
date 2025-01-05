@@ -5,7 +5,7 @@ import { useProfileStore } from '@/hooks'
 import { Button } from '@/ui'
 
 export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
-  const { toggleAction } = useProfileStore()
+  const { toggle } = useProfileStore()
 
   const total = profiles.length
   const remaining = 5 - total
@@ -21,7 +21,7 @@ export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
         {shouldDisplayDialog && <AddProfileDialog profiles={profiles} remaining={remaining} />}
       </div>
       {shouldDisplayButton && (
-        <Button size='lg' variant='outline' onClick={() => toggleAction('isDeleting')}>
+        <Button size='lg' variant='outline' onClick={() => toggle('isDeleting')}>
           Administrar perfiles
         </Button>
       )}
