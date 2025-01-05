@@ -20,7 +20,7 @@ import {
 
 export function NavIcons() {
   const { status } = useCurrentSession()
-  const { isFinished, endAction, currentProfile } = useProfileStore()
+  const { isCompleted, end, profile } = useProfileStore()
   const { execute, result } = useAction(ProfileActions.findAll)
   const isAuthenticated = status === 'authenticated'
 
@@ -29,34 +29,29 @@ export function NavIcons() {
   }, [execute, isAuthenticated])
 
   useEffect(() => {
-    if (isFinished) {
+    if (isCompleted) {
       execute()
-      endAction('isFinished')
+      end('isCompleted')
     }
-  }, [endAction, execute, isFinished])
+  }, [end, execute, isCompleted])
 
   return (
     <div className='flex w-full items-center justify-between gap-0 lg:w-fit lg:justify-center lg:gap-2'>
       <LuSearch className='cursor-pointer ~size-5/6' title='Búsqueda' />
       <LuBellRing className='cursor-pointer ~size-5/6' title='Notificaciones' />
-
       {isAuthenticated && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Avatar
               className='cursor-pointer border-2 border-primary'
-              title={currentProfile ? `Perfil de ${currentProfile.name}` : undefined}
+              title={profile ? `Perfil de ${profile.name}` : undefined}
             >
-              <AvatarImage
-                alt={currentProfile?.name}
-                src={currentProfile ? avatarPaths[currentProfile.avatar] : undefined}
-              />
+              <AvatarImage alt={profile?.name} src={profile ? avatarPaths[profile.avatar] : undefined} />
               <AvatarFallback>
                 <LuUser className='size-3/4' />
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-
           <DropdownMenuContent>
             <DropdownMenuLabel>Mis Perfiles</DropdownMenuLabel>
             <DropdownMenuSeparator />

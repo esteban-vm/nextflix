@@ -16,16 +16,13 @@ import {
 } from '@/ui'
 
 export function DeleteProfileDialog({ profileId }: DeleteProfileDialogProps) {
-  const { startAction, endAction, currentProfile, setCurrentProfile } = useProfileStore()
+  const { start, end, profile, setProfile } = useProfileStore()
 
   const { execute, isPending } = useAction(ProfileActions.deleteOne, {
     onSuccess() {
-      if (currentProfile?.id === profileId) {
-        setCurrentProfile(null)
-      }
-
-      endAction('isDeleting')
-      startAction('isFinished')
+      if (profile?.id === profileId) setProfile(null)
+      end('isDeleting')
+      start('isCompleted')
       toast({ title: 'Perfil eliminado correctamente' })
     },
     onError() {
@@ -35,7 +32,7 @@ export function DeleteProfileDialog({ profileId }: DeleteProfileDialogProps) {
       toast({ title: 'Eliminando perfil', description: 'Un momento…' })
     },
     onSettled() {
-      endAction('isDeleting')
+      end('isDeleting')
     },
   })
 

@@ -5,10 +5,10 @@ import { useProfileStore } from '@/hooks'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/ui'
 
 export function AddProfileDialog({ profiles, remaining }: AddProfileDialogProps) {
-  const { isAdding, toggleAction } = useProfileStore()
+  const { isAdding, toggle } = useProfileStore()
 
   return (
-    <Dialog open={isAdding} onOpenChange={() => toggleAction('isAdding')}>
+    <Dialog open={isAdding} onOpenChange={() => toggle('isAdding')}>
       <DialogTrigger className='flex flex-col items-center justify-center transition-all ~size-28/32 hover:opacity-90 active:scale-95'>
         <div className='flex size-3/4 items-center justify-center'>
           <LuPlusCircle className='size-5/6 stroke-gray-500' />
