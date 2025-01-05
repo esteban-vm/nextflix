@@ -25,17 +25,13 @@ export function NavIcons() {
   const isAuthenticated = status === 'authenticated'
 
   useEffect(() => {
-    if (isAuthenticated) {
-      execute()
-      // console.log('isAuthenticated effect')
-    }
+    if (isAuthenticated) execute()
   }, [execute, isAuthenticated])
 
   useEffect(() => {
     if (isFinished) {
       execute()
       endAction('isFinished')
-      // console.log('isFinished effect')
     }
   }, [endAction, execute, isFinished])
 
