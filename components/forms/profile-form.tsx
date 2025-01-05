@@ -9,7 +9,7 @@ import { ProfileSchema } from '@/lib/validations'
 import { Form } from '@/ui'
 
 export function ProfileForm({ profiles }: ProfileFormProps) {
-  const { endAction } = useProfileStore()
+  const { startAction, endAction } = useProfileStore()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormOptimisticAction(
     ProfileActions.createOne,
@@ -21,6 +21,8 @@ export function ProfileForm({ profiles }: ProfileFormProps) {
           return { profiles: [...state.profiles, input] }
         },
         onSuccess() {
+          endAction('isAdding')
+          startAction('isFinished')
           toast({ title: 'Perfil creado correctamente' })
         },
         onError({ error }) {

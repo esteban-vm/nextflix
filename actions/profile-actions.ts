@@ -4,6 +4,7 @@ import type { Profile } from '@prisma/client'
 import type { Route } from 'next'
 import { revalidatePath } from 'next/cache'
 import { returnValidationErrors } from 'next-safe-action'
+import { cache } from 'react'
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
 import { ProfileSchema, WithID } from '@/lib/validations'
@@ -36,10 +37,12 @@ export const deleteOne = authClient
     return deletedProfile
   })
 
-export const findAll = authClient.action(async ({ ctx: { userId } }): Promise<Profile[]> => {
-  const allProfiles = await db.profile.findMany({ where: { userId }, orderBy: { name: 'asc' } })
-  return allProfiles
-})
+export const findAll = authClient.action(
+  cache(async ({ ctx: { userId } }): Promise<Profile[]> => {
+    const allProfiles = await db.profile.findMany({ where: { userId }, orderBy: { name: 'asc' } })
+    return allProfiles
+  })
+)
 
 const refreshProfilesPage = () => {
   const path: Route = '/profiles'

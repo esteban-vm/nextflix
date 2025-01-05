@@ -1,10 +1,10 @@
 import { LuInfo, LuPlay } from 'react-icons/lu'
 import { MovieActions } from '@/actions'
-import { checkUserSession } from '@/lib/auth'
+import { verifySession } from '@/lib/auth'
 import { Button } from '@/ui'
 
 export default async function HomePage() {
-  await checkUserSession()
+  await verifySession()
 
   const trendingMovies = await MovieActions.findTrending()
   const playingMovies = await MovieActions.findPlaying()
