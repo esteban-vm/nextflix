@@ -13,9 +13,9 @@ import { useState, useEffect, useCallback } from 'react'
 export const useCurrentSession = () => {
   const [session, setSession] = useState<Session | null>(null)
   const [status, setStatus] = useState<'authenticated' | 'loading' | 'unauthenticated'>('unauthenticated')
-  const pathName = usePathname()
+  const pathname = usePathname()
 
-  const retrieveSession = useCallback(async () => {
+  const getCurrentSession = useCallback(async () => {
     try {
       setStatus('loading')
       const sessionData = await getSession()
@@ -28,19 +28,15 @@ export const useCurrentSession = () => {
 
       setStatus('unauthenticated')
     } catch {
-      setStatus('unauthenticated')
       setSession(null)
+      setStatus('unauthenticated')
     }
   }, [])
 
   useEffect(() => {
-    retrieveSession()
+    getCurrentSession()
     // use the pathname to force a re-render when the user navigates to a new page
-  }, [pathName])
-
-  useEffect(() => {
-    retrieveSession()
-  }, [])
+  }, [pathname])
 
   return { session, status }
 }
