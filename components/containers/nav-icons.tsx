@@ -1,6 +1,6 @@
 import { signOut } from 'next-auth/react'
 import { useAction } from 'next-safe-action/hooks'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { LuBellRing, LuSearch, LuUser } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { useCurrentSession, useProfileStore } from '@/hooks'
@@ -24,16 +24,14 @@ export function NavIcons() {
   const { execute, result } = useAction(ProfileActions.findAll)
   const isAuthenticated = status === 'authenticated'
 
-  useEffect(() => {
-    if (isAuthenticated) execute()
-  }, [execute, isAuthenticated])
-
-  useEffect(() => {
-    if (isCompleted) {
+  const fetchProfiles = useCallback(() => {
+    if (isAuthenticated) {
+      if (isCompleted) end('isCompleted')
       execute()
-      end('isCompleted')
     }
-  }, [end, execute, isCompleted])
+  }, [end, execute, isAuthenticated, isCompleted])
+
+  useEffect(fetchProfiles, [fetchProfiles])
 
   return (
     <div className='flex w-full items-center justify-between gap-0 lg:w-fit lg:justify-center lg:gap-2'>
