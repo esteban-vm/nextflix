@@ -1,10 +1,9 @@
-import type { Profile } from '@prisma/client'
 import Image from 'next/image'
 import { useProfileStore } from '@/hooks'
 import { avatarPaths } from '@/lib/constants'
 import { DropdownMenuItem } from '@/ui'
 
-export function NavItem(profile: Profile) {
+export function NavItem(profile: Models.Profile) {
   const { avatar, name, id } = profile
   const { setProfile } = useProfileStore()
 

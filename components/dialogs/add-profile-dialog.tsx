@@ -1,4 +1,3 @@
-import type { Profile } from '@prisma/client'
 import { LuPlusCircle } from 'react-icons/lu'
 import { ProfileForm } from '@/forms'
 import { useProfileStore } from '@/hooks'
@@ -28,6 +27,6 @@ export function AddProfileDialog({ profiles, remaining }: AddProfileDialogProps)
 }
 
 export interface AddProfileDialogProps {
-  profiles: Profile[]
+  profiles: Models.Profile[]
   remaining: number
 }

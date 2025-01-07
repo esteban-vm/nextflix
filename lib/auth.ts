@@ -9,7 +9,11 @@ export const getUserEmail = async () => {
 
 export const getUserId = async () => {
   const session = await auth()
-  if (!session?.user.id) throw new CustomAuthError('No autorizado')
+
+  if (!session?.user.id) {
+    throw new CustomAuthError('No autorizado')
+  }
+
   return session.user.id
 }
 
