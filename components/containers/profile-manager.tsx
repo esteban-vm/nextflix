@@ -7,13 +7,13 @@ export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
   const { toggle } = useProfileStore()
 
   const total = profiles.length
-  const remaining = 5 - total
-  const shouldDisplayDialog = total < 5
+  const remaining = 4 - total
+  const shouldDisplayDialog = total < 4
   const shouldDisplayButton = total > 0
 
   return (
     <>
-      <div className='flex flex-wrap items-center justify-center ~gap-3/5'>
+      <div className='flex flex-wrap items-center justify-center'>
         {profiles.map((profile) => (
           <ProfileItem key={profile.id} {...profile} />
         ))}
