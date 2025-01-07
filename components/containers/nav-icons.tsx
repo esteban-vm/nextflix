@@ -28,6 +28,7 @@ export function NavIcons() {
   const { isCompleted, end, profile } = useProfileStore()
   const { execute, result } = useAction(ProfileActions.findAll)
   const isAuthenticated = status === 'authenticated'
+  const hasResults = !!result.data?.length
 
   const fetchProfiles = useCallback(() => {
     if (isAuthenticated) {
@@ -41,20 +42,20 @@ export function NavIcons() {
   return (
     <div className='flex w-full items-center justify-between gap-0 lg:w-fit lg:justify-center lg:gap-2'>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger className='order-1'>
           <LuSearch className='size-6 cursor-pointer' />
           <TooltipContent>Búsqueda</TooltipContent>
         </TooltipTrigger>
       </Tooltip>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger className='order-3 lg:order-2'>
           <LuBellRing className='size-6 cursor-pointer' />
           <TooltipContent>Notificaciones</TooltipContent>
         </TooltipTrigger>
       </Tooltip>
       {isAuthenticated && (
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger className='order-2 lg:order-3'>
             <Tooltip>
               <TooltipTrigger asChild>
                 <Avatar className='size-12 cursor-pointer border-2 border-primary'>
@@ -68,15 +69,21 @@ export function NavIcons() {
             </Tooltip>
           </DropdownMenuTrigger>
           <DropdownMenuContent className='text-sm'>
-            <DropdownMenuGroup>
-              {result.data?.map((profile) => <NavItem key={profile.id} {...profile} />)}
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem className='flex cursor-pointer justify-between' onClick={() => push('/profiles')}>
-              Administrar perfiles
-              <LuPencil className='size-6' />
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            {hasResults && (
+              <>
+                <DropdownMenuGroup>
+                  {result.data!.map((profile) => (
+                    <NavItem key={profile.id} {...profile} />
+                  ))}
+                </DropdownMenuGroup>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className='flex cursor-pointer justify-between' onClick={() => push('/profiles')}>
+                  Administrar perfiles
+                  <LuPencil className='size-6' />
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+              </>
+            )}
             <DropdownMenuItem
               className='flex cursor-pointer justify-between'
               onClick={() => signOut({ redirectTo: '/login' })}
