@@ -27,7 +27,7 @@ export function ProfileItem(profile: Profile) {
     >
       <div className='relative size-3/4'>
         <Image
-          alt={`${name} profile`}
+          alt={`${name}'s profile`}
           src={avatarPaths[avatar]}
           className={cn(
             'rounded-md border-2 border-transparent bg-cover',

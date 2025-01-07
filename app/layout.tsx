@@ -4,7 +4,7 @@ import type { ReactNode } from 'react'
 import localFont from 'next/font/local'
 import { cn } from '@/lib/utils'
 import { Navigation } from '@/navigation'
-import { Toaster } from '@/ui'
+import { Toaster, TooltipProvider } from '@/ui'
 
 export const metadata: Metadata = {
   title: 'Nextflix - Netflix Clone',
@@ -25,9 +25,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         )}
         suppressHydrationWarning
       >
-        <Navigation />
-        {children}
-        <Toaster />
+        <TooltipProvider>
+          <Navigation />
+          {children}
+          <Toaster />
+        </TooltipProvider>
       </body>
     </html>
   )

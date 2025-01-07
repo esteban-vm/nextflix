@@ -1,8 +1,10 @@
+import { useRouter } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useEffect } from 'react'
-import { LuBellRing, LuSearch, LuUser } from 'react-icons/lu'
+import { LuBellRing, LuLogOut, LuPencil, LuSearch, LuUser } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
+import { NavItem } from '@/common'
 import { useCurrentSession, useProfileStore } from '@/hooks'
 import { avatarPaths } from '@/lib/constants'
 import {
@@ -13,12 +15,15 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
 } from '@/ui'
 
 export function NavIcons() {
+  const { push } = useRouter()
   const { status } = useCurrentSession()
   const { isCompleted, end, profile } = useProfileStore()
   const { execute, result } = useAction(ProfileActions.findAll)
@@ -35,36 +40,49 @@ export function NavIcons() {
 
   return (
     <div className='flex w-full items-center justify-between gap-0 lg:w-fit lg:justify-center lg:gap-2'>
-      <LuSearch className='cursor-pointer ~size-5/6' title='Búsqueda' />
-      <LuBellRing className='cursor-pointer ~size-5/6' title='Notificaciones' />
+      <Tooltip>
+        <TooltipTrigger>
+          <LuSearch className='size-6 cursor-pointer' />
+          <TooltipContent>Búsqueda</TooltipContent>
+        </TooltipTrigger>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger>
+          <LuBellRing className='size-6 cursor-pointer' />
+          <TooltipContent>Notificaciones</TooltipContent>
+        </TooltipTrigger>
+      </Tooltip>
       {isAuthenticated && (
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Avatar
-              className='cursor-pointer border-2 border-primary'
-              title={profile ? `Perfil de ${profile.name}` : undefined}
-            >
-              <AvatarImage alt={profile?.name} src={profile ? avatarPaths[profile.avatar] : undefined} />
-              <AvatarFallback>
-                <LuUser className='size-3/4' />
-              </AvatarFallback>
-            </Avatar>
+          <DropdownMenuTrigger>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Avatar className='size-12 cursor-pointer border-2 border-primary'>
+                  <AvatarImage alt={profile?.name} src={profile ? avatarPaths[profile.avatar] : undefined} />
+                  <AvatarFallback>
+                    <LuUser className='size-3/4' />
+                  </AvatarFallback>
+                </Avatar>
+              </TooltipTrigger>
+              {profile?.name && <TooltipContent className='font-bold'>Perfil de {profile.name}</TooltipContent>}
+            </Tooltip>
           </DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>Mis Perfiles</DropdownMenuLabel>
-            <DropdownMenuSeparator />
+          <DropdownMenuContent className='text-sm'>
             <DropdownMenuGroup>
-              {result.data?.map(({ id, name }) => {
-                return (
-                  <DropdownMenuItem key={id} className='cursor-pointer'>
-                    {name}
-                  </DropdownMenuItem>
-                )
-              })}
+              {result.data?.map((profile) => <NavItem key={profile.id} {...profile} />)}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className='cursor-pointer' onClick={() => signOut({ redirectTo: '/login' })}>
+            <DropdownMenuItem className='flex cursor-pointer justify-between' onClick={() => push('/profiles')}>
+              Administrar perfiles
+              <LuPencil className='size-6' />
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              className='flex cursor-pointer justify-between'
+              onClick={() => signOut({ redirectTo: '/login' })}
+            >
               Cerrar sesión
+              <LuLogOut className='size-6' />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
