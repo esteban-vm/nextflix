@@ -13,7 +13,7 @@ export function AddProfileDialog({ profiles, remaining }: AddProfileDialogProps)
           <LuPlusCircle className='size-5/6 stroke-gray-500' />
         </div>
         <span className='font-semibold uppercase text-gray-500'>Añadir perfil</span>
-        <small className='font-semibold text-gray-500'>({remaining}/5)</small>
+        <small className='font-semibold text-gray-500'>({remaining}/4)</small>
       </DialogTrigger>
       <DialogContent className='max-w-md'>
         <DialogHeader>

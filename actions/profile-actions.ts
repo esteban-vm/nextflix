@@ -13,7 +13,7 @@ export const createOne = authClient
   .action(async ({ parsedInput: { name, avatar }, ctx: { userId } }): Promise<Models.Profile> => {
     const userProfiles = await db.profile.count({ where: { userId } })
 
-    if (userProfiles === 5) {
+    if (userProfiles === 4) {
       returnValidationErrors(ProfileSchema, { _errors: ['Ya no puedes crear más perfiles'] })
     }
 
