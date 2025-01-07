@@ -1,11 +1,10 @@
-import type { Profile } from '@prisma/client'
 import type { StateCreator } from 'zustand'
 import { create } from 'zustand'
 import { devtools, persist, createJSONStorage } from 'zustand/middleware'
 
 interface CurrentProfileSlice {
-  profile: Profile | null
-  setProfile: (value: Profile | null) => void
+  profile: Models.Profile | null
+  setProfile: (value: Models.Profile | null) => void
 }
 
 const currentProfileSlice: StateCreator<ProfileStore, [['zustand/devtools', never]], [], CurrentProfileSlice> = (

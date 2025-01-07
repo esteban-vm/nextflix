@@ -1,4 +1,3 @@
-import type { Profile } from '@prisma/client'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { DeleteProfileDialog } from '@/dialogs'
@@ -6,7 +5,7 @@ import { useProfileStore } from '@/hooks'
 import { avatarPaths } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-export function ProfileItem(profile: Profile) {
+export function ProfileItem(profile: Models.Profile) {
   const { avatar, name, id } = profile
   const { push } = useRouter()
   const { isDeleting, setProfile } = useProfileStore()

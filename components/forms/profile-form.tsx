@@ -1,4 +1,3 @@
-import type { Profile } from '@prisma/client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormOptimisticAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { LuCheck } from 'react-icons/lu'
@@ -65,5 +64,5 @@ export function ProfileForm({ profiles }: ProfileFormProps) {
 }
 
 export interface ProfileFormProps {
-  profiles: Partial<Profile>[]
+  profiles: Partial<Models.Profile>[]
 }

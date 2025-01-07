@@ -1,4 +1,3 @@
-import type { Profile } from '@prisma/client'
 import { ProfileItem } from '@/common'
 import { AddProfileDialog } from '@/dialogs'
 import { useProfileStore } from '@/hooks'
@@ -30,5 +29,5 @@ export function ProfileManager({ profiles = [] }: ProfileManagerProps) {
 }
 
 export interface ProfileManagerProps {
-  profiles?: Profile[]
+  profiles?: Models.Profile[]
 }

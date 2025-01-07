@@ -1,6 +1,5 @@
 'use server'
 
-import type { Profile } from '@prisma/client'
 import type { Route } from 'next'
 import { revalidatePath } from 'next/cache'
 import { returnValidationErrors } from 'next-safe-action'
@@ -11,7 +10,7 @@ import { ProfileSchema, WithID } from '@/lib/validations'
 
 export const createOne = authClient
   .schema(ProfileSchema)
-  .action(async ({ parsedInput: { name, avatar }, ctx: { userId } }): Promise<Profile> => {
+  .action(async ({ parsedInput: { name, avatar }, ctx: { userId } }): Promise<Models.Profile> => {
     const userProfiles = await db.profile.count({ where: { userId } })
 
     if (userProfiles === 5) {
@@ -31,14 +30,14 @@ export const createOne = authClient
 
 export const deleteOne = authClient
   .schema(WithID)
-  .action(async ({ parsedInput: { id }, ctx: { userId } }): Promise<Profile> => {
+  .action(async ({ parsedInput: { id }, ctx: { userId } }): Promise<Models.Profile> => {
     const deletedProfile = await db.profile.delete({ where: { id, userId } })
     refreshProfilesPage()
     return deletedProfile
   })
 
 export const findAll = authClient.action(
-  cache(async ({ ctx: { userId } }): Promise<Profile[]> => {
+  cache(async ({ ctx: { userId } }): Promise<Models.Profile[]> => {
     const allProfiles = await db.profile.findMany({ where: { userId }, orderBy: { name: 'asc' } })
     return allProfiles
   })
