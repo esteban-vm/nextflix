@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { LuMenu } from 'react-icons/lu'
 import { AppLogo, NavLink } from '@/common'
-import { NavIcons } from '@/containers'
+import { NavOptions } from '@/containers'
 import { navLinks } from '@/lib/constants'
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/ui'
 
@@ -27,7 +27,7 @@ export function Mobile() {
               </SheetDescription>
             </SheetHeader>
             <SheetFooter className='border-t border-white pt-4'>
-              <NavIcons onCloseMobile={closeMobile} />
+              <NavOptions onCloseMobile={closeMobile} />
             </SheetFooter>
           </SheetContent>
         </Sheet>

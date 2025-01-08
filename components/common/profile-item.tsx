@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { DeleteProfileDialog } from '@/dialogs'
 import { useProfileStore } from '@/hooks'
-import { avatarPaths } from '@/lib/constants'
+import { avatars } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 export function ProfileItem(profile: Models.Profile) {
@@ -27,7 +27,7 @@ export function ProfileItem(profile: Models.Profile) {
       <div className='relative size-3/4'>
         <Image
           alt={`${name}'s profile`}
-          src={avatarPaths[avatar]}
+          src={avatars[avatar]}
           className={cn(
             'rounded-md border-2 border-transparent bg-cover',
             isDeleting ? 'blur-md' : 'group-hover:border-gray-500'

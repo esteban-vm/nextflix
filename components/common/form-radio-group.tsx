@@ -1,7 +1,7 @@
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
 import { Avatar } from '@prisma/client'
 import Image from 'next/image'
-import { avatarPaths } from '@/lib/constants'
+import { avatars } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { FormControl, FormError, FormField, FormItem, FormLabel, RadioGroup, RadioGroupItem } from '@/ui'
 
@@ -12,7 +12,7 @@ export function FormRadioButton({ avatar, isActive }: FormRadioButtonProps) {
         <Image
           alt='profile avatar'
           height={1}
-          src={avatarPaths[avatar]}
+          src={avatars[avatar]}
           width={1}
           className={cn(
             'size-14 cursor-pointer rounded-sm border-2',
