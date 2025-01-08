@@ -1,5 +1,5 @@
 import { AppLogo, NavLink } from '@/common'
-import { NavIcons } from '@/containers'
+import { NavOptions } from '@/containers'
 import { useScrollPosition } from '@/hooks'
 import { navLinks } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -17,7 +17,7 @@ export function Desktop() {
             <NavLink key={link.name} {...link} />
           ))}
         </div>
-        <NavIcons />
+        <NavOptions />
       </div>
     </div>
   )

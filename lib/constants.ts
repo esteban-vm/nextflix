@@ -3,7 +3,7 @@ import type { Avatar } from '@prisma/client'
 
 export type AvatarPaths = Record<Avatar, `/images/avatars/${Avatar}.png`>
 
-export const avatarPaths: AvatarPaths = {
+export const avatars: AvatarPaths = {
   avatar1: '/images/avatars/avatar1.png',
   avatar2: '/images/avatars/avatar2.png',
   avatar3: '/images/avatars/avatar3.png',
