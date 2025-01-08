@@ -22,7 +22,7 @@ import {
   TooltipTrigger,
 } from '@/ui'
 
-export function NavIcons() {
+export function NavIcons({ onCloseMobile }: NavIconsProps) {
   const { push } = useRouter()
   const { status } = useCurrentSession()
   const { isCompleted, end, profile } = useProfileStore()
@@ -38,6 +38,16 @@ export function NavIcons() {
   }, [end, execute, isAuthenticated, isCompleted])
 
   useEffect(fetchProfiles, [fetchProfiles])
+
+  const onRedirect = () => {
+    onCloseMobile?.()
+    push('/profiles')
+  }
+
+  const onLogOut = () => {
+    onCloseMobile?.()
+    signOut({ redirectTo: '/login' })
+  }
 
   return (
     <div className='flex w-full items-center justify-between gap-0 lg:w-fit lg:justify-center lg:gap-2'>
@@ -77,17 +87,14 @@ export function NavIcons() {
                   ))}
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className='flex cursor-pointer justify-between' onClick={() => push('/profiles')}>
+                <DropdownMenuItem className='flex cursor-pointer justify-between' onClick={onRedirect}>
                   Administrar perfiles
                   <LuPencil className='size-6' />
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
               </>
             )}
-            <DropdownMenuItem
-              className='flex cursor-pointer justify-between'
-              onClick={() => signOut({ redirectTo: '/login' })}
-            >
+            <DropdownMenuItem className='flex cursor-pointer justify-between' onClick={onLogOut}>
               Cerrar sesión
               <LuLogOut className='size-6' />
             </DropdownMenuItem>
@@ -96,4 +103,8 @@ export function NavIcons() {
       )}
     </div>
   )
+}
+
+export interface NavIconsProps {
+  onCloseMobile?: () => void
 }
