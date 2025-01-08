@@ -7,6 +7,7 @@ import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetT
 
 export function Mobile() {
   const [isOpen, setIsOpen] = useState(false)
+  const closeMobile = () => setIsOpen(false)
 
   return (
     <div className='lg:hidden'>
@@ -21,12 +22,12 @@ export function Mobile() {
               <SheetTitle className='pt-4'>Menu</SheetTitle>
               <SheetDescription className='flex flex-col gap-4'>
                 {navLinks.map((link) => (
-                  <NavLink key={link.name} onClose={() => setIsOpen(false)} {...link} />
+                  <NavLink key={link.name} onCloseMobile={closeMobile} {...link} />
                 ))}
               </SheetDescription>
             </SheetHeader>
             <SheetFooter className='border-t border-white pt-4'>
-              <NavIcons />
+              <NavIcons onCloseMobile={closeMobile} />
             </SheetFooter>
           </SheetContent>
         </Sheet>
