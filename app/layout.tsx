@@ -1,7 +1,6 @@
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
-import type { ReactNode } from 'react'
-import localFont from 'next/font/local'
+import { geistMono, geistSans } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { Navigation } from '@/navigation'
 import { Toaster, TooltipProvider } from '@/ui'
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
   generator: 'Next.js',
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: WithChildren) {
   return (
     <html lang='en'>
       <body
@@ -34,15 +33,3 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   )
 }
-
-const geistSans = localFont({
-  src: '../public/fonts/geist-sans.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-})
-
-const geistMono = localFont({
-  src: '../public/fonts/geist-mono.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-})
