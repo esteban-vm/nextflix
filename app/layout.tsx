@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   generator: 'Next.js',
 }
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({ children }: WithChildren) {
   return (
     <html lang='en'>
       <body
