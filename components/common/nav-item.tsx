@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import { useProfileStore } from '@/hooks'
 import { avatars } from '@/lib/constants'
