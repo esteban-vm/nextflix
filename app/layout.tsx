@@ -1,7 +1,6 @@
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
-import type { ReactNode } from 'react'
-import localFont from 'next/font/local'
+import { geistMono, geistSans } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { Navigation } from '@/navigation'
 import { Toaster, TooltipProvider } from '@/ui'
