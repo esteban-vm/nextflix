@@ -3,8 +3,8 @@ import { create } from 'zustand'
 import { devtools, persist, createJSONStorage } from 'zustand/middleware'
 
 interface CurrentProfileSlice {
-  profile: Models.Profile | null
-  setProfile: (value: Models.Profile | null) => void
+  profile: Nullable<Models.Profile>
+  setProfile: (value: Nullable<Models.Profile>) => void
 }
 
 const currentProfileSlice: StateCreator<ProfileStore, [['zustand/devtools', never]], [], CurrentProfileSlice> = (

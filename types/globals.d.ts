@@ -4,7 +4,12 @@ import type { PropsWithChildren } from 'react'
 import type { z } from 'zod'
 
 declare global {
-  type WithChildren<P = unknown> = Readonly<Required<PropsWithChildren<P>>>
+  type Nullable<T> = T | null
+  type WithChildren<T = unknown> = Required<PropsWithChildren<T>>
+
+  interface WithClassName {
+    className: string
+  }
 
   namespace Validations {
     type Login = z.infer<typeof LoginSchema>
