@@ -1,9 +1,9 @@
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
+import { Navigation } from '@/components/navigation'
+import { Toaster, TooltipProvider } from '@/components/ui'
 import { geistMono, geistSans } from '@/lib/constants'
 import { cn } from '@/lib/utils'
-import { Navigation } from '@/navigation'
-import { Toaster, TooltipProvider } from '@/ui'
 
 export const metadata: Metadata = {
   title: 'Nextflix - Netflix Clone',
