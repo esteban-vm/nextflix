@@ -1,4 +1,4 @@
-import type { NavLinkProps } from '@/common'
+import type { NavLinkProps } from '@/components/navigation/molecules'
 import type { Avatar } from '@prisma/client'
 import localFont from 'next/font/local'
 
@@ -24,8 +24,8 @@ export const geistSans = localFont({
 })
 
 export const navLinks: NavLinkProps[] = [
-  { name: 'Inicio', link: '/' },
-  { name: 'Películas', link: '/' },
-  { name: 'Series', link: '/profiles' },
-  { name: 'Mi lista', link: '/login' },
+  { name: 'Inicio', href: '/' },
+  { name: 'Películas', href: '/' },
+  { name: 'Series', href: '/profiles' },
+  { name: 'Mi lista', href: '/login' },
 ]

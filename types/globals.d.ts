@@ -11,6 +11,10 @@ declare global {
     className: string
   }
 
+  interface WithProfile {
+    profile: Models.Profile
+  }
+
   namespace Validations {
     type Login = z.infer<typeof LoginSchema>
     type Profile = z.infer<typeof ProfileSchema>

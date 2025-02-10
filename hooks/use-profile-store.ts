@@ -3,17 +3,17 @@ import { create } from 'zustand'
 import { devtools, persist, createJSONStorage } from 'zustand/middleware'
 
 interface CurrentProfileSlice {
-  profile: Nullable<Models.Profile>
-  setProfile: (value: Nullable<Models.Profile>) => void
+  currentProfile: Nullable<Models.Profile>
+  setCurrentProfile: (value: Nullable<Models.Profile>) => void
 }
 
 const currentProfileSlice: StateCreator<ProfileStore, [['zustand/devtools', never]], [], CurrentProfileSlice> = (
   set
 ) => {
   return {
-    profile: null,
-    setProfile(value) {
-      set({ profile: value }, undefined, 'current-profile:set')
+    currentProfile: null,
+    setCurrentProfile(value) {
+      set({ currentProfile: value }, undefined, 'current-profile:set')
     },
   }
 }
@@ -56,7 +56,7 @@ export const useProfileStore = create<ProfileStore>()(
       },
       {
         name: 'Current Profile',
-        partialize: (state) => state.profile,
+        partialize: (state) => state.currentProfile,
         storage: createJSONStorage(() => sessionStorage),
       }
     )

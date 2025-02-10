@@ -1,16 +1,35 @@
 import { ProfileActions } from '@/actions'
-import { ProfileManager } from '@/containers'
+import { ProfilesUI } from '@/components/pages'
 import { verifySession } from '@/lib/auth'
 
 export default async function ProfilesPage() {
   await verifySession()
-  const profiles = await ProfileActions.findAll()
+
+  const results = await ProfileActions.findAll()
+  const profiles = results?.data ?? []
+
+  const total = profiles.length
+  const remaining = 4 - total
+  const displayManageButton = total > 0
+  const displayProfileDialog = total < 4
 
   return (
-    <div className='flex size-full flex-col items-center justify-center ~gap-3/4'>
-      <h2 className='~text-2xl/4xl'>¿Quién eres?</h2>
-      <h3 className='italic ~text-lg/2xl'>Elige tu perfil</h3>
-      <ProfileManager profiles={profiles?.data} />
-    </div>
+    <ProfilesUI.PageWrapper>
+      <ProfilesUI.PageTitle>Elige tu perfil</ProfilesUI.PageTitle>
+      <ProfilesUI.PageSubtitle>¿Quién eres?</ProfilesUI.PageSubtitle>
+      <ProfilesUI.InnerWrapper>
+        {profiles.map((profile) => (
+          <ProfilesUI.ProfileCard key={profile.id} profile={profile}>
+            <ProfilesUI.AvatarImage profile={profile} />
+          </ProfilesUI.ProfileCard>
+        ))}
+        {displayProfileDialog && (
+          <ProfilesUI.ProfileDialog remaining={remaining}>
+            <ProfilesUI.ProfileForm profiles={profiles} />
+          </ProfilesUI.ProfileDialog>
+        )}
+      </ProfilesUI.InnerWrapper>
+      {displayManageButton && <ProfilesUI.ManageButton />}
+    </ProfilesUI.PageWrapper>
   )
 }
