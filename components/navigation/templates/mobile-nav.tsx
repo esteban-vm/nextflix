@@ -14,7 +14,7 @@ import { useMobileNav } from '@/hooks'
 import { navLinks } from '@/lib/constants'
 
 export function MobileNav() {
-  const { isOpen, setIsOpen, close } = useMobileNav()
+  const { isOpen, setIsOpen } = useMobileNav()
 
   return (
     <div className='lg:hidden'>
@@ -29,7 +29,7 @@ export function MobileNav() {
               <SheetTitle className='pt-4'>Menu</SheetTitle>
               <SheetDescription className='flex flex-col gap-4'>
                 {navLinks.map((link) => (
-                  <NavLink key={link.name} onClick={close} {...link} />
+                  <NavLink key={link.name} {...link} />
                 ))}
               </SheetDescription>
             </SheetHeader>
