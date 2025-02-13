@@ -9,7 +9,7 @@ export function NavAvatar() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Avatar className='size-11 cursor-pointer border-2 border-primary'>
+        <Avatar className='size-10 cursor-pointer border-2 border-primary'>
           <AvatarImage
             alt={`Perfil de ${currentProfile?.name}`}
             src={currentProfile ? avatars[currentProfile.avatar] : undefined}
