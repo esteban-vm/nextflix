@@ -1,8 +1,9 @@
 import type { NavLinkProps } from '@/components/navigation/molecules'
-import type { Avatar } from '@prisma/client'
+import type { Avatar, Ranking } from '@prisma/client'
 import localFont from 'next/font/local'
 
 export type AvatarPaths = Record<Avatar, `/images/avatars/${Avatar}.png`>
+export type RankingPaths = Record<Ranking, `/images/rankings/${Ranking}.png`>
 
 export const avatars: AvatarPaths = {
   avatar1: '/images/avatars/avatar1.png',
@@ -29,3 +30,11 @@ export const navLinks: NavLinkProps[] = [
   { name: 'Series', href: '/profiles' },
   { name: 'Mi lista', href: '/login' },
 ]
+
+export const rankings: RankingPaths = {
+  ranking1: '/images/rankings/ranking1.png',
+  ranking2: '/images/rankings/ranking2.png',
+  ranking3: '/images/rankings/ranking3.png',
+  ranking4: '/images/rankings/ranking4.png',
+  ranking5: '/images/rankings/ranking5.png',
+}
