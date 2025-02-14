@@ -3,6 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { LuAtSign, LuEye, LuEyeOff } from 'react-icons/lu'
 import { AuthActions } from '@/actions'
 import { FormButton, FormInput, FormWrapper } from '@/components/pages/common'
 import { Form } from '@/components/ui'
@@ -11,6 +13,7 @@ import { RegisterSchema } from '@/lib/validations'
 
 export function RegisterForm() {
   const { push } = useRouter()
+  const [isShowingPassword, setIsShowingPassword] = useState(false)
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     AuthActions.register,
@@ -53,6 +56,7 @@ export function RegisterForm() {
         <FormInput
           control={control}
           disabled={isSubmitting}
+          icon={LuAtSign}
           label='Tu correo electrónico'
           name='email'
           placeholder='correo@ejemplo.com'
@@ -61,18 +65,26 @@ export function RegisterForm() {
         <FormInput
           control={control}
           disabled={isSubmitting}
+          icon={isShowingPassword ? LuEyeOff : LuEye}
           label='Tu contraseña'
+          maxLength={15}
           name='password'
-          placeholder='********'
-          type='password'
+          placeholder={isShowingPassword ? undefined : '********'}
+          spellCheck={false}
+          type={isShowingPassword ? 'text' : 'password'}
+          onIconClick={() => setIsShowingPassword(!isShowingPassword)}
         />
         <FormInput
           control={control}
           disabled={isSubmitting}
+          icon={isShowingPassword ? LuEyeOff : LuEye}
           label='Repite tu contraseña'
+          maxLength={15}
           name='repeatPassword'
-          placeholder='********'
-          type='password'
+          placeholder={isShowingPassword ? undefined : '********'}
+          spellCheck={false}
+          type={isShowingPassword ? 'text' : 'password'}
+          onIconClick={() => setIsShowingPassword(!isShowingPassword)}
         />
         <FormButton disabled={isSubmitting}>Regístrate</FormButton>
       </FormWrapper>
