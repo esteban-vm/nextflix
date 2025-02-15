@@ -1,8 +1,11 @@
 'use client'
 
+import type { HTMLInputTypeAttribute } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { LuAtSign, LuEye, LuEyeOff } from 'react-icons/lu'
 import { AuthActions } from '@/actions'
 import { FormButton, FormInput, FormWrapper } from '@/components/pages/common'
 import { Form } from '@/components/ui'
@@ -11,6 +14,7 @@ import { RegisterSchema } from '@/lib/validations'
 
 export function RegisterForm() {
   const { push } = useRouter()
+  const [isShowingPassword, setIsShowingPassword] = useState(false)
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     AuthActions.register,
@@ -47,12 +51,21 @@ export function RegisterForm() {
     formState: { isSubmitting },
   } = form
 
+  const passInputIcon = isShowingPassword ? LuEyeOff : LuEye
+  const passInputPlaceholder = isShowingPassword ? undefined : '********'
+  const passInputType: HTMLInputTypeAttribute = isShowingPassword ? 'text' : 'password'
+
+  const togglePassShowing = () => {
+    setIsShowingPassword(!isShowingPassword)
+  }
+
   return (
     <Form {...form}>
       <FormWrapper id='register-form' onSubmit={handleSubmitWithAction}>
         <FormInput
           control={control}
           disabled={isSubmitting}
+          icon={LuAtSign}
           label='Tu correo electrónico'
           name='email'
           placeholder='correo@ejemplo.com'
@@ -61,18 +74,26 @@ export function RegisterForm() {
         <FormInput
           control={control}
           disabled={isSubmitting}
+          icon={passInputIcon}
           label='Tu contraseña'
+          maxLength={15}
           name='password'
-          placeholder='********'
-          type='password'
+          placeholder={passInputPlaceholder}
+          spellCheck={false}
+          type={passInputType}
+          onIconClick={togglePassShowing}
         />
         <FormInput
           control={control}
           disabled={isSubmitting}
+          icon={passInputIcon}
           label='Repite tu contraseña'
+          maxLength={15}
           name='repeatPassword'
-          placeholder='********'
-          type='password'
+          placeholder={passInputPlaceholder}
+          spellCheck={false}
+          type={passInputType}
+          onIconClick={togglePassShowing}
         />
         <FormButton disabled={isSubmitting}>Regístrate</FormButton>
       </FormWrapper>

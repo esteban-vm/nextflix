@@ -43,7 +43,7 @@ model Movie {
   duration  String
   trailer   String
   video     String
-  ranking   Int?
+  ranking   Ranking?
   createdAt DateTime? @default(now())
 }
 
@@ -62,4 +62,12 @@ enum Avatar {
   avatar2
   avatar3
   avatar4
+}
+
+enum Ranking {
+  ranking1
+  ranking2
+  ranking3
+  ranking4
+  ranking5
 }

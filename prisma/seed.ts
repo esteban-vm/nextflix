@@ -106,7 +106,7 @@ const trendingMovies: TrendingMovie[] = [
     genre: ['Action', 'Adventure'],
     duration: '120 min',
     age: '16',
-    ranking: 1,
+    ranking: 'ranking1',
   },
   {
     title: 'Respira',
@@ -116,7 +116,7 @@ const trendingMovies: TrendingMovie[] = [
     genre: ['Drama', 'Thriller'],
     duration: '150 min',
     age: '12',
-    ranking: 2,
+    ranking: 'ranking2',
   },
   {
     title: 'Prison Break',
@@ -126,7 +126,7 @@ const trendingMovies: TrendingMovie[] = [
     genre: ['Comedy', 'Family'],
     duration: '90 min',
     age: '18',
-    ranking: 3,
+    ranking: 'ranking3',
   },
   {
     title: 'KAOS',
@@ -136,7 +136,7 @@ const trendingMovies: TrendingMovie[] = [
     genre: ['Comedy', 'Family'],
     duration: '90 min',
     age: '0',
-    ranking: 4,
+    ranking: 'ranking4',
   },
   {
     title: 'Accidente',
@@ -146,7 +146,7 @@ const trendingMovies: TrendingMovie[] = [
     genre: ['Comedy', 'Family'],
     duration: '90 min',
     age: '12',
-    ranking: 5,
+    ranking: 'ranking5',
   },
 ]
 

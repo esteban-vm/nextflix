@@ -52,8 +52,8 @@ export function ProfileForm({ profiles }: ProfileFormProps) {
 
   return (
     <Form {...form}>
-      <FormWrapper className='flex flex-col gap-4' onSubmit={handleSubmitWithAction}>
-        <FormInput control={control} disabled={isSubmitting} label='Nombre de perfil' name='name' />
+      <FormWrapper className='flex flex-col gap-4' id='profile-form' onSubmit={handleSubmitWithAction}>
+        <FormInput control={control} disabled={isSubmitting} label='Nombre de perfil' maxLength={10} name='name' />
         <FormRadioGroup control={control} label='Imagen de perfil' name='avatar' />
         <FormButton className='md:w-fit' disabled={isSubmitting}>
           <LuCheck /> Crear perfil

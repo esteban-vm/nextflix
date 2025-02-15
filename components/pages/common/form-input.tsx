@@ -1,8 +1,17 @@
 import type { InputProps } from '@/components/ui'
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
+import type { IconType } from 'react-icons/lib'
 import { FormControl, FormField, FormItem, FormLabel, FormError, Input } from '@/components/ui'
+import { cn } from '@/lib/utils'
 
-export function FormInput<T extends Validations.Forms>({ label, control, name, ...rest }: FormInputProps<T>) {
+export function FormInput<T extends Validations.Forms>({
+  label,
+  control,
+  name,
+  icon: Icon,
+  onIconClick,
+  ...rest
+}: FormInputProps<T>) {
   return (
     <FormField
       control={control}
@@ -10,10 +19,21 @@ export function FormInput<T extends Validations.Forms>({ label, control, name, .
       render={({ field, fieldState: { invalid } }) => {
         return (
           <FormItem>
-            <FormLabel>{label}:</FormLabel>
-            <FormControl>
-              <Input {...field} {...rest} aria-invalid={invalid} />
-            </FormControl>
+            <FormLabel className='select-none'>{label}:</FormLabel>
+            <div className='relative size-full'>
+              <FormControl>
+                <Input {...rest} {...field} aria-invalid={invalid} />
+              </FormControl>
+              {Icon && (
+                <Icon
+                  className={cn(
+                    'absolute right-3 top-1/2 -translate-y-1/2 stroke-muted-foreground',
+                    !!onIconClick && 'cursor-pointer'
+                  )}
+                  onClick={onIconClick}
+                />
+              )}
+            </div>
             <FormError />
           </FormItem>
         )
@@ -26,4 +46,6 @@ export interface FormInputProps<T extends FieldValues> extends Omit<InputProps, 
   label: string
   control: Control<T>
   name: FieldPath<T>
+  icon?: IconType
+  onIconClick?: () => void
 }

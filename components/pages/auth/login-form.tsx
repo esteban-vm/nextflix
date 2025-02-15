@@ -3,6 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { LuAtSign, LuEye, LuEyeOff } from 'react-icons/lu'
 import { AuthActions } from '@/actions'
 import { FormButton, FormInput, FormWrapper } from '@/components/pages/common'
 import { Form } from '@/components/ui'
@@ -11,6 +13,7 @@ import { LoginSchema } from '@/lib/validations'
 
 export function LoginForm() {
   const { push, refresh } = useRouter()
+  const [isShowingPassword, setIsShowingPassword] = useState(false)
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     AuthActions.login,
@@ -52,6 +55,7 @@ export function LoginForm() {
         <FormInput
           control={control}
           disabled={isSubmitting}
+          icon={LuAtSign}
           label='Tu correo electrónico'
           name='email'
           placeholder='correo@ejemplo.com'
@@ -60,10 +64,14 @@ export function LoginForm() {
         <FormInput
           control={control}
           disabled={isSubmitting}
+          icon={isShowingPassword ? LuEyeOff : LuEye}
           label='Tu contraseña'
+          maxLength={15}
           name='password'
-          placeholder='********'
-          type='password'
+          placeholder={isShowingPassword ? undefined : '********'}
+          spellCheck={false}
+          type={isShowingPassword ? 'text' : 'password'}
+          onIconClick={() => setIsShowingPassword(!isShowingPassword)}
         />
         <FormButton disabled={isSubmitting}>Iniciar sesión</FormButton>
       </FormWrapper>
