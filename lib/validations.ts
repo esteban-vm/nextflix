@@ -46,6 +46,7 @@ export const ProfileSchema = z.object({
     .string()
     .trim()
     .min(2, { message: 'El nombre debe tener 2 caracteres como mínimo' })
+    .max(10, { message: 'El nombre debe tener hasta 10 caracteres como máximo' })
     .transform((value) => {
       return value
         .split(' ')
@@ -66,6 +67,15 @@ export const RegisterSchema = EmailSchema.extend({
           code: z.ZodIssueCode.custom,
           message:
             'La contraseña debe tener 5 caracteres como mínimo, una minúscula, una mayúscula, un número y un símbolo',
+        })
+
+        return z.NEVER
+      }
+
+      if (value.length > 15) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: 'La contraseña debe tener 15 caracteres como máximo',
         })
       }
     }),
