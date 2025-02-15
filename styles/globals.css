@@ -33,6 +33,9 @@
 
   * {
     @apply border-border font-geist-sans text-foreground ~text-sm/base selection:bg-primary selection:text-primary-foreground;
+    /* scrollbar-color: theme('colors.primary.foreground') theme('colors.primary.DEFAULT'); */
+    /* scrollbar-gutter: stable both-edges; */
+    scrollbar-width: none;
   }
 
   html,
