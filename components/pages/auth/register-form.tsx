@@ -1,5 +1,6 @@
 'use client'
 
+import type { HTMLInputTypeAttribute } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useRouter } from 'next/navigation'
@@ -50,6 +51,14 @@ export function RegisterForm() {
     formState: { isSubmitting },
   } = form
 
+  const passInputIcon = isShowingPassword ? LuEyeOff : LuEye
+  const passInputPlaceholder = isShowingPassword ? undefined : '********'
+  const passInputType: HTMLInputTypeAttribute = isShowingPassword ? 'text' : 'password'
+
+  const togglePassShowing = () => {
+    setIsShowingPassword(!isShowingPassword)
+  }
+
   return (
     <Form {...form}>
       <FormWrapper id='register-form' onSubmit={handleSubmitWithAction}>
@@ -65,26 +74,26 @@ export function RegisterForm() {
         <FormInput
           control={control}
           disabled={isSubmitting}
-          icon={isShowingPassword ? LuEyeOff : LuEye}
+          icon={passInputIcon}
           label='Tu contraseña'
           maxLength={15}
           name='password'
-          placeholder={isShowingPassword ? undefined : '********'}
+          placeholder={passInputPlaceholder}
           spellCheck={false}
-          type={isShowingPassword ? 'text' : 'password'}
-          onIconClick={() => setIsShowingPassword(!isShowingPassword)}
+          type={passInputType}
+          onIconClick={togglePassShowing}
         />
         <FormInput
           control={control}
           disabled={isSubmitting}
-          icon={isShowingPassword ? LuEyeOff : LuEye}
+          icon={passInputIcon}
           label='Repite tu contraseña'
           maxLength={15}
           name='repeatPassword'
-          placeholder={isShowingPassword ? undefined : '********'}
+          placeholder={passInputPlaceholder}
           spellCheck={false}
-          type={isShowingPassword ? 'text' : 'password'}
-          onIconClick={() => setIsShowingPassword(!isShowingPassword)}
+          type={passInputType}
+          onIconClick={togglePassShowing}
         />
         <FormButton disabled={isSubmitting}>Regístrate</FormButton>
       </FormWrapper>
