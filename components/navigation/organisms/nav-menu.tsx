@@ -9,6 +9,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui'
@@ -17,13 +18,14 @@ import { useCurrentSession, useMobileNav, useProfileStore } from '@/hooks'
 export function NavMenu() {
   const { push } = useRouter()
   const { close } = useMobileNav()
-  const { status } = useCurrentSession()
+  const { session, status } = useCurrentSession()
   const [isOpen, setIsOpen] = useState(false)
   const { isCompleted, end } = useProfileStore()
   const { execute, result } = useAction(ProfileActions.findAll)
 
   const hasResults = !!result.data?.length
   const isAuthenticated = status === 'authenticated'
+  const userEmail = session?.user.email ?? 'no email'
 
   const fetchProfiles = useCallback(() => {
     if (isAuthenticated) {
@@ -56,6 +58,8 @@ export function NavMenu() {
             <NavAvatar />
           </DropdownMenuTrigger>
           <DropdownMenuContent className='text-sm'>
+            <DropdownMenuItem>{userEmail}</DropdownMenuItem>
+            <DropdownMenuSeparator />
             {hasResults && (
               <>
                 <DropdownMenuGroup>
