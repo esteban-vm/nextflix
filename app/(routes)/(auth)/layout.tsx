@@ -1,6 +1,9 @@
 import { AuthUI } from '@/components/pages'
+import { verifyNoSession } from '@/lib/auth'
 
-export default function AuthLayout({ children }: WithChildren) {
+export default async function AuthLayout({ children }: WithChildren) {
+  await verifyNoSession()
+
   return (
     <AuthUI.PageWrapper>
       <AuthUI.BackgroundImage />
