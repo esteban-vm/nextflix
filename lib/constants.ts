@@ -1,4 +1,4 @@
-import type { NavLinkProps } from '@/components/navigation/molecules'
+import type { NavLinkProps } from '@/components/navigation/atoms'
 import type { Avatar, Ranking } from '@prisma/client'
 import localFont from 'next/font/local'
 

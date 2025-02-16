@@ -1,4 +1,4 @@
-import { LogoLink, NavLink } from '@/components/navigation/molecules'
+import { LogoLink, NavLink } from '@/components/navigation/atoms'
 import { NavMenu } from '@/components/navigation/organisms'
 import { useScrollPosition } from '@/hooks'
 import { navLinks } from '@/lib/constants'

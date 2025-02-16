@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import { DropdownMenuItem } from '@/components/ui'
-import { useProfileStore } from '@/hooks'
+import { useCurrentSession, useProfileStore } from '@/hooks'
 import { avatars } from '@/lib/constants'
 
-export function NavItem({ profile }: WithProfile) {
+export function ImageItem({ profile }: WithProfile) {
   const { avatar, name, id } = profile
   const { setCurrentProfile } = useProfileStore()
 
@@ -15,4 +15,11 @@ export function NavItem({ profile }: WithProfile) {
       <span className='truncate text-sm'>{name}</span>
     </DropdownMenuItem>
   )
+}
+
+export function InfoItem() {
+  const { session } = useCurrentSession()
+  const userEmail = session?.user.email
+
+  return <DropdownMenuItem>{userEmail}</DropdownMenuItem>
 }
