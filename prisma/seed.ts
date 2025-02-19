@@ -12,7 +12,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/flash.webp',
     genre: ['Drama', 'Family', 'Action'],
     duration: '1h 20 min',
-    age: '12',
+    age: 12,
   },
   {
     title: 'Los feos',
@@ -21,7 +21,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/los-feos.webp',
     genre: ['Drama', 'Family', 'Action'],
     duration: '2h 5 min',
-    age: '12',
+    age: 12,
   },
   {
     title: 'Karate Kid',
@@ -30,7 +30,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/karate-kid.webp',
     genre: ['Drama', 'Family', 'Action'],
     duration: '1h 10 min',
-    age: '0',
+    age: 0,
   },
   {
     title: 'Super detective en Hollywood',
@@ -39,7 +39,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/super-detective-en-hollywood.webp',
     genre: ['Drama', 'Family', 'Action'],
     duration: '2h 10 min',
-    age: '0',
+    age: 0,
   },
   {
     title: 'Fracture',
@@ -48,7 +48,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/fracture.webp',
     genre: ['Drama', 'Family', 'Action'],
     duration: '1h 50 min',
-    age: '18',
+    age: 18,
   },
   {
     title: 'Spiderman',
@@ -57,7 +57,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/spiderman.webp',
     genre: ['Action', 'Family', 'Marvel'],
     duration: '2h 30 min',
-    age: '0',
+    age: 0,
   },
   {
     title: 'Al filo del mañana',
@@ -66,7 +66,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/al-filo-del-mañana.webp',
     genre: ['Action', 'Family', 'Marvel'],
     duration: '1h 35 min',
-    age: '16',
+    age: 16,
   },
   {
     title: 'Top Gun',
@@ -75,7 +75,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/top-gun.webp',
     genre: ['Action', 'Family', 'Marvel'],
     duration: '2h 35 min',
-    age: '18',
+    age: 18,
   },
   {
     title: 'Jack Reacher',
@@ -84,7 +84,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/jack-reacher.webp',
     genre: ['Action', 'Family', 'Marvel'],
     duration: '1h 50 min',
-    age: '16',
+    age: 16,
   },
   {
     title: 'Sonic',
@@ -93,7 +93,7 @@ const playingMovies: PlayingMovie[] = [
     thumbnail: '/images/thumbnails/playing/sonic.webp',
     genre: ['Action', 'Family', 'Marvel'],
     duration: '2h 05 min',
-    age: '18',
+    age: 18,
   },
 ]
 
@@ -105,7 +105,7 @@ const trendingMovies: TrendingMovie[] = [
     thumbnail: '/images/thumbnails/trending/la-pareja-perfecta.jpg',
     genre: ['Action', 'Adventure'],
     duration: '120 min',
-    age: '16',
+    age: 16,
     ranking: 'ranking1',
   },
   {
@@ -115,7 +115,7 @@ const trendingMovies: TrendingMovie[] = [
     thumbnail: '/images/thumbnails/trending/respira.jpg',
     genre: ['Drama', 'Thriller'],
     duration: '150 min',
-    age: '12',
+    age: 12,
     ranking: 'ranking2',
   },
   {
@@ -125,7 +125,7 @@ const trendingMovies: TrendingMovie[] = [
     thumbnail: '/images/thumbnails/trending/prison-break.jpg',
     genre: ['Comedy', 'Family'],
     duration: '90 min',
-    age: '18',
+    age: 18,
     ranking: 'ranking3',
   },
   {
@@ -135,7 +135,7 @@ const trendingMovies: TrendingMovie[] = [
     thumbnail: '/images/thumbnails/trending/kaos.jpg',
     genre: ['Comedy', 'Family'],
     duration: '90 min',
-    age: '0',
+    age: 0,
     ranking: 'ranking4',
   },
   {
@@ -145,7 +145,7 @@ const trendingMovies: TrendingMovie[] = [
     thumbnail: '/images/thumbnails/trending/accidente.jpg',
     genre: ['Comedy', 'Family'],
     duration: '90 min',
-    age: '12',
+    age: 12,
     ranking: 'ranking5',
   },
 ]

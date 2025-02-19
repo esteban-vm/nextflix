@@ -39,7 +39,7 @@ model Movie {
   title     String
   thumbnail String
   genre     String[]
-  age       String
+  age       Int
   duration  String
   trailer   String
   video     String
