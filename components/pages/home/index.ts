@@ -1,3 +1,5 @@
 export * from './home'
 export * from './home-backgrounds'
 export * from './home-buttons'
+export * from './trending-card'
+export * from './trending-player'
