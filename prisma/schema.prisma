@@ -38,8 +38,8 @@ model Movie {
   id        String    @id @default(cuid())
   title     String
   thumbnail String
-  genre     String[]
-  age       String
+  genres    String[]
+  age       Int
   duration  String
   trailer   String
   video     String

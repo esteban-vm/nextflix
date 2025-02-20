@@ -15,6 +15,10 @@ declare global {
     profile: Models.Profile
   }
 
+  interface WithMovie {
+    movie: Models.Movie
+  }
+
   namespace Validations {
     type Login = z.infer<typeof LoginSchema>
     type Profile = z.infer<typeof ProfileSchema>
