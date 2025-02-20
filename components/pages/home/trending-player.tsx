@@ -15,10 +15,10 @@ export function TrendingPlayer({ movie }: WithMovie) {
   return (
     <div className='invisible absolute inset-x-0 top-1/2 -translate-y-1/2 scale-0 select-none rounded-md bg-primary-foreground p-1 opacity-0 transition-all delay-200 duration-700 group-hover:visible group-hover:scale-125 group-hover:opacity-100'>
       <div className='mb-1 aspect-video overflow-hidden rounded-md contrast-125'>
-        <ReactPlayer controls={false} height='100%' url={trailer} width='100%' loop muted playing />
+        <ReactPlayer height='100%' url={trailer} width='100%' loop muted playing />
       </div>
       <div className='flex items-center justify-between'>
-        <span className='w-3/5 truncate font-semibold italic ~text-xs/sm'>{title}</span>
+        <span className='w-3/5 truncate text-sm font-semibold italic'>{title}</span>
         <div className='flex items-center'>
           <Button className='rounded-full ~size-7/8' size='icon' title='Reproducir' variant='ghost'>
             <LuPlayCircle className='!size-full stroke-rose-800' />
@@ -26,7 +26,7 @@ export function TrendingPlayer({ movie }: WithMovie) {
           <Button
             className='rounded-full ~size-7/8'
             size='icon'
-            title='Más información'
+            title={`${isShowingInfo ? 'Menos' : 'Más'} información`}
             variant='ghost'
             onClick={() => setIsShowingInfo(!isShowingInfo)}
           >
