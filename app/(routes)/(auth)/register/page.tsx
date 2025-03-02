@@ -5,7 +5,10 @@ export default function RegisterPage() {
     <>
       <AuthUI.PageTitle>Registro de usuario</AuthUI.PageTitle>
       <AuthUI.RegisterForm />
-      <AuthUI.LoginLink />
+      <AuthUI.FlexContainer>
+        <span>¿Ya tienes una cuenta?</span>
+        <AuthUI.AuthLink href='/login'>Ingresar</AuthUI.AuthLink>
+      </AuthUI.FlexContainer>
     </>
   )
 }

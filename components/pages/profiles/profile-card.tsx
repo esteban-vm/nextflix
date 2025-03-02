@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useAction } from 'next-safe-action/hooks'
 import { LuTrash2 } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
+import { ProfileCardUI } from '@/components/pages/profiles/styled'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,13 +15,13 @@ import {
   AlertDialogTrigger,
   Button,
 } from '@/components/ui'
-import { useProfileStore, toast } from '@/hooks'
-import { cn } from '@/lib/utils'
+import { toast, useProfileStore } from '@/hooks'
+import { avatars } from '@/lib/constants'
 
-export function ProfileCard({ profile, children }: ProfileCardProps) {
+export function ProfileCard({ profile }: WithProfile) {
   const { push } = useRouter()
   const { start, end, isDeleting, setCurrentProfile } = useProfileStore()
-  const { id, name } = profile
+  const { id, name, avatar } = profile
 
   const { execute, isPending } = useAction(ProfileActions.deleteOne, {
     onSuccess({ input }) {
@@ -55,14 +56,10 @@ export function ProfileCard({ profile, children }: ProfileCardProps) {
   }
 
   return (
-    <div
-      aria-hidden='true'
-      className='group flex cursor-pointer select-none flex-col items-center justify-center gap-2 transition-all ~size-28/32'
-      onClick={onChangeProfile}
-    >
-      <div className='relative size-3/4'>
-        {children}
-        <div className={cn('absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2', !isDeleting && 'hidden')}>
+    <ProfileCardUI.CardContainer aria-hidden='true' id={id} onClick={onChangeProfile}>
+      <ProfileCardUI.CardContent>
+        <ProfileCardUI.AvatarImage $isBlur={isDeleting} alt={`Perfil de ${name}`} src={avatars[avatar]} fill />
+        <ProfileCardUI.DialogContainer $isHidden={!isDeleting}>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size='icon' variant='destructive'>
@@ -82,11 +79,9 @@ export function ProfileCard({ profile, children }: ProfileCardProps) {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-        </div>
-      </div>
-      <span className='max-w-full truncate font-semibold uppercase text-gray-500 group-hover:opacity-90'>{name}</span>
-    </div>
+        </ProfileCardUI.DialogContainer>
+      </ProfileCardUI.CardContent>
+      <ProfileCardUI.ProfileName>{name}</ProfileCardUI.ProfileName>
+    </ProfileCardUI.CardContainer>
   )
 }
-
-export interface ProfileCardProps extends WithProfile, WithChildren {}

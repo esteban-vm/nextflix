@@ -1,8 +1,11 @@
+// @ts-nocheck
+
 import type { Config } from 'tailwindcss'
-// @ts-ignore
 import twTextShadow from '@designbycode/tailwindcss-text-shadow'
 import twFluid, { extract, fontSize, screens } from 'fluid-tailwind'
+import twMobileHover from 'tailwind-mobile-hover'
 import twAnimate from 'tailwindcss-animate'
+import twTouch from 'tailwindcss-touch'
 
 const tailwindConfig: Config = {
   content: {
@@ -67,7 +70,7 @@ const tailwindConfig: Config = {
       },
     },
   },
-  plugins: [twFluid, twAnimate, twTextShadow],
+  plugins: [twFluid, twAnimate, twTextShadow, twTouch(), twMobileHover],
 }
 
 export default tailwindConfig
