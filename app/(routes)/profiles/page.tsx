@@ -5,31 +5,25 @@ import { verifySession } from '@/lib/auth'
 export default async function ProfilesPage() {
   await verifySession()
 
-  const results = await ProfileActions.findAll()
-  const profiles = results?.data ?? []
+  const profileResults = await ProfileActions.findAll()
+  const profiles = profileResults?.data ?? []
 
   const total = profiles.length
   const remaining = 4 - total
-  const displayManageButton = total > 0
-  const displayProfileDialog = total < 4
+  const displayProfileButton = total > 0
+  const displayProfileForm = total < 4
 
   return (
-    <ProfilesUI.PageWrapper>
+    <ProfilesUI.PageContainer>
       <ProfilesUI.PageTitle>Elige tu perfil</ProfilesUI.PageTitle>
       <ProfilesUI.PageSubtitle>¿Quién eres?</ProfilesUI.PageSubtitle>
-      <ProfilesUI.InnerWrapper>
+      <ProfilesUI.ProfileList>
         {profiles.map((profile) => (
-          <ProfilesUI.ProfileCard key={profile.id} profile={profile}>
-            <ProfilesUI.AvatarImage profile={profile} />
-          </ProfilesUI.ProfileCard>
+          <ProfilesUI.ProfileCard key={profile.id} profile={profile} />
         ))}
-        {displayProfileDialog && (
-          <ProfilesUI.ProfileDialog remaining={remaining}>
-            <ProfilesUI.ProfileForm profiles={profiles} />
-          </ProfilesUI.ProfileDialog>
-        )}
-      </ProfilesUI.InnerWrapper>
-      {displayManageButton && <ProfilesUI.ManageButton />}
-    </ProfilesUI.PageWrapper>
+        {displayProfileForm && <ProfilesUI.ProfileForm profiles={profiles} remaining={remaining} />}
+      </ProfilesUI.ProfileList>
+      {displayProfileButton && <ProfilesUI.ProfileButton />}
+    </ProfilesUI.PageContainer>
   )
 }

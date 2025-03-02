@@ -3,12 +3,13 @@ import { useHookFormOptimisticAction } from '@next-safe-action/adapter-react-hoo
 import { LuCheck } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FormButton, FormInput, FormRadioGroup, FormWrapper } from '@/components/pages/common'
-import { Form } from '@/components/ui'
-import { useProfileStore, toast } from '@/hooks'
+import { ProfileFormUI } from '@/components/pages/profiles/styled'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Form } from '@/components/ui'
+import { toast, useProfileStore } from '@/hooks'
 import { ProfileSchema } from '@/lib/validations'
 
-export function ProfileForm({ profiles }: ProfileFormProps) {
-  const { start, end } = useProfileStore()
+export function ProfileForm({ remaining, profiles }: ProfileFormProps) {
+  const { start, end, toggle, isAdding } = useProfileStore()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormOptimisticAction(
     ProfileActions.createOne,
@@ -51,19 +52,35 @@ export function ProfileForm({ profiles }: ProfileFormProps) {
   } = form
 
   return (
-    <Form {...form}>
-      <FormWrapper className='flex flex-col gap-4' id='profile-form' onSubmit={handleSubmitWithAction}>
-        <FormInput control={control} disabled={isSubmitting} label='Nombre de perfil' maxLength={10} name='name' />
-        <FormRadioGroup control={control} label='Imagen de perfil' name='avatar' />
-        <FormButton className='md:w-fit' disabled={isSubmitting}>
-          <LuCheck /> Crear perfil
-        </FormButton>
-      </FormWrapper>
-    </Form>
+    <Dialog open={isAdding} onOpenChange={() => toggle('isAdding')}>
+      <ProfileFormUI.StyledTrigger>
+        <ProfileFormUI.IconContainer>
+          <ProfileFormUI.IconCircle />
+        </ProfileFormUI.IconContainer>
+        <ProfileFormUI.TriggerText>Añadir perfil</ProfileFormUI.TriggerText>
+        <ProfileFormUI.RemainingText>({remaining}/4)</ProfileFormUI.RemainingText>
+      </ProfileFormUI.StyledTrigger>
+      <DialogContent className='max-w-md'>
+        <DialogHeader>
+          <DialogTitle>Añadir perfil</DialogTitle>
+          <DialogDescription>Añade los diferentes perfiles a tu usuario.</DialogDescription>
+        </DialogHeader>
+        <Form {...form}>
+          <FormWrapper className='flex flex-col gap-4' id='profile-form' onSubmit={handleSubmitWithAction}>
+            <FormInput control={control} disabled={isSubmitting} label='Nombre de perfil' maxLength={10} name='name' />
+            <FormRadioGroup control={control} label='Imagen de perfil' name='avatar' />
+            <FormButton className='md:w-fit' disabled={isSubmitting}>
+              <LuCheck /> Crear perfil
+            </FormButton>
+          </FormWrapper>
+        </Form>
+      </DialogContent>
+    </Dialog>
   )
 }
 
 export interface ProfileFormProps {
+  remaining: number
   profiles: Models.Profile[]
 }
 

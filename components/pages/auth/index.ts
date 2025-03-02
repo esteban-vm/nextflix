@@ -1,4 +1,4 @@
-export * from './auth'
-export * from './auth-terms'
 export * from './login-form'
+export * from './privacy-terms'
 export * from './register-form'
+export * from './styled'
