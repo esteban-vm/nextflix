@@ -42,7 +42,7 @@ export function TrendingCard({ movie }: WithMovie) {
           </TrendingCardUI.FlexContainer>
         </TrendingCardUI.FlexContainer>
         <div className={cn(isShowingInfo ? 'mt-1 block' : 'hidden')}>
-          <p className='mb-1'>
+          <div className='mb-1'>
             <TrendingCardUI.StyledBadge variant='outline'>HD</TrendingCardUI.StyledBadge>
             <TrendingCardUI.StyledBadge variant='secondary' $isMiddle>
               {duration}
@@ -50,14 +50,14 @@ export function TrendingCard({ movie }: WithMovie) {
             <TrendingCardUI.StyledBadge variant={age >= 18 ? 'destructive' : 'default'}>
               +{age}
             </TrendingCardUI.StyledBadge>
-          </p>
-          <p>
+          </div>
+          <div>
             {genres.map((genre, index) => (
-              <TrendingCardUI.StyledBadge key={genre} $isMiddle={index === 1} variant='outline'>
+              <TrendingCardUI.StyledBadge key={genre} $isMiddle={index % 2 === 1} variant='outline'>
                 {genre}
               </TrendingCardUI.StyledBadge>
             ))}
-          </p>
+          </div>
         </div>
       </TrendingCardUI.VideoInfo>
     </TrendingCardUI.CardContainer>
