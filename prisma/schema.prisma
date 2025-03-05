@@ -12,7 +12,7 @@ model User {
   email     String    @unique
   password  String
   profiles  Profile[]
-  role      Role      @default(USER)
+  role      Role      @default(standard)
   gender    Gender?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
