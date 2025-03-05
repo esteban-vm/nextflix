@@ -18,6 +18,16 @@ model User {
   updatedAt DateTime  @updatedAt
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
 model Profile {
   id        String   @id @default(cuid())
   name      String
@@ -26,6 +36,13 @@ model Profile {
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum Avatar {
+  avatar1
+  avatar2
+  avatar3
+  avatar4
 }
 
 model Movie {
