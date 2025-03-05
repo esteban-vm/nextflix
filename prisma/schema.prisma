@@ -19,13 +19,13 @@ model User {
 }
 
 enum Role {
-  USER
-  ADMIN
+  standard
+  admin
 }
 
 enum Gender {
-  MALE
-  FEMALE
+  male
+  female
 }
 
 model Profile {
