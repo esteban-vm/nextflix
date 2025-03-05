@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
-export function TrendingCard({ movie }: WithMovie) {
+export function TrendingCard({ movie }: Props.WithMovie) {
   const [isShowingInfo, setIsShowingInfo] = useState(false)
   const { age, duration, genres, ranking, thumbnail, title, trailer } = movie
 

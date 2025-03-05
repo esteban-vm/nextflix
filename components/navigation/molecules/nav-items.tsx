@@ -3,7 +3,7 @@ import { DropdownMenuItem } from '@/components/ui'
 import { useCurrentSession, useProfileStore } from '@/hooks'
 import { avatars } from '@/lib/constants'
 
-export function ImageItem({ profile }: WithProfile) {
+export function ImageItem({ profile }: Props.WithProfile) {
   const { avatar, name, id } = profile
   const { setCurrentProfile } = useProfileStore()
 

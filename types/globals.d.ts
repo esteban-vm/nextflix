@@ -1,22 +1,25 @@
 import type { LoginSchema, ProfileSchema, RegisterSchema } from '@/lib/validations'
-import type { User as UserType, Movie as MovieType, Profile as ProfileType } from 'prisma/prisma-client'
+import type { User as UserDB, Movie as MovieDB, Profile as ProfileDB } from 'prisma/prisma-client'
 import type { PropsWithChildren } from 'react'
 import type { z } from 'zod'
 
 declare global {
   type Nullable<T> = T | null
-  type WithChildren<T = unknown> = Required<PropsWithChildren<T>>
 
-  interface WithClassName {
-    className: string
-  }
+  namespace Props {
+    type WithChildren<T = unknown> = Required<PropsWithChildren<T>>
 
-  interface WithProfile {
-    profile: Models.Profile
-  }
+    interface WithClassName {
+      className: string
+    }
 
-  interface WithMovie {
-    movie: Models.Movie
+    interface WithProfile {
+      profile: Models.Profile
+    }
+
+    interface WithMovie {
+      movie: Models.Movie
+    }
   }
 
   namespace Validations {
@@ -27,9 +30,9 @@ declare global {
   }
 
   namespace Models {
-    type User = Omit<UserType, 'password'>
-    type Profile = ProfileType
-    type Movie = MovieType
+    type User = Omit<UserDB, 'password'>
+    type Profile = ProfileDB
+    type Movie = MovieDB
   }
 }
 

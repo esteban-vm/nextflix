@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   generator: 'Next.js',
 }
 
-export default function RootLayout({ children }: WithChildren) {
+export default function RootLayout({ children }: Props.WithChildren) {
   return (
     <html lang='en'>
       <body

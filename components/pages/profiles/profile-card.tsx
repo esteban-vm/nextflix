@@ -18,7 +18,7 @@ import {
 import { toast, useProfileStore } from '@/hooks'
 import { avatars } from '@/lib/constants'
 
-export function ProfileCard({ profile }: WithProfile) {
+export function ProfileCard({ profile }: Props.WithProfile) {
   const { push } = useRouter()
   const { start, end, isDeleting, setCurrentProfile } = useProfileStore()
   const { id, name, avatar } = profile
