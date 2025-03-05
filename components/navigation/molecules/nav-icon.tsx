@@ -12,7 +12,7 @@ export function NavIcon({ content, icon: Icon, ...rest }: NavIconProps) {
   )
 }
 
-export interface NavIconProps extends WithClassName {
+export interface NavIconProps extends Props.WithClassName {
   content: string
   icon: IconType
 }

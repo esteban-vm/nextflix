@@ -11,7 +11,7 @@ import {
 import { useProfileStore } from '@/hooks'
 import { avatars } from '@/lib/constants'
 
-export function NavAvatar(props: WithClassName) {
+export function NavAvatar(props: Props.WithClassName) {
   const { currentProfile } = useProfileStore()
 
   return (
