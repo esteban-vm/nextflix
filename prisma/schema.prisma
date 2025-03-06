@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -18,10 +12,20 @@ model User {
   email     String    @unique
   password  String
   profiles  Profile[]
-  role      Role      @default(USER)
+  role      Role      @default(standard)
   gender    Gender?
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+}
+
+enum Role {
+  standard
+  admin
+}
+
+enum Gender {
+  male
+  female
 }
 
 model Profile {
@@ -34,34 +38,31 @@ model Profile {
   updatedAt DateTime @updatedAt
 }
 
-model Movie {
-  id        String    @id @default(cuid())
-  title     String
-  thumbnail String
-  genres    String[]
-  age       Int
-  duration  String
-  trailer   String
-  video     String
-  ranking   Ranking?
-  createdAt DateTime? @default(now())
-}
-
-enum Role {
-  USER
-  ADMIN
-}
-
-enum Gender {
-  MALE
-  FEMALE
-}
-
 enum Avatar {
   avatar1
   avatar2
   avatar3
   avatar4
+}
+
+model Movie {
+  id          String    @id @default(cuid())
+  title       String
+  thumbnail   String
+  placeholder String
+  trailer     String
+  video       String
+  duration    String
+  age         Int
+  genres      String[]
+  ranking     Ranking? // trending-only
+  type        MovieType // discriminator
+  createdAt   DateTime  @default(now())
+}
+
+enum MovieType {
+  trending
+  playing
 }
 
 enum Ranking {

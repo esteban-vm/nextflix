@@ -9,17 +9,30 @@ import { cn } from '@/lib/utils'
 
 const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
 
-export function TrendingCard({ movie }: Props.WithMovie) {
+export function TrendingCard({ movie }: Props.WithTrendingMovie) {
   const [isShowingInfo, setIsShowingInfo] = useState(false)
-  const { age, duration, genres, ranking, thumbnail, title, trailer } = movie
+  const { age, duration, genres, placeholder, ranking, thumbnail, title, trailer } = movie
 
   return (
     <TrendingCardUI.CardContainer>
       <TrendingCardUI.SideLeft>
-        <Image alt='Puntuación' src={ranking ? rankings[ranking] : ''} fill />
+        <Image
+          alt='Puntuación'
+          blurDataURL={placeholder}
+          placeholder='blur'
+          src={ranking ? rankings[ranking] : ''}
+          fill
+        />
       </TrendingCardUI.SideLeft>
       <TrendingCardUI.SideRight>
-        <Image alt={title} className='contrast-125' src={thumbnail} fill />
+        <Image
+          alt={`Portada de "${title}"`}
+          blurDataURL={placeholder}
+          className='contrast-125'
+          placeholder='blur'
+          src={thumbnail}
+          fill
+        />
       </TrendingCardUI.SideRight>
       <TrendingCardUI.VideoInfo>
         <TrendingCardUI.PlayerContainer>
