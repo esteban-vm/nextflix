@@ -56,9 +56,9 @@ export const CTAContainer = tw.div`
 
   -translate-y-full
 
-  md:top-1/2
+  lg:top-1/2
 
-  md:-translate-y-1/2
+  lg:-translate-y-1/2
 
 `
 

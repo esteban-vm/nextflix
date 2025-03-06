@@ -7,7 +7,14 @@ import { TrendingCardUI } from '@/components/pages/home/styled'
 import { rankings } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
+const ReactPlayer = dynamic(() => import('react-player'), {
+  ssr: false,
+  loading({ isLoading, error }) {
+    if (error) return <span className='text-destructive'>{error.message}</span>
+    if (isLoading) return <TrendingCardUI.LoadingSpinner aria-label='Indicador de carga' />
+    return null
+  },
+})
 
 export function TrendingCard({ movie }: Props.WithTrendingMovie) {
   const [isShowingInfo, setIsShowingInfo] = useState(false)
@@ -17,8 +24,8 @@ export function TrendingCard({ movie }: Props.WithTrendingMovie) {
     <TrendingCardUI.CardContainer>
       <TrendingCardUI.SideLeft>
         <Image
-          alt='Puntuación'
-          blurDataURL={placeholder}
+          alt={`Puntuación de "${title}"`}
+          blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAACaCAQAAACUawf0AAAAfElEQVR42u3OMQEAAAgDoK1/GxMaQw9IQDN5rYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCdxYTjmuvxCQergAAAABJRU5ErkJggg=='
           placeholder='blur'
           src={ranking ? rankings[ranking] : ''}
           fill
