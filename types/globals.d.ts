@@ -17,8 +17,12 @@ declare global {
       profile: Models.Profile
     }
 
-    interface WithMovie {
-      movie: Models.Movie
+    interface WithPlayingMovie {
+      movie: Models.PlayingMovie
+    }
+
+    interface WithTrendingMovie {
+      movie: Models.TrendingMovie
     }
   }
 
@@ -33,6 +37,8 @@ declare global {
     type User = Omit<UserDB, 'password'>
     type Profile = ProfileDB
     type Movie = MovieDB
+    type PlayingMovie = Omit<MovieDB, 'type' | 'ranking'>
+    type TrendingMovie = Omit<MovieDB, 'type'>
   }
 }
 
