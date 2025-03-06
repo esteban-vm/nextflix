@@ -46,33 +46,23 @@ enum Avatar {
 }
 
 model Movie {
-  id        String    @id @default(cuid())
-  title     String
-  thumbnail String
-  genres    String[]
-  age       Int
-  duration  String
-  trailer   String
-  video     String
-  ranking   Ranking?
-  createdAt DateTime? @default(now())
+  id          String    @id @default(cuid())
+  title       String
+  thumbnail   String
+  placeholder String
+  trailer     String
+  video       String
+  duration    String
+  age         Int
+  genres      String[]
+  ranking     Ranking? // trending-only
+  type        MovieType // discriminator
+  createdAt   DateTime  @default(now())
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
-enum Gender {
-  MALE
-  FEMALE
-}
-
-enum Avatar {
-  avatar1
-  avatar2
-  avatar3
-  avatar4
+enum MovieType {
+  trending
+  playing
 }
 
 enum Ranking {

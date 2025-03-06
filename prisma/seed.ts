@@ -1,10 +1,8 @@
-import type { Movie } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 import { db } from '@/lib/db'
+import { getPlaceholderImage } from '@/lib/images'
 
-type PlayingMovie = Omit<Movie, 'id' | 'ranking' | 'createdAt'>
-type TrendingMovie = Omit<Movie, 'id' | 'createdAt'>
-
-const playingMovies: PlayingMovie[] = [
+const playingMoviesData: Omit<Prisma.MovieCreateInput, 'placeholder'>[] = [
   {
     title: 'Flash',
     trailer: '/videos/playing/flash.mp4',
@@ -13,6 +11,7 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Drama', 'Family', 'Action'],
     duration: '1h 20 min',
     age: 12,
+    type: 'playing',
   },
   {
     title: 'Los feos',
@@ -22,6 +21,7 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Drama', 'Family', 'Action'],
     duration: '2h 5 min',
     age: 12,
+    type: 'playing',
   },
   {
     title: 'Karate Kid',
@@ -31,6 +31,7 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Drama', 'Family', 'Action'],
     duration: '1h 10 min',
     age: 0,
+    type: 'playing',
   },
   {
     title: 'Super detective en Hollywood',
@@ -40,6 +41,7 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Drama', 'Family', 'Action'],
     duration: '2h 10 min',
     age: 0,
+    type: 'playing',
   },
   {
     title: 'Fracture',
@@ -49,6 +51,7 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Drama', 'Family', 'Action'],
     duration: '1h 50 min',
     age: 18,
+    type: 'playing',
   },
   {
     title: 'Spiderman',
@@ -58,6 +61,7 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Action', 'Family', 'Marvel'],
     duration: '2h 30 min',
     age: 0,
+    type: 'playing',
   },
   {
     title: 'Al filo del mañana',
@@ -67,6 +71,7 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Action', 'Family', 'Marvel'],
     duration: '1h 35 min',
     age: 16,
+    type: 'playing',
   },
   {
     title: 'Top Gun',
@@ -76,6 +81,7 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Action', 'Family', 'Marvel'],
     duration: '2h 35 min',
     age: 18,
+    type: 'playing',
   },
   {
     title: 'Jack Reacher',
@@ -85,6 +91,7 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Action', 'Family', 'Marvel'],
     duration: '1h 50 min',
     age: 16,
+    type: 'playing',
   },
   {
     title: 'Sonic',
@@ -94,10 +101,11 @@ const playingMovies: PlayingMovie[] = [
     genres: ['Action', 'Family', 'Marvel'],
     duration: '2h 05 min',
     age: 18,
+    type: 'playing',
   },
 ]
 
-const trendingMovies: TrendingMovie[] = [
+const trendingMoviesData: Omit<Prisma.MovieCreateInput, 'placeholder'>[] = [
   {
     title: 'La pareja perfecta',
     trailer: '/videos/trending/la-pareja-perfecta.mp4',
@@ -106,6 +114,7 @@ const trendingMovies: TrendingMovie[] = [
     genres: ['Action', 'Adventure'],
     duration: '120 min',
     age: 16,
+    type: 'trending',
     ranking: 'ranking1',
   },
   {
@@ -116,6 +125,7 @@ const trendingMovies: TrendingMovie[] = [
     genres: ['Drama', 'Thriller'],
     duration: '150 min',
     age: 12,
+    type: 'trending',
     ranking: 'ranking2',
   },
   {
@@ -126,6 +136,7 @@ const trendingMovies: TrendingMovie[] = [
     genres: ['Comedy', 'Family'],
     duration: '90 min',
     age: 18,
+    type: 'trending',
     ranking: 'ranking3',
   },
   {
@@ -136,6 +147,7 @@ const trendingMovies: TrendingMovie[] = [
     genres: ['Comedy', 'Family'],
     duration: '90 min',
     age: 0,
+    type: 'trending',
     ranking: 'ranking4',
   },
   {
@@ -146,6 +158,7 @@ const trendingMovies: TrendingMovie[] = [
     genres: ['Comedy', 'Family'],
     duration: '90 min',
     age: 12,
+    type: 'trending',
     ranking: 'ranking5',
   },
 ]
@@ -153,6 +166,25 @@ const trendingMovies: TrendingMovie[] = [
 void (async () => {
   try {
     await db.movie.deleteMany({})
+
+    const playingMovies = await Promise.all(
+      playingMoviesData.map(async (movie): Promise<Prisma.MovieCreateInput> => {
+        return {
+          ...movie,
+          placeholder: await getPlaceholderImage(movie.thumbnail),
+        }
+      })
+    )
+
+    const trendingMovies = await Promise.all(
+      trendingMoviesData.map(async (movie): Promise<Prisma.MovieCreateInput> => {
+        return {
+          ...movie,
+          placeholder: await getPlaceholderImage(movie.thumbnail),
+        }
+      })
+    )
+
     await db.movie.createMany({ data: playingMovies })
     await db.movie.createMany({ data: trendingMovies })
     console.log('Seeding complete')
