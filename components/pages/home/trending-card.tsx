@@ -7,7 +7,14 @@ import { TrendingCardUI } from '@/components/pages/home/styled'
 import { rankings } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
+const ReactPlayer = dynamic(() => import('react-player'), {
+  ssr: false,
+  loading({ isLoading, error }) {
+    if (error) return <span className='text-destructive'>{error.message}</span>
+    if (isLoading) return <TrendingCardUI.LoadingSpinner aria-label='Indicador de carga' />
+    return null
+  },
+})
 
 export function TrendingCard({ movie }: Props.WithTrendingMovie) {
   const [isShowingInfo, setIsShowingInfo] = useState(false)
