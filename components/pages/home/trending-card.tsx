@@ -24,8 +24,8 @@ export function TrendingCard({ movie }: Props.WithTrendingMovie) {
     <TrendingCardUI.CardContainer>
       <TrendingCardUI.SideLeft>
         <Image
-          alt='Puntuación'
-          blurDataURL={placeholder}
+          alt={`Puntuación de "${title}"`}
+          blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAACaCAQAAACUawf0AAAAfElEQVR42u3OMQEAAAgDoK1/GxMaQw9IQDN5rYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCdxYTjmuvxCQergAAAABJRU5ErkJggg=='
           placeholder='blur'
           src={ranking ? rankings[ranking] : ''}
           fill
