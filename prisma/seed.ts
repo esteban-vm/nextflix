@@ -2,7 +2,9 @@ import type { Prisma } from '@prisma/client'
 import { db } from '@/lib/db'
 import { getPlaceholderImage } from '@/lib/images'
 
-const playingMoviesData: Omit<Prisma.MovieCreateInput, 'placeholder'>[] = [
+type MovieWithoutPlaceholder = Omit<Prisma.MovieCreateInput, 'placeholder'>
+
+const playingMoviesData: MovieWithoutPlaceholder[] = [
   {
     title: 'Flash',
     trailer: '/videos/playing/flash.mp4',
@@ -105,7 +107,7 @@ const playingMoviesData: Omit<Prisma.MovieCreateInput, 'placeholder'>[] = [
   },
 ]
 
-const trendingMoviesData: Omit<Prisma.MovieCreateInput, 'placeholder'>[] = [
+const trendingMoviesData: MovieWithoutPlaceholder[] = [
   {
     title: 'La pareja perfecta',
     trailer: '/videos/trending/la-pareja-perfecta.mp4',
