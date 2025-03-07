@@ -56,9 +56,9 @@ export const CTAContainer = tw.div`
 
   -translate-y-full
 
-  lg:top-1/2
+  md:top-1/2
 
-  lg:-translate-y-1/2
+  md:-translate-y-1/2
 
 `
 
@@ -138,17 +138,17 @@ export const TrendingContent = tw.div`
 
 export const TrendingList = tw.div`
 
-  grid
+  flex
 
-  grid-cols-2
+  flex-wrap
 
-  place-items-center
+  items-center
+
+  justify-around
 
   ~gap-2/4
 
   ~p-2/4
-
-  lg:grid-cols-5
 
 `
 
