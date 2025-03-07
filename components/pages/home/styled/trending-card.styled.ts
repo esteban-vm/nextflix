@@ -12,7 +12,9 @@ export const CardContainer = tw.article`
 
   aspect-square
 
-  ~h-44/52
+  w-full
+
+  max-w-60
 
 `
 
@@ -153,6 +155,8 @@ export const VideoInfo = tw.div`
   inset-x-0
 
   top-1/2
+
+  z-10
 
   -translate-y-1/2
 
