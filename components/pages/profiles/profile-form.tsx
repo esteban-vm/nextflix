@@ -2,10 +2,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormOptimisticAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { LuCheck } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
-import { FormButton, FormInput, FormRadioGroup, FormWrapper } from '@/components/pages/common'
+import { FormButton, FormInput, FormRadioButton, FormRadioGroup, FormWrapper } from '@/components/pages/common'
 import { ProfileFormUI } from '@/components/pages/profiles/styled'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Form } from '@/components/ui'
 import { toast, useProfileStore } from '@/hooks'
+import { avatarUrls } from '@/lib/constants'
 import { ProfileSchema } from '@/lib/validations'
 
 export function ProfileForm({ remaining, profiles }: ProfileFormProps) {
@@ -40,13 +41,14 @@ export function ProfileForm({ remaining, profiles }: ProfileFormProps) {
       formProps: {
         defaultValues: {
           name: '',
-          avatar: 'avatar1',
+          avatarUrl: avatarUrls[0],
         },
       },
     }
   )
 
   const {
+    watch,
     control,
     formState: { isSubmitting },
   } = form
@@ -68,7 +70,11 @@ export function ProfileForm({ remaining, profiles }: ProfileFormProps) {
         <Form {...form}>
           <FormWrapper className='flex flex-col gap-4' id='profile-form' onSubmit={handleSubmitWithAction}>
             <FormInput control={control} disabled={isSubmitting} label='Nombre de perfil' maxLength={10} name='name' />
-            <FormRadioGroup control={control} label='Imagen de perfil' name='avatar' />
+            <FormRadioGroup control={control} label='Imagen de perfil' name='avatarUrl'>
+              {avatarUrls.map((avatar) => (
+                <FormRadioButton key={avatar} avatarUrl={avatar} isActive={watch('avatarUrl') === avatar} />
+              ))}
+            </FormRadioGroup>
             <FormButton className='md:w-fit' disabled={isSubmitting}>
               <LuCheck /> Crear perfil
             </FormButton>

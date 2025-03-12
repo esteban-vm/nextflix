@@ -1,18 +1,17 @@
+import type { AvatarUrl } from '@/lib/constants'
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
-import { Avatar } from '@prisma/client'
 import Image from 'next/image'
 import { FormControl, FormError, FormField, FormItem, FormLabel, RadioGroup, RadioGroupItem } from '@/components/ui'
-import { avatars } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
-export function FormRadioButton({ avatar, isActive }: FormRadioButtonProps) {
+export function FormRadioButton({ avatarUrl, isActive }: FormRadioButtonProps) {
   return (
     <FormItem className='translate-x-0'>
       <FormLabel>
         <Image
-          alt='profile avatar'
+          alt='Imagen de avatar'
           height={1}
-          src={avatars[avatar]}
+          src={avatarUrl}
           width={1}
           className={cn(
             'size-14 cursor-pointer rounded-sm border-2',
@@ -21,18 +20,23 @@ export function FormRadioButton({ avatar, isActive }: FormRadioButtonProps) {
         />
       </FormLabel>
       <FormControl>
-        <RadioGroupItem className='border-primary-foreground' value={avatar} />
+        <RadioGroupItem className='border-primary-foreground' value={avatarUrl} />
       </FormControl>
     </FormItem>
   )
 }
 
 export interface FormRadioButtonProps {
-  avatar: Avatar
+  avatarUrl: AvatarUrl
   isActive: boolean
 }
 
-export function FormRadioGroup<T extends Validations.Profile>({ label, control, name }: FormRadioGroupProps<T>) {
+export function FormRadioGroup<T extends Validations.Profile>({
+  label,
+  control,
+  name,
+  children,
+}: FormRadioGroupProps<T>) {
   return (
     <FormField
       control={control}
@@ -47,9 +51,10 @@ export function FormRadioGroup<T extends Validations.Profile>({ label, control, 
                 defaultValue={value}
                 onValueChange={onChange}
               >
-                {Object.values(Avatar).map((avatar) => (
+                {/* {Object.values(Avatar).map((avatar) => (
                   <FormRadioButton key={avatar} avatar={avatar} isActive={value === avatar} />
-                ))}
+                ))} */}
+                {children}
               </RadioGroup>
             </FormControl>
             <FormError />
@@ -60,7 +65,7 @@ export function FormRadioGroup<T extends Validations.Profile>({ label, control, 
   )
 }
 
-export interface FormRadioGroupProps<T extends FieldValues> {
+export interface FormRadioGroupProps<T extends FieldValues> extends Props.WithChildren {
   label: string
   control: Control<T>
   name: FieldPath<T>
