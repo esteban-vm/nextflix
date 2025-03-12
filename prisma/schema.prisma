@@ -31,44 +31,27 @@ enum Gender {
 model Profile {
   id        String   @id @default(cuid())
   name      String
-  avatar    Avatar
+  avatarUrl String
   userId    String
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-enum Avatar {
-  avatar1
-  avatar2
-  avatar3
-  avatar4
 }
 
 model Movie {
-  id          String    @id @default(cuid())
-  title       String
-  thumbnail   String
-  placeholder String
-  trailer     String
-  video       String
-  duration    String
-  age         Int
-  genres      String[]
-  ranking     Ranking? // trending-only
-  type        MovieType // discriminator
-  createdAt   DateTime  @default(now())
+  id         String    @id @default(cuid())
+  createdAt  DateTime  @default(now())
+  title      String
+  duration   String
+  age        Int
+  genres     String[]
+  type       MovieType // discriminator
+  posterUrl  String
+  trailerUrl String
+  videoUrl   String
+  rankingUrl String? // trending-only
 }
 
 enum MovieType {
   trending
   playing
-}
-
-enum Ranking {
-  ranking1
-  ranking2
-  ranking3
-  ranking4
-  ranking5
 }
