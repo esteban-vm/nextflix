@@ -4,41 +4,40 @@ import type { PropsWithChildren } from 'react'
 import type { z } from 'zod'
 
 declare global {
-  type Nullable<T> = T | null
+  namespace Utils {
+    type Nullable<T> = T | null
+    type PropName = 'movie' | 'profile'
+
+    type WithPlaceholder<T> = T & {
+      placeholder: string
+    }
+  }
 
   namespace Props {
-    type WithChildren<T = unknown> = Required<PropsWithChildren<T>>
-
     interface WithClassName {
       className: string
     }
 
-    interface WithProfile {
-      profile: Models.Profile
-    }
-
-    interface WithPlayingMovie {
-      movie: Models.PlayingMovie
-    }
-
-    interface WithTrendingMovie {
-      movie: Models.TrendingMovie
-    }
+    type WithChildren<T = unknown> = Required<PropsWithChildren<T>>
+    type WithPlaceholder<T extends Utils.PropName, U extends Models.WithImage> = Record<T, Utils.WithPlaceholder<U>>
   }
 
   namespace Validations {
     type Login = z.infer<typeof LoginSchema>
-    type Profile = z.infer<typeof ProfileSchema>
     type Register = z.infer<typeof RegisterSchema>
+    type Profile = z.infer<typeof ProfileSchema>
     type Forms = Login | Register | Profile
   }
 
   namespace Models {
     type User = Omit<UserDB, 'password'>
     type Profile = ProfileDB
+
     type Movie = MovieDB
-    type PlayingMovie = Omit<MovieDB, 'type' | 'ranking'>
+    type PlayingMovie = Omit<MovieDB, 'type' | 'rankingUrl'>
     type TrendingMovie = Omit<MovieDB, 'type'>
+
+    type WithImage = PlayingMovie | TrendingMovie | Profile
   }
 }
 
