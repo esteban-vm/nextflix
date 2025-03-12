@@ -1,4 +1,3 @@
-import { Avatar } from '@prisma/client'
 import { isEmail, isStrongPassword } from 'validator'
 import { z } from 'zod'
 
@@ -54,7 +53,7 @@ export const ProfileSchema = z.object({
         .join(' ')
     }),
 
-  avatar: z.nativeEnum(Avatar),
+  avatarUrl: z.string(),
 })
 
 export const RegisterSchema = EmailSchema.extend({

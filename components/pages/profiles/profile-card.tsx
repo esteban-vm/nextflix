@@ -16,12 +16,11 @@ import {
   Button,
 } from '@/components/ui'
 import { toast, useProfileStore } from '@/hooks'
-import { avatars } from '@/lib/constants'
 
-export function ProfileCard({ profile }: Props.WithProfile) {
+export function ProfileCard({ profile }: ProfileCardProps) {
   const { push } = useRouter()
   const { start, end, isDeleting, setCurrentProfile } = useProfileStore()
-  const { id, name, avatar } = profile
+  const { id, name, avatarUrl, placeholder } = profile
 
   const { execute, isPending } = useAction(ProfileActions.deleteOne, {
     onSuccess({ input }) {
@@ -58,7 +57,14 @@ export function ProfileCard({ profile }: Props.WithProfile) {
   return (
     <ProfileCardUI.CardContainer aria-hidden='true' id={id} onClick={onChangeProfile}>
       <ProfileCardUI.CardContent>
-        <ProfileCardUI.AvatarImage $isBlur={isDeleting} alt={`Perfil de ${name}`} src={avatars[avatar]} fill />
+        <ProfileCardUI.AvatarImage
+          $isBlur={isDeleting}
+          alt={`Perfil de ${name}`}
+          blurDataURL={placeholder}
+          placeholder='blur'
+          src={avatarUrl}
+          fill
+        />
         <ProfileCardUI.DialogContainer $isHidden={!isDeleting}>
           <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -85,3 +91,5 @@ export function ProfileCard({ profile }: Props.WithProfile) {
     </ProfileCardUI.CardContainer>
   )
 }
+
+export type ProfileCardProps = Props.WithPlaceholder<'profile', Models.Profile>

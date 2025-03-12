@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { useState } from 'react'
 import { TrendingCardUI } from '@/components/pages/home/styled'
-import { rankings } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 const ReactPlayer = dynamic(() => import('react-player'), {
@@ -16,9 +15,9 @@ const ReactPlayer = dynamic(() => import('react-player'), {
   },
 })
 
-export function TrendingCard({ movie }: Props.WithTrendingMovie) {
+export function TrendingCard({ movie }: TrendingCardProps) {
   const [isShowingInfo, setIsShowingInfo] = useState(false)
-  const { age, duration, genres, placeholder, ranking, thumbnail, title, trailer } = movie
+  const { age, duration, genres, placeholder, rankingUrl, posterUrl, title, trailerUrl } = movie
 
   return (
     <TrendingCardUI.CardContainer>
@@ -27,7 +26,7 @@ export function TrendingCard({ movie }: Props.WithTrendingMovie) {
           alt={`Puntuación de "${title}"`}
           blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAACaCAQAAACUawf0AAAAfElEQVR42u3OMQEAAAgDoK1/GxMaQw9IQDN5rYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCdxYTjmuvxCQergAAAABJRU5ErkJggg=='
           placeholder='blur'
-          src={ranking ? rankings[ranking] : ''}
+          src={rankingUrl ?? ''}
           fill
         />
       </TrendingCardUI.SideLeft>
@@ -37,13 +36,13 @@ export function TrendingCard({ movie }: Props.WithTrendingMovie) {
           blurDataURL={placeholder}
           className='contrast-125'
           placeholder='blur'
-          src={thumbnail}
+          src={posterUrl}
           fill
         />
       </TrendingCardUI.SideRight>
       <TrendingCardUI.VideoInfo>
         <TrendingCardUI.PlayerContainer>
-          <ReactPlayer height='100%' url={trailer} width='100%' loop muted playing />
+          <ReactPlayer height='100%' url={trailerUrl} width='100%' loop muted playing />
         </TrendingCardUI.PlayerContainer>
         <TrendingCardUI.FlexContainer $isBetween>
           <TrendingCardUI.MovieTitle>{title}</TrendingCardUI.MovieTitle>
@@ -83,3 +82,5 @@ export function TrendingCard({ movie }: Props.WithTrendingMovie) {
     </TrendingCardUI.CardContainer>
   )
 }
+
+export type TrendingCardProps = Props.WithPlaceholder<'movie', Models.TrendingMovie>

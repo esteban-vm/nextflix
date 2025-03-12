@@ -1,22 +1,22 @@
 'use server'
 
 import { cache } from 'react'
+import { toListWithPlaceholders, toPlayingMovie, toTrendingMovie } from '@/lib/adapters'
 import { db } from '@/lib/db'
-import { toPlayingMovie, toTrendingMovie } from '@/lib/movies'
 import { authClient } from '@/lib/safe-action'
 
 export const findPlaying = authClient.action(
-  cache(async () => {
+  cache(async (): Promise<Utils.WithPlaceholder<Models.PlayingMovie>[]> => {
     const results = await db.movie.findMany({ where: { type: 'playing' }, orderBy: { title: 'asc' } })
-    const movies = results.map(toPlayingMovie)
+    const movies = await toListWithPlaceholders(results.map(toPlayingMovie))
     return movies
   })
 )
 
 export const findTrending = authClient.action(
-  cache(async () => {
-    const results = await db.movie.findMany({ where: { type: 'trending' }, orderBy: { ranking: 'asc' } })
-    const movies = results.map(toTrendingMovie)
+  cache(async (): Promise<Utils.WithPlaceholder<Models.TrendingMovie>[]> => {
+    const results = await db.movie.findMany({ where: { type: 'trending' }, orderBy: { rankingUrl: 'asc' } })
+    const movies = await toListWithPlaceholders(results.map(toTrendingMovie))
     return movies
   })
 )

@@ -9,7 +9,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui'
 import { useProfileStore } from '@/hooks'
-import { avatars } from '@/lib/constants'
 
 export function NavAvatar(props: Props.WithClassName) {
   const { currentProfile } = useProfileStore()
@@ -19,10 +18,7 @@ export function NavAvatar(props: Props.WithClassName) {
       <Tooltip>
         <TooltipTrigger asChild>
           <Avatar className='size-10 cursor-pointer border-2 border-primary'>
-            <AvatarImage
-              alt={`Perfil de ${currentProfile?.name}`}
-              src={currentProfile ? avatars[currentProfile.avatar] : undefined}
-            />
+            <AvatarImage alt={`Perfil de ${currentProfile?.name}`} src={currentProfile?.avatarUrl} />
             <AvatarFallback>
               <LuUser className='size-3/4' />
             </AvatarFallback>

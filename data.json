@@ -1,0 +1,161 @@
+{
+  "playing": [
+    {
+      "title": "Flash",
+      "duration": "1h 20 min",
+      "age": 12,
+      "genres": ["Drama", "Family", "Action"],
+      "type": "playing",
+      "posterUrl": "/images/posters/flash.webp",
+      "trailerUrl": "/videos/flash.mp4",
+      "videoUrl": "/videos/flash.mp4"
+    },
+    {
+      "title": "Los feos",
+      "duration": "2h 5 min",
+      "age": 12,
+      "genres": ["Drama", "Family", "Action"],
+      "type": "playing",
+      "posterUrl": "/images/posters/los-feos.webp",
+      "trailerUrl": "/videos/los-feos.mp4",
+      "videoUrl": "/videos/los-feos.mp4"
+    },
+    {
+      "title": "Karate Kid",
+      "duration": "1h 10 min",
+      "age": 0,
+      "genres": ["Drama", "Family", "Action"],
+      "type": "playing",
+      "posterUrl": "/images/posters/karate-kid.webp",
+      "trailerUrl": "/videos/karate-kid.mp4",
+      "videoUrl": "/videos/karate-kid.mp4"
+    },
+    {
+      "title": "Super detective en Hollywood",
+      "duration": "2h 10 min",
+      "age": 0,
+      "genres": ["Drama", "Family", "Action"],
+      "type": "playing",
+      "posterUrl": "/images/posters/super-detective-en-hollywood.webp",
+      "trailerUrl": "/videos/super-detective-en-hollywood.mp4",
+      "videoUrl": "/videos/super-detective-en-hollywood.mp4"
+    },
+    {
+      "title": "Fracture",
+      "duration": "1h 50 min",
+      "age": 18,
+      "genres": ["Drama", "Family", "Action"],
+      "type": "playing",
+      "posterUrl": "/images/posters/fracture.webp",
+      "trailerUrl": "/videos/fracture.mp4",
+      "videoUrl": "/videos/fracture.mp4"
+    },
+    {
+      "title": "Spiderman",
+      "duration": "2h 30 min",
+      "age": 0,
+      "genres": ["Action", "Family", "Marvel"],
+      "type": "playing",
+      "posterUrl": "/images/posters/spiderman.webp",
+      "trailerUrl": "/videos/spiderman.mp4",
+      "videoUrl": "/videos/spiderman.mp4"
+    },
+    {
+      "title": "Al filo del mañana",
+      "duration": "1h 35 min",
+      "age": 16,
+      "genres": ["Action", "Family", "Marvel"],
+      "type": "playing",
+      "posterUrl": "/images/posters/al-filo-del-mañana.webp",
+      "trailerUrl": "/videos/al-filo-del-mañana.mp4",
+      "videoUrl": "/videos/al-filo-del-mañana.mp4"
+    },
+    {
+      "title": "Top Gun",
+      "duration": "2h 35 min",
+      "age": 18,
+      "genres": ["Action", "Family", "Marvel"],
+      "type": "playing",
+      "posterUrl": "/images/posters/top-gun.webp",
+      "trailerUrl": "/videos/top-gun.mp4",
+      "videoUrl": "/videos/top-gun.mp4"
+    },
+    {
+      "title": "Jack Reacher",
+      "duration": "1h 50 min",
+      "age": 16,
+      "genres": ["Action", "Family", "Marvel"],
+      "type": "playing",
+      "posterUrl": "/images/posters/jack-reacher.webp",
+      "trailerUrl": "/videos/jack-reacher.mp4",
+      "videoUrl": "/videos/jack-reacher.mp4"
+    },
+    {
+      "title": "Sonic",
+      "duration": "2h 05 min",
+      "age": 18,
+      "genres": ["Action", "Family", "Marvel"],
+      "type": "playing",
+      "posterUrl": "/images/posters/sonic.webp",
+      "trailerUrl": "/videos/sonic.mp4",
+      "videoUrl": "/videos/sonic.mp4"
+    }
+  ],
+  "trending": [
+    {
+      "title": "La pareja perfecta",
+      "duration": "120 min",
+      "age": 16,
+      "genres": ["Action", "Adventure"],
+      "type": "trending",
+      "posterUrl": "/images/posters/la-pareja-perfecta.webp",
+      "trailerUrl": "/videos/la-pareja-perfecta.mp4",
+      "videoUrl": "/videos/la-pareja-perfecta.mp4",
+      "rankingUrl": "/images/rankings/ranking1.webp"
+    },
+    {
+      "title": "Respira",
+      "duration": "150 min",
+      "age": 12,
+      "genres": ["Drama", "Thriller"],
+      "type": "trending",
+      "posterUrl": "/images/posters/respira.webp",
+      "trailerUrl": "/videos/respira.mp4",
+      "videoUrl": "/videos/respira.mp4",
+      "rankingUrl": "/images/rankings/ranking2.webp"
+    },
+    {
+      "title": "Prison Break",
+      "duration": "90 min",
+      "age": 18,
+      "genres": ["Comedy", "Family"],
+      "type": "trending",
+      "posterUrl": "/images/posters/prison-break.webp",
+      "trailerUrl": "/videos/prison-break.mp4",
+      "videoUrl": "/videos/prison-break.mp4",
+      "rankingUrl": "/images/rankings/ranking3.webp"
+    },
+    {
+      "title": "KAOS",
+      "duration": "90 min",
+      "age": 0,
+      "genres": ["Comedy", "Family"],
+      "type": "trending",
+      "posterUrl": "/images/posters/kaos.webp",
+      "trailerUrl": "/videos/kaos.mp4",
+      "videoUrl": "/videos/kaos.mp4",
+      "rankingUrl": "/images/rankings/ranking4.webp"
+    },
+    {
+      "title": "Accidente",
+      "duration": "90 min",
+      "age": 12,
+      "genres": ["Comedy", "Family"],
+      "type": "trending",
+      "posterUrl": "/images/posters/accidente.webp",
+      "trailerUrl": "/videos/accidente.mp4",
+      "videoUrl": "/videos/accidente.mp4",
+      "rankingUrl": "/images/rankings/ranking5.webp"
+    }
+  ]
+}
