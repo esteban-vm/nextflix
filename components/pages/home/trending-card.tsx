@@ -1,8 +1,8 @@
 'use client'
 
 import dynamic from 'next/dynamic'
-import Image from 'next/image'
 import { useState } from 'react'
+import { FullImage } from '@/components/pages/common'
 import { TrendingCardUI } from '@/components/pages/home/styled'
 import { cn } from '@/lib/utils'
 
@@ -15,6 +15,9 @@ const ReactPlayer = dynamic(() => import('react-player'), {
   },
 })
 
+const rankingPlaceholder =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAACaCAQAAACUawf0AAAAfElEQVR42u3OMQEAAAgDoK1/GxMaQw9IQDN5rYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCdxYTjmuvxCQergAAAABJRU5ErkJggg=='
+
 export function TrendingCard({ movie }: TrendingCardProps) {
   const [isShowingInfo, setIsShowingInfo] = useState(false)
   const { age, duration, genres, placeholder, rankingUrl, posterUrl, title, trailerUrl } = movie
@@ -22,23 +25,10 @@ export function TrendingCard({ movie }: TrendingCardProps) {
   return (
     <TrendingCardUI.CardContainer>
       <TrendingCardUI.SideLeft>
-        <Image
-          alt={`Puntuación de "${title}"`}
-          blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAACaCAQAAACUawf0AAAAfElEQVR42u3OMQEAAAgDoK1/GxMaQw9IQDN5rYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCdxYTjmuvxCQergAAAABJRU5ErkJggg=='
-          placeholder='blur'
-          src={rankingUrl ?? ''}
-          fill
-        />
+        <FullImage alt={`Puntuación de "${title}"`} blurDataURL={rankingPlaceholder} src={rankingUrl ?? ''} />
       </TrendingCardUI.SideLeft>
       <TrendingCardUI.SideRight>
-        <Image
-          alt={`Portada de "${title}"`}
-          blurDataURL={placeholder}
-          className='contrast-125'
-          placeholder='blur'
-          src={posterUrl}
-          fill
-        />
+        <FullImage alt={`Portada de "${title}"`} blurDataURL={placeholder} className='contrast-125' src={posterUrl} />
       </TrendingCardUI.SideRight>
       <TrendingCardUI.VideoInfo>
         <TrendingCardUI.PlayerContainer>

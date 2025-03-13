@@ -1,23 +1,4 @@
-import Image from 'next/image'
 import tw from 'tailwind-styled-components'
-
-export const AvatarImage = tw(Image)<AvatarImageProps>`
-
-  ${({ $isBlur }) => ($isBlur ? 'blur-md' : 'group-hover:border-gray-500')}
-
-  rounded-md
-
-  border-2
-
-  border-transparent
-
-  bg-cover
-
-`
-
-export interface AvatarImageProps {
-  $isBlur: boolean
-}
 
 export const CardContainer = tw.article`
 
