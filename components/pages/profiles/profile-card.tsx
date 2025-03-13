@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useAction } from 'next-safe-action/hooks'
 import { LuTrash2 } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
+import { FullImage } from '@/components/pages/common'
 import { ProfileCardUI } from '@/components/pages/profiles/styled'
 import {
   AlertDialog,
@@ -16,6 +17,7 @@ import {
   Button,
 } from '@/components/ui'
 import { toast, useProfileStore } from '@/hooks'
+import { cn } from '@/lib/utils'
 
 export function ProfileCard({ profile }: ProfileCardProps) {
   const { push } = useRouter()
@@ -57,13 +59,14 @@ export function ProfileCard({ profile }: ProfileCardProps) {
   return (
     <ProfileCardUI.CardContainer aria-hidden='true' id={id} onClick={onChangeProfile}>
       <ProfileCardUI.CardContent>
-        <ProfileCardUI.AvatarImage
-          $isBlur={isDeleting}
+        <FullImage
           alt={`Perfil de ${name}`}
           blurDataURL={placeholder}
-          placeholder='blur'
           src={avatarUrl}
-          fill
+          className={cn(
+            'rounded-md border-2 border-transparent bg-cover',
+            isDeleting ? 'blur-md' : 'group-hover:border-gray-500'
+          )}
         />
         <ProfileCardUI.DialogContainer $isHidden={!isDeleting}>
           <AlertDialog>

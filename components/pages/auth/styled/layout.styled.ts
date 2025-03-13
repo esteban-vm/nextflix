@@ -1,6 +1,3 @@
-'use client'
-
-import Image from 'next/image'
 import Link from 'next/link'
 import tw from 'tailwind-styled-components'
 
@@ -13,16 +10,6 @@ export const AuthLink = tw(Link)`
   hover:underline
 
   hover:opacity-90
-
-`
-
-export const BackgroundImage = tw(Image)`
-
-  object-cover
-
-  object-center
-
-  opacity-30
 
 `
 

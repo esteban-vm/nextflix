@@ -1,4 +1,6 @@
 import { AuthUI } from '@/components/pages'
+import { FullImage } from '@/components/pages/common'
+import moviesWP from '@/images/backgrounds/movies-wp.jpg'
 import { verifyNoSession } from '@/lib/auth'
 
 export default async function AuthLayout({ children }: Props.WithChildren) {
@@ -6,7 +8,7 @@ export default async function AuthLayout({ children }: Props.WithChildren) {
 
   return (
     <AuthUI.LayoutContainer>
-      <AuthUI.BackgroundImage alt='Imagen de fondo' src='/images/backgrounds/movies-wp.jpg' fill />
+      <FullImage alt='Imagen de fondo' className='object-cover object-center opacity-30' src={moviesWP} />
       <AuthUI.PageContainer>
         {children}
         <AuthUI.TermsContainer>
