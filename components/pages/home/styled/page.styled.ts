@@ -126,11 +126,11 @@ export const TrendingContainer = tw.section`
 
 export const TrendingContent = tw.div`
 
-  container
-
   z-30
 
   mx-auto
+
+  max-w-screen-2xl
 
   text-primary
 
@@ -153,6 +153,8 @@ export const TrendingList = tw.div`
 `
 
 export const TrendingTitle = tw.h2`
+
+  mx-4
 
   mb-4
 
