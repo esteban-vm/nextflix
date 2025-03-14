@@ -162,4 +162,6 @@ export const TrendingTitle = tw.h2`
 
   ~text-lg/2xl
 
+  2xl:mx-0
+
 `
