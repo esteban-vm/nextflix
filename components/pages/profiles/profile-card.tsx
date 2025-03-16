@@ -95,4 +95,6 @@ export function ProfileCard({ profile }: ProfileCardProps) {
   )
 }
 
-export type ProfileCardProps = Props.WithPlaceholder<'profile', Models.Profile>
+export interface ProfileCardProps {
+  profile: Models.Profile
+}

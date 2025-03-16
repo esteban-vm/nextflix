@@ -1,10 +1,10 @@
 import { getPlaceholderImage } from '@/lib/images'
 
-export async function toListWithPlaceholders<T extends Models.WithImage[]>(list: T) {
+export async function toListWithPlaceholders<T extends Models.MovieOrProfileDB[]>(list: T) {
   const listWithPlaceholders: Utils.WithPlaceholder<T[number]>[] = await Promise.all(
     list.map(async (item): Promise<Utils.WithPlaceholder<T[number]>> => {
-      const poster = (item as Models.PlayingMovie | Models.TrendingMovie satisfies Models.WithImage).posterUrl
-      const avatar = (item as Models.Profile satisfies Models.WithImage).avatarUrl
+      const poster = (item as Models.MovieDB satisfies Models.MovieOrProfileDB).posterUrl
+      const avatar = (item as Models.ProfileDB satisfies Models.MovieOrProfileDB).avatarUrl
       const src = poster ?? avatar
 
       return {
@@ -17,10 +17,12 @@ export async function toListWithPlaceholders<T extends Models.WithImage[]>(list:
   return listWithPlaceholders
 }
 
-export function toPlayingMovie({ type: _, rankingUrl: __, ...rest }: Models.Movie): Models.PlayingMovie {
-  return <Models.PlayingMovie>{ ...rest }
+export function toPlayingMovie(movie: Models.Movie): Models.PlayingMovie {
+  const { type: _, rankingUrl: __, ...playingMovie } = movie
+  return playingMovie as Models.PlayingMovie
 }
 
-export function toTrendingMovie({ type: _, ...rest }: Models.Movie): Models.TrendingMovie {
-  return <Models.TrendingMovie>{ ...rest }
+export function toTrendingMovie(movie: Models.Movie): Models.TrendingMovie {
+  const { type: _, ...trendingMovie } = movie
+  return trendingMovie as Models.TrendingMovie
 }

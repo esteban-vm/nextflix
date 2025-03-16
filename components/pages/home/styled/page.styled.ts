@@ -114,7 +114,7 @@ export const HeroTitle = tw.h1`
 
 `
 
-export const TrendingContainer = tw.section`
+export const MovieListContainer = tw.section`
 
   w-full
 
@@ -124,7 +124,7 @@ export const TrendingContainer = tw.section`
 
 `
 
-export const TrendingContent = tw.div`
+export const MovieListContent = tw.div`
 
   z-30
 
@@ -133,6 +133,20 @@ export const TrendingContent = tw.div`
   max-w-screen-2xl
 
   text-primary
+
+`
+
+export const MovieListTitle = tw.h2`
+
+  mx-4
+
+  mb-4
+
+  font-semibold
+
+  ~text-lg/2xl
+
+  2xl:mx-0
 
 `
 
@@ -149,19 +163,5 @@ export const TrendingList = tw.div`
   ~gap-2/4
 
   ~p-2/4
-
-`
-
-export const TrendingTitle = tw.h2`
-
-  mx-4
-
-  mb-4
-
-  font-semibold
-
-  ~text-lg/2xl
-
-  2xl:mx-0
 
 `

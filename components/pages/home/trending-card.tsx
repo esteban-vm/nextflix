@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { FullImage } from '@/components/pages/common'
 import { TrendingCardUI } from '@/components/pages/home/styled'
+import { rankingPlaceholder } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 const ReactPlayer = dynamic(() => import('react-player'), {
@@ -14,9 +15,6 @@ const ReactPlayer = dynamic(() => import('react-player'), {
     return null
   },
 })
-
-const rankingPlaceholder =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAACaCAQAAACUawf0AAAAfElEQVR42u3OMQEAAAgDoK1/GxMaQw9IQDN5rYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCdxYTjmuvxCQergAAAABJRU5ErkJggg=='
 
 export function TrendingCard({ movie }: TrendingCardProps) {
   const [isShowingInfo, setIsShowingInfo] = useState(false)
@@ -73,4 +71,6 @@ export function TrendingCard({ movie }: TrendingCardProps) {
   )
 }
 
-export type TrendingCardProps = Props.WithPlaceholder<'movie', Models.TrendingMovie>
+export interface TrendingCardProps {
+  movie: Models.TrendingMovie
+}

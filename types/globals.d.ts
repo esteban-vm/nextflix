@@ -1,14 +1,13 @@
 import type { LoginSchema, ProfileSchema, RegisterSchema } from '@/lib/validations'
-import type { User as UserDB, Movie as MovieDB, Profile as ProfileDB } from 'prisma/prisma-client'
+import type { User as PrismaUser, Movie as PrismaMovie, Profile as PrismaProfile } from 'prisma/prisma-client'
 import type { PropsWithChildren } from 'react'
 import type { z } from 'zod'
 
 declare global {
   namespace Utils {
     type Nullable<T> = T | null
-    type PropName = 'movie' | 'profile'
 
-    type WithPlaceholder<T> = T & {
+    type WithPlaceholder<T extends Models.MovieOrProfileDB> = T & {
       placeholder: string
     }
   }
@@ -19,7 +18,19 @@ declare global {
     }
 
     type WithChildren<T = unknown> = Required<PropsWithChildren<T>>
-    type WithPlaceholder<T extends Utils.PropName, U extends Models.WithImage> = Record<T, Utils.WithPlaceholder<U>>
+  }
+
+  namespace Models {
+    type User = Omit<PrismaUser, 'password'>
+
+    type MovieDB = PrismaMovie
+    type ProfileDB = PrismaProfile
+    type MovieOrProfileDB = MovieDB | ProfileDB
+
+    type Movie = Utils.WithPlaceholder<MovieDB>
+    type Profile = Utils.WithPlaceholder<ProfileDB>
+    type PlayingMovie = Omit<Movie, 'type' | 'rankingUrl'>
+    type TrendingMovie = Omit<Movie, 'type'>
   }
 
   namespace Validations {
@@ -27,17 +38,6 @@ declare global {
     type Register = z.infer<typeof RegisterSchema>
     type Profile = z.infer<typeof ProfileSchema>
     type Forms = Login | Register | Profile
-  }
-
-  namespace Models {
-    type User = Omit<UserDB, 'password'>
-    type Profile = ProfileDB
-
-    type Movie = MovieDB
-    type PlayingMovie = Omit<MovieDB, 'type' | 'rankingUrl'>
-    type TrendingMovie = Omit<MovieDB, 'type'>
-
-    type WithImage = PlayingMovie | TrendingMovie | Profile
   }
 }
 

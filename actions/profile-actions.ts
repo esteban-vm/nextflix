@@ -11,7 +11,7 @@ import { ProfileSchema, WithID } from '@/lib/validations'
 
 export const createOne = authClient
   .schema(ProfileSchema)
-  .action(async ({ parsedInput: { name, avatarUrl }, ctx: { userId } }): Promise<Models.Profile> => {
+  .action(async ({ parsedInput: { name, avatarUrl }, ctx: { userId } }) => {
     const userProfiles = await db.profile.count({ where: { userId } })
 
     if (userProfiles === 4) {
@@ -24,23 +24,23 @@ export const createOne = authClient
       returnValidationErrors(ProfileSchema, { _errors: ['Ya existe un perfil con el nombre ingresado'] })
     }
 
-    const createdProfile = await db.profile.create({ data: { userId, name, avatarUrl } })
+    await db.profile.create({ data: { userId, name, avatarUrl } })
     refreshProfilesPage()
-    return createdProfile
   })
 
-export const deleteOne = authClient
-  .schema(WithID)
-  .action(async ({ parsedInput: { id }, ctx: { userId } }): Promise<Models.Profile> => {
-    const deletedProfile = await db.profile.delete({ where: { id, userId } })
-    refreshProfilesPage()
-    return deletedProfile
-  })
+export const deleteOne = authClient.schema(WithID).action(async ({ parsedInput: { id }, ctx: { userId } }) => {
+  await db.profile.delete({ where: { id, userId } })
+  refreshProfilesPage()
+})
 
 export const findAll = authClient.action(
-  cache(async ({ ctx: { userId } }): Promise<Utils.WithPlaceholder<Models.Profile>[]> => {
-    const results = await db.profile.findMany({ where: { userId }, orderBy: { name: 'asc' } })
-    const profiles = await toListWithPlaceholders(results)
+  cache(async ({ ctx: { userId } }): Promise<Models.Profile[]> => {
+    const results: Models.ProfileDB[] = await db.profile.findMany({
+      where: { userId },
+      orderBy: { name: 'asc' },
+    })
+
+    const profiles: Models.Profile[] = await toListWithPlaceholders(results)
     return profiles
   })
 )
