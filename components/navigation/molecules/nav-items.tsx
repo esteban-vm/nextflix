@@ -16,7 +16,9 @@ export function ImageItem({ profile }: ImageItemProps) {
   )
 }
 
-export type ImageItemProps = Props.WithPlaceholder<'profile', Models.Profile>
+export interface ImageItemProps {
+  profile: Models.Profile
+}
 
 export function InfoItem() {
   const { session } = useCurrentSession()
