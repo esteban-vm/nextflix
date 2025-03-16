@@ -36,16 +36,22 @@ export default async function HomePage() {
         </HomeUI.CTAContainer>
         <HomeUI.BackgroundGradient />
       </HomeUI.HeroContainer>
-      <HomeUI.TrendingContainer>
-        <HomeUI.TrendingContent>
-          <HomeUI.TrendingTitle>Las series más populares hoy en tu país:</HomeUI.TrendingTitle>
+      <HomeUI.MovieListContainer>
+        <HomeUI.MovieListContent>
+          <HomeUI.MovieListTitle>Las series más populares hoy en tu país:</HomeUI.MovieListTitle>
           <HomeUI.TrendingList>
             {trendingMovies.map((movie) => (
               <HomeUI.TrendingCard key={movie.id} movie={movie} />
             ))}
           </HomeUI.TrendingList>
-        </HomeUI.TrendingContent>
-      </HomeUI.TrendingContainer>
+        </HomeUI.MovieListContent>
+      </HomeUI.MovieListContainer>
+      <HomeUI.MovieListContainer>
+        <HomeUI.MovieListContent>
+          <HomeUI.MovieListTitle>Películas más recientes:</HomeUI.MovieListTitle>
+          <HomeUI.MovieCarousel movies={playingMovies} />
+        </HomeUI.MovieListContent>
+      </HomeUI.MovieListContainer>
     </>
   )
 }
