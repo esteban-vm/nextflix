@@ -38,9 +38,13 @@ export const deleteOne = authClient
   })
 
 export const findAll = authClient.action(
-  cache(async ({ ctx: { userId } }): Promise<Utils.WithPlaceholder<Models.Profile>[]> => {
-    const results = await db.profile.findMany({ where: { userId }, orderBy: { name: 'asc' } })
-    const profiles = await toListWithPlaceholders(results)
+  cache(async ({ ctx: { userId } }): Promise<Models.Profile[]> => {
+    const results: Models.ProfileDB[] = await db.profile.findMany({
+      where: { userId },
+      orderBy: { name: 'asc' },
+    })
+
+    const profiles: Models.Profile[] = await toListWithPlaceholders(results)
     return profiles
   })
 )
