@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { FullImage } from '@/components/pages/common'
 import { TrendingCardUI } from '@/components/pages/home/styled'
+import { rankingPlaceholder } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 const ReactPlayer = dynamic(() => import('react-player'), {
