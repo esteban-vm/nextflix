@@ -165,17 +165,3 @@ export const TrendingList = tw.div`
   ~p-2/4
 
 `
-
-export const TrendingTitle = tw.h2`
-
-  mx-4
-
-  mb-4
-
-  font-semibold
-
-  ~text-lg/2xl
-
-  2xl:mx-0
-
-`
