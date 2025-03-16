@@ -7,8 +7,11 @@ import { verifySession } from '@/lib/auth'
 export default async function HomePage() {
   await verifySession()
 
-  const trendingMovieResults = await MovieActions.findTrending()
-  const trendingMovies = trendingMovieResults?.data ?? []
+  const trendingResults = await MovieActions.findTrending()
+  const trendingMovies = trendingResults?.data ?? []
+
+  const playingResults = await MovieActions.findPlaying()
+  const playingMovies = playingResults?.data ?? []
 
   return (
     <>
