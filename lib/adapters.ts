@@ -19,10 +19,10 @@ export async function toListWithPlaceholders<T extends Models.MovieOrProfileDB[]
 
 export function toPlayingMovie(movie: Models.Movie): Models.PlayingMovie {
   const { type: _, rankingUrl: __, ...playingMovie } = movie
-  return playingMovie as Models.PlayingMovie
+  return playingMovie satisfies Models.PlayingMovie
 }
 
 export function toTrendingMovie(movie: Models.Movie): Models.TrendingMovie {
   const { type: _, ...trendingMovie } = movie
-  return trendingMovie as Models.TrendingMovie
+  return trendingMovie satisfies Models.TrendingMovie
 }
