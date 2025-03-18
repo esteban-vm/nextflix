@@ -52,7 +52,7 @@ export default async function HomePage() {
       <HomeUI.MovieListContainer>
         <HomeUI.MovieListContent>
           <HomeUI.MovieListTitle>Películas más recientes:</HomeUI.MovieListTitle>
-          <HomeUI.MovieCarousel movies={playingMovies} />
+          <HomeUI.MovieCarousel isMyList={Math.random() < 0.5} movies={playingMovies} />
         </HomeUI.MovieListContent>
       </HomeUI.MovieListContainer>
     </>

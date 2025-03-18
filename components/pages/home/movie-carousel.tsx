@@ -1,42 +1,50 @@
-import { FullImage } from '@/components/pages/common'
-import {
-  Card,
-  CardContent,
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui'
+'use client'
 
-export function MovieCarousel({ movies }: MovieCarouselProps) {
+import { FullImage } from '@/components/pages/common'
+import { MovieCarouselUI } from '@/components/pages/home'
+import { CarouselNext, CarouselPrevious } from '@/components/ui'
+
+export function MovieCarousel({ isMyList, movies }: MovieCarouselProps) {
   return (
-    <Carousel className='mx-auto w-[95%]' opts={{ loop: true }}>
-      <CarouselContent className='py-4 active:cursor-grabbing'>
+    <MovieCarouselUI.StyledCarousel opts={{ loop: true }}>
+      <MovieCarouselUI.StyledCarouselContent>
         {movies.map((movie) => {
           const { id, title, placeholder, posterUrl } = movie
           return (
-            <CarouselItem key={id} className='md:basis-1/3 lg:basis-1/5'>
-              <Card className='mx-auto aspect-video w-full max-w-64 cursor-pointer overflow-hidden border-2 border-secondary-foreground/50 transition-transform hover:scale-105'>
-                <CardContent className='relative size-full'>
+            <MovieCarouselUI.StyledCarouselItem key={id}>
+              <MovieCarouselUI.StyledCard>
+                <MovieCarouselUI.StyledCardContent>
                   <FullImage
                     alt={`Imagen de "${title}"`}
                     blurDataURL={placeholder}
                     className='rounded-md contrast-125'
                     src={posterUrl}
                   />
-                </CardContent>
-              </Card>
-            </CarouselItem>
+                  <MovieCarouselUI.ButtonGroup>
+                    <MovieCarouselUI.StyledButton size='icon' title='Reproducir' variant='ghost'>
+                      <MovieCarouselUI.IconPlay />
+                    </MovieCarouselUI.StyledButton>
+                    <MovieCarouselUI.StyledButton
+                      size='icon'
+                      title={isMyList ? 'Eliminar de mi lista' : 'Agregar a mi lista'}
+                      variant='ghost'
+                    >
+                      {isMyList ? <MovieCarouselUI.IconDelete /> : <MovieCarouselUI.IconAdd />}
+                    </MovieCarouselUI.StyledButton>
+                  </MovieCarouselUI.ButtonGroup>
+                </MovieCarouselUI.StyledCardContent>
+              </MovieCarouselUI.StyledCard>
+            </MovieCarouselUI.StyledCarouselItem>
           )
         })}
-      </CarouselContent>
+      </MovieCarouselUI.StyledCarouselContent>
       <CarouselPrevious />
       <CarouselNext />
-    </Carousel>
+    </MovieCarouselUI.StyledCarousel>
   )
 }
 
 export interface MovieCarouselProps {
+  isMyList: boolean
   movies: Models.PlayingMovie[]
 }
