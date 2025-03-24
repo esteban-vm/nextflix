@@ -18,7 +18,7 @@ export default function RootLayout({ children }: Props.WithChildren) {
     <html lang='en'>
       <body
         className={cn(
-          'dark relative h-screen min-h-[28rem] w-full antialiased',
+          'dark relative h-screen min-h-[28rem] w-full antialiased bg-background',
           geistSans.variable,
           geistMono.variable
         )}

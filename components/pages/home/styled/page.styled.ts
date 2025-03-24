@@ -116,6 +116,8 @@ export const HeroTitle = tw.h1`
 
 export const MovieListContainer = tw.section`
 
+  m-0
+
   w-full
 
   bg-background

@@ -6,10 +6,11 @@ import { CarouselNext, CarouselPrevious } from '@/components/ui'
 
 export function MovieCarousel({ isMyList, movies }: MovieCarouselProps) {
   return (
-    <MovieCarouselUI.StyledCarousel opts={{ loop: true }}>
+    <MovieCarouselUI.StyledCarousel>
       <MovieCarouselUI.StyledCarouselContent>
         {movies.map((movie) => {
           const { id, title, placeholder, posterUrl } = movie
+
           return (
             <MovieCarouselUI.StyledCarouselItem key={id}>
               <MovieCarouselUI.StyledCard>
@@ -38,8 +39,8 @@ export function MovieCarousel({ isMyList, movies }: MovieCarouselProps) {
           )
         })}
       </MovieCarouselUI.StyledCarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious className='hidden lg:flex' />
+      <CarouselNext className='hidden lg:flex' />
     </MovieCarouselUI.StyledCarousel>
   )
 }

@@ -10,8 +10,6 @@ export const ButtonGroup = tw.div`
 
   top-full
 
-  hidden
-
   -translate-y-full
 
   items-center
@@ -24,11 +22,15 @@ export const ButtonGroup = tw.div`
 
   py-1
 
-  animate-in
+  pointer-coarse:flex
 
-  slide-in-from-bottom
+  pointer-fine:hidden
 
-  group-hover:flex
+  pointer-fine:animate-in
+
+  pointer-fine:slide-in-from-bottom
+
+  pointer-fine:group-hover:flex
 
 `
 
@@ -60,7 +62,7 @@ export const StyledButton = tw(Button)`
 
   rounded-full
 
-  ~size-7/9
+  ~size-8/9
 
 `
 
@@ -72,7 +74,7 @@ export const StyledCard = tw(Card)`
 
   w-full
 
-  max-w-64
+  max-w-sm
 
   overflow-hidden
 
@@ -82,7 +84,7 @@ export const StyledCard = tw(Card)`
 
   transition-transform
 
-  hover:scale-105
+  pointer-fine:hover:scale-105
 
 `
 
@@ -106,7 +108,7 @@ export const StyledCarousel = tw(Carousel)`
 
 export const StyledCarouselContent = tw(CarouselContent)`
 
-  py-4
+  p-4
 
   active:cursor-grabbing
 
