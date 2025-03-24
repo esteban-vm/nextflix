@@ -38,11 +38,6 @@
     scrollbar-width: none;
   }
 
-  html,
-  body {
-    @apply h-full bg-background;
-  }
-
   button,
   a,
   img {

@@ -26,6 +26,8 @@ export const FlexContainer = tw.div<FlexContainerProps>`
 
   items-center
 
+  gap-1
+
 `
 
 export interface FlexContainerProps {
@@ -36,7 +38,7 @@ export const IconDown = tw(LuChevronDownCircle)`
 
   !size-full
 
-  stroke-secondary-foreground/50
+  stroke-primary/75
 
 `
 
@@ -44,7 +46,7 @@ export const IconPlay = tw(LuPlayCircle)`
 
   !size-full
 
-  stroke-rose-800
+  stroke-rose-500
 
 `
 
@@ -52,7 +54,7 @@ export const IconUp = tw(LuChevronUpCircle)`
 
   !size-full
 
-  stroke-secondary-foreground/50
+  stroke-primary/75
 
 `
 
