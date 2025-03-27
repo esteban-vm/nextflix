@@ -8,10 +8,10 @@ export default async function HomePage() {
   await verifySession()
 
   const trendingResults = await MovieActions.findTrending()
-  const trendingMovies = trendingResults?.data ?? []
+  const trendingMovies = trendingResults?.data
 
   const playingResults = await MovieActions.findPlaying()
-  const playingMovies = playingResults?.data ?? []
+  const playingMovies = playingResults?.data
 
   return (
     <>
@@ -43,9 +43,7 @@ export default async function HomePage() {
         <HomeUI.MovieListContent>
           <HomeUI.MovieListTitle>Las series más populares hoy en tu país:</HomeUI.MovieListTitle>
           <HomeUI.TrendingList>
-            {trendingMovies.map((movie) => (
-              <HomeUI.TrendingCard key={movie.id} movie={movie} />
-            ))}
+            {trendingMovies?.map((movie) => <HomeUI.TrendingCard key={movie.id} movie={movie} />)}
           </HomeUI.TrendingList>
         </HomeUI.MovieListContent>
       </HomeUI.MovieListContainer>
