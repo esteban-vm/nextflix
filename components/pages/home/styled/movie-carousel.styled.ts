@@ -50,11 +50,9 @@ export const MovieInfo = tw.div`
 
   gap-2
 
-  bg-background/80
+  bg-primary-foreground
 
-  px-2
-
-  py-1
+  pt-1
 
   pointer-coarse:flex
 
@@ -100,9 +98,9 @@ export const StyledCard = tw(Card)`
 
   overflow-hidden
 
-  border-2
+  border-4
 
-  border-secondary-foreground/50
+  border-primary-foreground
 
 `
 
