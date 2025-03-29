@@ -8,50 +8,77 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(cuid())
-  email     String    @unique
+  id        String          @id @default(cuid())
+  createdAt DateTime        @default(now()) @map("created_at")
+  updatedAt DateTime        @updatedAt @map("updated_at")
+  email     String          @unique
   password  String
   profiles  Profile[]
-  role      Role      @default(standard)
+  favorites FavoriteMovie[]
+  role      Role            @default(standard)
   gender    Gender?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+
+  @@map("users")
 }
 
 enum Role {
-  standard
   admin
+  standard
+
+  @@map("user_role")
 }
 
 enum Gender {
   male
   female
+
+  @@map("user_gender")
 }
 
 model Profile {
   id        String   @id @default(cuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
   name      String
-  avatarUrl String
-  userId    String
+  avatarUrl String   @map("avatar_url")
+  userId    String   @map("user_id")
   user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
+
+  @@map("profiles")
 }
 
 model Movie {
-  id         String    @id @default(cuid())
-  createdAt  DateTime  @default(now())
+  id         String          @id @default(cuid())
+  createdAt  DateTime        @default(now()) @map("created_at")
+  updatedAt  DateTime        @updatedAt @map("updated_at")
   title      String
   duration   String
   age        Int
   genres     String[]
   type       MovieType // discriminator
-  posterUrl  String
-  trailerUrl String
-  videoUrl   String
-  rankingUrl String? // trending-only
+  favorites  FavoriteMovie[]
+  posterUrl  String          @map("poster_url")
+  trailerUrl String          @map("trailer_url")
+  videoUrl   String          @map("video_url")
+  rankingUrl String?         @map("ranking_url") // trending-only
+
+  @@map("movies")
 }
 
 enum MovieType {
-  trending
-  playing
+  trending @map("trending_movie")
+  playing  @map("playing_movie")
+
+  @@map("movie_type")
+}
+
+model FavoriteMovie {
+  assignedAt DateTime @default(now()) @map("assigned_at")
+  userId     String   @map("user_id")
+  user       User     @relation(fields: [userId], references: [id])
+  movieId    String   @map("movie_id")
+  movie      Movie    @relation(fields: [movieId], references: [id])
+
+  @@id([userId, movieId])
+  @@map("favorites_movies")
 }

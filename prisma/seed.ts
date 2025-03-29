@@ -2,8 +2,8 @@ import type { Prisma } from '@prisma/client'
 import { playing, trending } from '@/data.json'
 import { db } from '@/lib/db'
 
-const playingMovies = <Prisma.MovieCreateInput[]>playing
-const trendingMovies = <Prisma.MovieCreateInput[]>trending
+const playingMovies = <Prisma.MovieCreateManyInput[]>playing
+const trendingMovies = <Prisma.MovieCreateManyInput[]>trending
 
 void (async () => {
   try {
