@@ -7,6 +7,10 @@ import { verifySession } from '@/lib/auth'
 export default async function HomePage() {
   await verifySession()
 
+  const favoriteResults = await MovieActions.findFavorites()
+  const favoriteMovies = favoriteResults?.data
+  console.log('favoriteMovies', favoriteMovies)
+
   const trendingResults = await MovieActions.findTrending()
   const trendingMovies = trendingResults?.data
 

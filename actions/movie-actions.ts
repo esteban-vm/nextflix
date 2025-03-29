@@ -5,10 +5,21 @@ import { toListWithPlaceholders, toPlayingMovie, toTrendingMovie } from '@/lib/a
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
 
+export const findFavorites = authClient.action(
+  cache(async ({ ctx: { userId } }) => {
+    const results = await db.favoriteMovie.findMany({
+      where: { userId },
+      include: { movie: true },
+    })
+
+    return results
+  })
+)
+
 export const findPlaying = authClient.action(
   cache(async (): Promise<Models.PlayingMovie[]> => {
     const results: Models.MovieDB[] = await db.movie.findMany({
-      where: { type: 'playing' },
+      where: { type: 'playing', rankingUrl: { equals: null } },
       orderBy: { title: 'asc' },
     })
 
@@ -21,7 +32,7 @@ export const findPlaying = authClient.action(
 export const findTrending = authClient.action(
   cache(async (): Promise<Models.TrendingMovie[]> => {
     const results: Models.MovieDB[] = await db.movie.findMany({
-      where: { type: 'trending' },
+      where: { type: 'trending', rankingUrl: { not: null } },
       orderBy: { rankingUrl: 'asc' },
     })
 
