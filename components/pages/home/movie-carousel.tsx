@@ -33,9 +33,7 @@ export function MovieCarousel({ isMyList, movies = [] }: MovieCarouselProps) {
   return (
     <Carousel opts={{ loop: true }} plugins={[autoplay.current]} setApi={setApi}>
       <MovieCarouselUI.StyledCarouselContent>
-        {movies.map((movie) => {
-          const { id, title, placeholder, posterUrl } = movie
-
+        {movies.map(({ id, title, placeholder, posterUrl }) => {
           return (
             <MovieCarouselUI.StyledCarouselItem key={id}>
               <MovieCarouselUI.StyledCard>

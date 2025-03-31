@@ -42,26 +42,26 @@ export default async function HomePage() {
         </HomeUI.CTAContainer>
         <HomeUI.BackgroundGradient />
       </HomeUI.HeroContainer>
-      <HomeUI.MovieListContainer>
-        <HomeUI.MovieListContent>
-          <HomeUI.MovieListTitle>Las series más populares hoy en tu país:</HomeUI.MovieListTitle>
+      <HomeUI.SectionContainer>
+        <HomeUI.SectionContent>
+          <HomeUI.SectionTitle>Las series más populares hoy en tu país:</HomeUI.SectionTitle>
           <HomeUI.TrendingList>
             {trendingMovies?.map((movie) => <HomeUI.TrendingCard key={movie.id} movie={movie} />)}
           </HomeUI.TrendingList>
-        </HomeUI.MovieListContent>
-      </HomeUI.MovieListContainer>
-      <HomeUI.MovieListContainer>
-        <HomeUI.MovieListContent>
-          <HomeUI.MovieListTitle>Películas más recientes:</HomeUI.MovieListTitle>
+        </HomeUI.SectionContent>
+      </HomeUI.SectionContainer>
+      <HomeUI.SectionContainer>
+        <HomeUI.SectionContent>
+          <HomeUI.SectionTitle>Películas más recientes:</HomeUI.SectionTitle>
           <HomeUI.MovieCarousel movies={playingMovies} />
-        </HomeUI.MovieListContent>
-      </HomeUI.MovieListContainer>
-      <HomeUI.MovieListContainer>
-        <HomeUI.MovieListContent>
-          <HomeUI.MovieListTitle>Tus películas favoritas:</HomeUI.MovieListTitle>
+        </HomeUI.SectionContent>
+      </HomeUI.SectionContainer>
+      <HomeUI.SectionContainer>
+        <HomeUI.SectionContent>
+          <HomeUI.SectionTitle>Tus películas favoritas:</HomeUI.SectionTitle>
           <HomeUI.MovieCarousel movies={favoriteMovies} isMyList />
-        </HomeUI.MovieListContent>
-      </HomeUI.MovieListContainer>
+        </HomeUI.SectionContent>
+      </HomeUI.SectionContainer>
     </>
   )
 }

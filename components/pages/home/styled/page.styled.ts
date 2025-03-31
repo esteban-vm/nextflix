@@ -114,7 +114,7 @@ export const HeroTitle = tw.h1`
 
 `
 
-export const MovieListContainer = tw.section`
+export const SectionContainer = tw.section`
 
   m-0
 
@@ -126,7 +126,7 @@ export const MovieListContainer = tw.section`
 
 `
 
-export const MovieListContent = tw.div`
+export const SectionContent = tw.div`
 
   z-30
 
@@ -138,7 +138,7 @@ export const MovieListContent = tw.div`
 
 `
 
-export const MovieListTitle = tw.h2`
+export const SectionTitle = tw.h2`
 
   mx-4
 
