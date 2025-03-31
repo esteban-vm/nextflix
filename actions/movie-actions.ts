@@ -6,13 +6,16 @@ import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
 
 export const findFavorites = authClient.action(
-  cache(async ({ ctx: { userId } }) => {
-    const results = await db.favoriteMovie.findMany({
-      where: { userId },
-      include: { movie: true },
+  cache(async ({ ctx: { userId } }): Promise<Models.PlayingMovie[]> => {
+    const results: { movie: Models.MovieDB }[] = await db.favoriteMovie.findMany({
+      where: { userId, movie: { type: 'playing', rankingUrl: { equals: null } } },
+      orderBy: { movie: { title: 'asc' } },
+      select: { movie: true },
     })
 
-    return results
+    const movies: Models.Movie[] = await toListWithPlaceholders(results.map(({ movie }) => movie))
+    const favoriteMovies: Models.PlayingMovie[] = movies.map(toPlayingMovie)
+    return favoriteMovies
   })
 )
 
