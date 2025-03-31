@@ -7,15 +7,14 @@ import { verifySession } from '@/lib/auth'
 export default async function HomePage() {
   await verifySession()
 
-  const favoriteResults = await MovieActions.findFavorites()
-  const favoriteMovies = favoriteResults?.data
-  console.log('favoriteMovies', favoriteMovies)
-
   const trendingResults = await MovieActions.findTrending()
   const trendingMovies = trendingResults?.data
 
   const playingResults = await MovieActions.findPlaying()
   const playingMovies = playingResults?.data
+
+  const favoriteResults = await MovieActions.findFavorites()
+  const favoriteMovies = favoriteResults?.data
 
   return (
     <>
@@ -54,7 +53,13 @@ export default async function HomePage() {
       <HomeUI.MovieListContainer>
         <HomeUI.MovieListContent>
           <HomeUI.MovieListTitle>Películas más recientes:</HomeUI.MovieListTitle>
-          <HomeUI.MovieCarousel isMyList={Math.random() < 0.5} movies={playingMovies} />
+          <HomeUI.MovieCarousel movies={playingMovies} />
+        </HomeUI.MovieListContent>
+      </HomeUI.MovieListContainer>
+      <HomeUI.MovieListContainer>
+        <HomeUI.MovieListContent>
+          <HomeUI.MovieListTitle>Tus películas favoritas:</HomeUI.MovieListTitle>
+          <HomeUI.MovieCarousel movies={favoriteMovies} isMyList />
         </HomeUI.MovieListContent>
       </HomeUI.MovieListContainer>
     </>

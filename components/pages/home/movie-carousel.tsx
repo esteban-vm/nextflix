@@ -1,29 +1,37 @@
 'use client'
 
+import type { CarouselApi } from '@/components/ui'
 import Autoplay from 'embla-carousel-autoplay'
-import { useRef } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { FullImage } from '@/components/pages/common'
 import { MovieCarouselUI } from '@/components/pages/home'
 import { Carousel, CarouselNext, CarouselPrevious } from '@/components/ui'
 
 export function MovieCarousel({ isMyList, movies = [] }: MovieCarouselProps) {
-  const autoplay = useRef(Autoplay({ delay: 5_000 }))
+  const [api, setApi] = useState<CarouselApi>()
 
-  const playCarousel = () => {
-    autoplay.current.play()
-  }
+  const autoplay = useRef(
+    Autoplay({
+      delay: 5_000,
+      stopOnMouseEnter: true,
+      stopOnInteraction: false,
+    })
+  )
 
-  const stopCarousel = () => {
-    autoplay.current.stop()
-  }
+  const scrollNext = useCallback(() => {
+    if (!api) return
+    api.scrollNext()
+    autoplay.current.reset()
+  }, [api])
+
+  const scrollPrev = useCallback(() => {
+    if (!api) return
+    api.scrollPrev()
+    autoplay.current.reset()
+  }, [api])
 
   return (
-    <Carousel
-      opts={{ loop: true }}
-      plugins={[autoplay.current]}
-      onPointerEnter={stopCarousel}
-      onPointerLeave={playCarousel}
-    >
+    <Carousel opts={{ loop: true }} plugins={[autoplay.current]} setApi={setApi}>
       <MovieCarouselUI.StyledCarouselContent>
         {movies.map((movie) => {
           const { id, title, placeholder, posterUrl } = movie
@@ -38,7 +46,6 @@ export function MovieCarousel({ isMyList, movies = [] }: MovieCarouselProps) {
                     className='rounded-md contrast-125'
                     src={posterUrl}
                   />
-
                   <MovieCarouselUI.MovieInfo>
                     <MovieCarouselUI.ButtonGroup>
                       <MovieCarouselUI.StyledButton size='icon' title='Reproducir' variant='ghost'>
@@ -60,13 +67,13 @@ export function MovieCarousel({ isMyList, movies = [] }: MovieCarouselProps) {
           )
         })}
       </MovieCarouselUI.StyledCarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      <CarouselPrevious onClick={scrollPrev} />
+      <CarouselNext onClick={scrollNext} />
     </Carousel>
   )
 }
 
 export interface MovieCarouselProps {
-  isMyList: boolean
+  isMyList?: boolean
   movies?: Models.PlayingMovie[]
 }
