@@ -1,10 +1,11 @@
 import type { AvatarUrl } from '@/lib/constants'
+import type { Prisma } from '@prisma/client'
 import { hashSync } from 'bcryptjs'
 import { db } from '@/lib/db'
 import { movies, users } from '@/prisma/data'
 
 async function cleanDataBase() {
-  const args = <const>{ email: { not: { contains: 'test' } } }
+  const args: Prisma.UserWhereInput = { email: { not: { equals: 'test@email.com' } } }
 
   await db.favoriteMovie.deleteMany({ where: { user: args } })
   await db.movie.deleteMany({ where: { favorites: { every: { user: args } } } })
