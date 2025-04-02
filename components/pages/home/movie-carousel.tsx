@@ -10,7 +10,7 @@ import { MovieCarouselUI } from '@/components/pages/home'
 import { Carousel, CarouselNext, CarouselPrevious } from '@/components/ui'
 import { toast } from '@/hooks'
 
-export function MovieCarousel({ isFavorite, movies = [] }: MovieCarouselProps) {
+export function MovieCarousel({ isFavorite, movies }: MovieCarouselProps) {
   const [api, setApi] = useState<CarouselApi>()
 
   const autoplay = useRef(
@@ -117,5 +117,5 @@ export function MovieCarousel({ isFavorite, movies = [] }: MovieCarouselProps) {
 
 export interface MovieCarouselProps {
   isFavorite?: boolean
-  movies?: Models.PlayingMovie[]
+  movies: Models.PlayingMovie[]
 }
