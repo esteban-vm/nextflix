@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useHookFormOptimisticAction } from '@next-safe-action/adapter-react-hook-form/hooks'
+import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { LuCheck } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FormButton, FormInput, FormRadioButton, FormRadioGroup, FormWrapper } from '@/components/pages/common'
@@ -9,18 +9,18 @@ import { toast, useProfileStore } from '@/hooks'
 import { avatarUrls } from '@/lib/constants'
 import { ProfileSchema } from '@/lib/validations'
 
-export function ProfileForm({ remaining, profiles }: ProfileFormProps) {
+export function ProfileForm({ remaining }: ProfileFormProps) {
   const { start, end, toggle, isAdding } = useProfileStore()
 
-  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormOptimisticAction(
+  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     ProfileActions.createOne,
     zodResolver(ProfileSchema),
     {
       actionProps: {
-        currentState: { profiles } as ProfileFormState,
-        updateFn(state, input) {
-          return { profiles: [...state.profiles, input] }
-        },
+        // currentState: { profiles } as ProfileFormState,
+        // updateFn(state, input) {
+        //   return { profiles: [...state.profiles, input] }
+        // },
         onSuccess() {
           end('isAdding')
           start('isCompleted')
@@ -87,9 +87,4 @@ export function ProfileForm({ remaining, profiles }: ProfileFormProps) {
 
 export interface ProfileFormProps {
   remaining: number
-  profiles: Models.Profile[]
-}
-
-export interface ProfileFormState {
-  profiles: Validations.Profile[]
 }

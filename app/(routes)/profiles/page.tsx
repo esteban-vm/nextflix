@@ -10,8 +10,8 @@ export default async function ProfilesPage() {
 
   const total = profiles.length
   const remaining = 4 - total
-  const displayProfileButton = total > 0
   const displayProfileForm = total < 4
+  const displayProfileButton = total > 0
 
   return (
     <ProfilesUI.PageContainer>
@@ -21,7 +21,7 @@ export default async function ProfilesPage() {
         {profiles.map((profile) => (
           <ProfilesUI.ProfileCard key={profile.id} profile={profile} />
         ))}
-        {displayProfileForm && <ProfilesUI.ProfileForm profiles={profiles} remaining={remaining} />}
+        {displayProfileForm && <ProfilesUI.ProfileForm remaining={remaining} />}
       </ProfilesUI.ProfileList>
       {displayProfileButton && <ProfilesUI.ProfileButton />}
     </ProfilesUI.PageContainer>
