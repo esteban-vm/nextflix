@@ -19,7 +19,7 @@ export default async function HomePage() {
   return (
     <>
       <HomeUI.HeroContainer>
-        <HomeUI.BackgroundVideo src='' autoPlay loop muted />
+        <HomeUI.BackgroundVideo src='/videos/video.mp4' autoPlay loop muted />
         <HomeUI.CTAContainer>
           <HomeUI.CTAContent>
             <HomeUI.HeroTitle>Test</HomeUI.HeroTitle>
