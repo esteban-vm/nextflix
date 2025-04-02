@@ -8,18 +8,18 @@ export default async function HomePage() {
   await verifySession()
 
   const trendingResults = await MovieActions.findTrending()
-  const trendingMovies = trendingResults?.data
+  const trendingMovies = trendingResults?.data ?? []
 
   const playingResults = await MovieActions.findPlaying()
-  const playingMovies = playingResults?.data
+  const playingMovies = playingResults?.data ?? []
 
   const favoriteResults = await MovieActions.findFavorites()
-  const favoriteMovies = favoriteResults?.data
+  const favoriteMovies = favoriteResults?.data ?? []
 
   return (
     <>
       <HomeUI.HeroContainer>
-        <HomeUI.BackgroundVideo src='/videos/video1.mp4' autoPlay loop muted />
+        <HomeUI.BackgroundVideo src='' autoPlay loop muted />
         <HomeUI.CTAContainer>
           <HomeUI.CTAContent>
             <HomeUI.HeroTitle>Test</HomeUI.HeroTitle>
@@ -46,20 +46,30 @@ export default async function HomePage() {
         <HomeUI.SectionContent>
           <HomeUI.SectionTitle>Las series más populares hoy en tu país:</HomeUI.SectionTitle>
           <HomeUI.TrendingList>
-            {trendingMovies?.map((movie) => <HomeUI.TrendingCard key={movie.id} movie={movie} />)}
+            {trendingMovies.map((movie) => (
+              <HomeUI.TrendingCard key={movie.id} movie={movie} />
+            ))}
           </HomeUI.TrendingList>
         </HomeUI.SectionContent>
       </HomeUI.SectionContainer>
       <HomeUI.SectionContainer>
         <HomeUI.SectionContent>
           <HomeUI.SectionTitle>Películas más recientes:</HomeUI.SectionTitle>
-          <HomeUI.MovieCarousel movies={playingMovies} />
+          {playingMovies.length ? (
+            <HomeUI.MovieCarousel movies={playingMovies} />
+          ) : (
+            <HomeUI.MovieAlert>Sin resultados</HomeUI.MovieAlert>
+          )}
         </HomeUI.SectionContent>
       </HomeUI.SectionContainer>
       <HomeUI.SectionContainer>
         <HomeUI.SectionContent>
           <HomeUI.SectionTitle>Tus películas favoritas:</HomeUI.SectionTitle>
-          <HomeUI.MovieCarousel movies={favoriteMovies} isFavorite />
+          {favoriteMovies.length ? (
+            <HomeUI.MovieCarousel movies={favoriteMovies} isFavorite />
+          ) : (
+            <HomeUI.MovieAlert>Aún no tienes películas favoritas</HomeUI.MovieAlert>
+          )}
         </HomeUI.SectionContent>
       </HomeUI.SectionContainer>
     </>
