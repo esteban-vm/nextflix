@@ -1,9 +1,33 @@
 'use server'
 
+import type { Route } from 'next'
+import { revalidatePath } from 'next/cache'
+import { returnValidationErrors } from 'next-safe-action'
 import { cache } from 'react'
 import { toListWithPlaceholders, toPlayingMovie, toTrendingMovie } from '@/lib/adapters'
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
+import { ItemSchemaWithID } from '@/lib/validations'
+
+export const createFavorite = authClient
+  .schema(ItemSchemaWithID)
+  .action(async ({ parsedInput: { id }, ctx: { userId } }) => {
+    const existingFavorite = await db.favoriteMovie.findFirst({ where: { userId, movieId: id } })
+
+    if (existingFavorite) {
+      returnValidationErrors(ItemSchemaWithID, { _errors: ['La película ya está en tus favoritos'] })
+    }
+
+    await db.favoriteMovie.create({ data: { userId, movieId: id } })
+    refreshHomePage()
+  })
+
+export const deleteFavorite = authClient
+  .schema(ItemSchemaWithID)
+  .action(async ({ parsedInput: { id }, ctx: { userId } }) => {
+    await db.favoriteMovie.delete({ where: { userId_movieId: { userId, movieId: id } } })
+    refreshHomePage()
+  })
 
 export const findFavorites = authClient.action(
   cache(async ({ ctx: { userId } }): Promise<Models.PlayingMovie[]> => {
@@ -44,3 +68,8 @@ export const findTrending = authClient.action(
     return trendingMovies
   })
 )
+
+const refreshHomePage = () => {
+  const path: Route = '/'
+  revalidatePath(path, 'page')
+}

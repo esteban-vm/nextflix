@@ -2,12 +2,15 @@
 
 import type { CarouselApi } from '@/components/ui'
 import Autoplay from 'embla-carousel-autoplay'
+import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useRef, useState } from 'react'
+import { MovieActions } from '@/actions'
 import { FullImage } from '@/components/pages/common'
 import { MovieCarouselUI } from '@/components/pages/home'
 import { Carousel, CarouselNext, CarouselPrevious } from '@/components/ui'
+import { toast } from '@/hooks'
 
-export function MovieCarousel({ isMyList, movies = [] }: MovieCarouselProps) {
+export function MovieCarousel({ isFavorite, movies = [] }: MovieCarouselProps) {
   const [api, setApi] = useState<CarouselApi>()
 
   const autoplay = useRef(
@@ -17,6 +20,45 @@ export function MovieCarousel({ isMyList, movies = [] }: MovieCarouselProps) {
       stopOnInteraction: false,
     })
   )
+
+  const {
+    execute: like,
+    reset: resetLike,
+    isPending: isPendingLike,
+  } = useAction(MovieActions.createFavorite, {
+    onSuccess() {
+      toast({ title: 'Película añadida correctamente a tus favoritos' })
+    },
+    onError({ error }) {
+      const title = error.validationErrors?._errors?.[0] ?? error.serverError
+      toast({ title, variant: 'destructive' })
+    },
+    onExecute() {
+      toast({ title: 'Añadiendo película a tus favoritos', description: 'Un momento…' })
+    },
+    onSettled() {
+      resetLike()
+    },
+  })
+
+  const {
+    execute: dislike,
+    reset: resetDislike,
+    isPending: isPendingDislike,
+  } = useAction(MovieActions.deleteFavorite, {
+    onSuccess() {
+      toast({ title: 'Película eliminada correctamente de tus favoritos' })
+    },
+    onError() {
+      toast({ title: 'Error al eliminar favorito', variant: 'destructive' })
+    },
+    onExecute() {
+      toast({ title: 'Eliminando película de tus favoritos', description: 'Un momento…' })
+    },
+    onSettled() {
+      resetDislike()
+    },
+  })
 
   const scrollNext = useCallback(() => {
     if (!api) return
@@ -50,11 +92,13 @@ export function MovieCarousel({ isMyList, movies = [] }: MovieCarouselProps) {
                         <MovieCarouselUI.IconPlay />
                       </MovieCarouselUI.StyledButton>
                       <MovieCarouselUI.StyledButton
+                        disabled={isFavorite ? isPendingDislike : isPendingLike}
                         size='icon'
-                        title={isMyList ? 'Eliminar de mi lista' : 'Agregar a mi lista'}
+                        title={isFavorite ? 'Eliminar de mis favoritos' : 'Agregar a mis favoritos'}
                         variant='ghost'
+                        onClick={isFavorite ? () => dislike({ id }) : () => like({ id })}
                       >
-                        {isMyList ? <MovieCarouselUI.IconDelete /> : <MovieCarouselUI.IconAdd />}
+                        {isFavorite ? <MovieCarouselUI.IconDelete /> : <MovieCarouselUI.IconAdd />}
                       </MovieCarouselUI.StyledButton>
                     </MovieCarouselUI.ButtonGroup>
                     <MovieCarouselUI.MovieTitle>{title}</MovieCarouselUI.MovieTitle>
