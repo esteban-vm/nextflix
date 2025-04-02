@@ -7,7 +7,7 @@ import { cache } from 'react'
 import { toListWithPlaceholders } from '@/lib/adapters'
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
-import { ProfileSchema, WithID } from '@/lib/validations'
+import { ProfileSchema, ItemSchemaWithID } from '@/lib/validations'
 
 export const createOne = authClient
   .schema(ProfileSchema)
@@ -28,10 +28,12 @@ export const createOne = authClient
     refreshProfilesPage()
   })
 
-export const deleteOne = authClient.schema(WithID).action(async ({ parsedInput: { id }, ctx: { userId } }) => {
-  await db.profile.delete({ where: { id, userId } })
-  refreshProfilesPage()
-})
+export const deleteOne = authClient
+  .schema(ItemSchemaWithID)
+  .action(async ({ parsedInput: { id }, ctx: { userId } }) => {
+    await db.profile.delete({ where: { id, userId } })
+    refreshProfilesPage()
+  })
 
 export const findAll = authClient.action(
   cache(async ({ ctx: { userId } }): Promise<Models.Profile[]> => {

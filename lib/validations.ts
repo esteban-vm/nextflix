@@ -26,6 +26,8 @@ const EmailSchema = z.object({
     }),
 })
 
+export const ItemSchemaWithID = z.object({ id: z.string() })
+
 export const LoginSchema = EmailSchema.extend({
   password: z
     .string()
@@ -84,5 +86,3 @@ export const RegisterSchema = EmailSchema.extend({
   path: ['repeatPassword'],
   message: 'Las contraseñas deben coincidir',
 })
-
-export const WithID = z.object({ id: z.string() })

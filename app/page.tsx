@@ -59,7 +59,7 @@ export default async function HomePage() {
       <HomeUI.SectionContainer>
         <HomeUI.SectionContent>
           <HomeUI.SectionTitle>Tus películas favoritas:</HomeUI.SectionTitle>
-          <HomeUI.MovieCarousel movies={favoriteMovies} isMyList />
+          <HomeUI.MovieCarousel movies={favoriteMovies} isFavorite />
         </HomeUI.SectionContent>
       </HomeUI.SectionContainer>
     </>
