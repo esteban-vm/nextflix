@@ -72,6 +72,6 @@ export function MovieCarousel({ isMyList, movies = [] }: MovieCarouselProps) {
 }
 
 export interface MovieCarouselProps {
-  isMyList?: boolean
+  isFavorite?: boolean
   movies?: Models.PlayingMovie[]
 }
