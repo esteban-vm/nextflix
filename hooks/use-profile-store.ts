@@ -55,9 +55,9 @@ export const useProfileStore = create<ProfileStore>()(
         }
       },
       {
-        name: 'Current Profile',
-        partialize: (state) => state.currentProfile,
+        name: 'current-profile-storage',
         storage: createJSONStorage(() => sessionStorage),
+        partialize: (state) => ({ currentProfile: state.currentProfile }),
       }
     )
   )
