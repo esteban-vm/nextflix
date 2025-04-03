@@ -6,11 +6,11 @@ import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useRef, useState } from 'react'
 import { MovieActions } from '@/actions'
 import { FullImage } from '@/components/pages/common'
-import { MovieCarouselUI } from '@/components/pages/home'
-import { Carousel, CarouselNext, CarouselPrevious } from '@/components/ui'
+import { MovieItemUI } from '@/components/pages/home'
+import { Carousel, CarouselContent, CarouselNext, CarouselPrevious } from '@/components/ui'
 import { toast } from '@/hooks'
 
-export function MovieCarousel({ isFavorite, movies }: MovieCarouselProps) {
+export function MovieCarousel({ children }: Props.WithChildren) {
   const [api, setApi] = useState<CarouselApi>()
 
   const autoplay = useRef(
@@ -20,6 +20,30 @@ export function MovieCarousel({ isFavorite, movies }: MovieCarouselProps) {
       stopOnInteraction: false,
     })
   )
+
+  const scrollNext = useCallback(() => {
+    if (!api) return
+    api.scrollNext()
+    autoplay.current.reset()
+  }, [api])
+
+  const scrollPrev = useCallback(() => {
+    if (!api) return
+    api.scrollPrev()
+    autoplay.current.reset()
+  }, [api])
+
+  return (
+    <Carousel opts={{ loop: true }} plugins={[autoplay.current]} setApi={setApi}>
+      <CarouselContent className='-ml-1 active:cursor-grabbing'>{children}</CarouselContent>
+      <CarouselPrevious onClick={scrollPrev} />
+      <CarouselNext onClick={scrollNext} />
+    </Carousel>
+  )
+}
+
+export function MovieItem({ movie, isFavorite }: MovieItemProps) {
+  const { id, title, placeholder, posterUrl } = movie
 
   const {
     execute: like,
@@ -60,62 +84,40 @@ export function MovieCarousel({ isFavorite, movies }: MovieCarouselProps) {
     },
   })
 
-  const scrollNext = useCallback(() => {
-    if (!api) return
-    api.scrollNext()
-    autoplay.current.reset()
-  }, [api])
-
-  const scrollPrev = useCallback(() => {
-    if (!api) return
-    api.scrollPrev()
-    autoplay.current.reset()
-  }, [api])
-
   return (
-    <Carousel opts={{ loop: true }} plugins={[autoplay.current]} setApi={setApi}>
-      <MovieCarouselUI.StyledCarouselContent>
-        {movies.map(({ id, title, placeholder, posterUrl }) => {
-          return (
-            <MovieCarouselUI.StyledCarouselItem key={id}>
-              <MovieCarouselUI.StyledCard>
-                <MovieCarouselUI.StyledCardContent>
-                  <FullImage
-                    alt={`Imagen de "${title}"`}
-                    blurDataURL={placeholder}
-                    className='rounded-md contrast-125'
-                    src={posterUrl}
-                  />
-                  <MovieCarouselUI.MovieInfo>
-                    <MovieCarouselUI.ButtonGroup>
-                      <MovieCarouselUI.StyledButton size='icon' title='Reproducir' variant='ghost'>
-                        <MovieCarouselUI.IconPlay />
-                      </MovieCarouselUI.StyledButton>
-                      <MovieCarouselUI.StyledButton
-                        disabled={isFavorite ? isPendingDislike : isPendingLike}
-                        size='icon'
-                        title={isFavorite ? 'Eliminar de mis favoritos' : 'Agregar a mis favoritos'}
-                        variant='ghost'
-                        onClick={isFavorite ? () => dislike({ id }) : () => like({ id })}
-                      >
-                        {isFavorite ? <MovieCarouselUI.IconDelete /> : <MovieCarouselUI.IconAdd />}
-                      </MovieCarouselUI.StyledButton>
-                    </MovieCarouselUI.ButtonGroup>
-                    <MovieCarouselUI.MovieTitle>{title}</MovieCarouselUI.MovieTitle>
-                  </MovieCarouselUI.MovieInfo>
-                </MovieCarouselUI.StyledCardContent>
-              </MovieCarouselUI.StyledCard>
-            </MovieCarouselUI.StyledCarouselItem>
-          )
-        })}
-      </MovieCarouselUI.StyledCarouselContent>
-      <CarouselPrevious onClick={scrollPrev} />
-      <CarouselNext onClick={scrollNext} />
-    </Carousel>
+    <MovieItemUI.ItemContainer id={id}>
+      <MovieItemUI.ItemCard>
+        <MovieItemUI.ItemContent>
+          <FullImage
+            alt={`Imagen de "${title}"`}
+            blurDataURL={placeholder}
+            className='rounded-md contrast-125'
+            src={posterUrl}
+          />
+          <MovieItemUI.MovieInfo>
+            <MovieItemUI.ButtonGroup>
+              <MovieItemUI.StyledButton size='icon' title='Reproducir' variant='ghost'>
+                <MovieItemUI.IconPlay />
+              </MovieItemUI.StyledButton>
+              <MovieItemUI.StyledButton
+                disabled={isFavorite ? isPendingDislike : isPendingLike}
+                size='icon'
+                title={isFavorite ? 'Eliminar de mis favoritos' : 'Agregar a mis favoritos'}
+                variant='ghost'
+                onClick={isFavorite ? () => dislike({ id }) : () => like({ id })}
+              >
+                {isFavorite ? <MovieItemUI.IconDelete /> : <MovieItemUI.IconAdd />}
+              </MovieItemUI.StyledButton>
+            </MovieItemUI.ButtonGroup>
+            <MovieItemUI.MovieTitle>{title}</MovieItemUI.MovieTitle>
+          </MovieItemUI.MovieInfo>
+        </MovieItemUI.ItemContent>
+      </MovieItemUI.ItemCard>
+    </MovieItemUI.ItemContainer>
   )
 }
 
-export interface MovieCarouselProps {
+export interface MovieItemProps {
   isFavorite?: boolean
-  movies: Models.PlayingMovie[]
+  movie: Models.PlayingMovie
 }

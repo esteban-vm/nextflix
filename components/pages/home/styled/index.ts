@@ -1,3 +1,3 @@
-export * as MovieCarouselUI from './movie-carousel.styled'
+export * as MovieCardUI from './movie-card.styled'
+export * as MovieItemUI from './movie-item.styled'
 export * from './page.styled'
-export * as TrendingCardUI from './trending-card.styled'
