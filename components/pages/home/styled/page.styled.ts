@@ -114,6 +114,22 @@ export const HeroTitle = tw.h1`
 
 `
 
+export const MovieList = tw.div`
+
+  flex
+
+  flex-wrap
+
+  items-center
+
+  justify-around
+
+  ~gap-2/4
+
+  ~p-2/4
+
+`
+
 export const SectionContainer = tw.section`
 
   m-0
@@ -149,21 +165,5 @@ export const SectionTitle = tw.h2`
   ~text-lg/2xl
 
   2xl:mx-0
-
-`
-
-export const TrendingList = tw.div`
-
-  flex
-
-  flex-wrap
-
-  items-center
-
-  justify-around
-
-  ~gap-2/4
-
-  ~p-2/4
 
 `

@@ -1,6 +1,6 @@
 import { LuPlayCircle, LuPlusCircle, LuXCircle } from 'react-icons/lu'
 import tw from 'tailwind-styled-components'
-import { Button, Card, CardContent, CarouselContent, CarouselItem } from '@/components/ui'
+import { Button, Card, CardContent, CarouselItem } from '@/components/ui'
 
 export const ButtonGroup = tw.div`
 
@@ -31,6 +31,42 @@ export const IconPlay = tw(LuPlayCircle)`
   !size-full
 
   stroke-rose-500
+
+`
+
+export const ItemCard = tw(Card)`
+
+  mx-auto
+
+  aspect-video
+
+  max-w-md
+
+  overflow-hidden
+
+  border-4
+
+  border-primary-foreground
+
+`
+
+export const ItemContainer = tw(CarouselItem)`
+
+  pl-1
+
+  md:basis-1/3
+
+  xl:basis-1/5
+
+`
+
+export const ItemContent = tw(CardContent)`
+
+  group
+
+  relative
+
+  size-full
 
 `
 
@@ -85,49 +121,5 @@ export const StyledButton = tw(Button)`
   rounded-full
 
   ~size-8/9
-
-`
-
-export const StyledCard = tw(Card)`
-
-  mx-auto
-
-  aspect-video
-
-  max-w-md
-
-  overflow-hidden
-
-  border-4
-
-  border-primary-foreground
-
-`
-
-export const StyledCardContent = tw(CardContent)`
-
-  group
-
-  relative
-
-  size-full
-
-`
-
-export const StyledCarouselContent = tw(CarouselContent)`
-
-  -ml-1
-
-  active:cursor-grabbing
-
-`
-
-export const StyledCarouselItem = tw(CarouselItem)`
-
-  pl-1
-
-  md:basis-1/3
-
-  xl:basis-1/5
 
 `

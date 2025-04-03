@@ -42,31 +42,42 @@ export default async function HomePage() {
         </HomeUI.CTAContainer>
         <HomeUI.BackgroundGradient />
       </HomeUI.HeroContainer>
+      {/* Trending Section */}
       <HomeUI.SectionContainer>
         <HomeUI.SectionContent>
           <HomeUI.SectionTitle>Las series más populares hoy en tu país:</HomeUI.SectionTitle>
-          <HomeUI.TrendingList>
+          <HomeUI.MovieList>
             {trendingMovies.map((movie) => (
-              <HomeUI.TrendingCard key={movie.id} movie={movie} />
+              <HomeUI.MovieCard key={movie.id} movie={movie} />
             ))}
-          </HomeUI.TrendingList>
+          </HomeUI.MovieList>
         </HomeUI.SectionContent>
       </HomeUI.SectionContainer>
+      {/* Playing Section */}
       <HomeUI.SectionContainer>
         <HomeUI.SectionContent>
           <HomeUI.SectionTitle>Películas más recientes:</HomeUI.SectionTitle>
           {playingMovies.length ? (
-            <HomeUI.MovieCarousel movies={playingMovies} />
+            <HomeUI.MovieCarousel>
+              {playingMovies.map((movie) => (
+                <HomeUI.MovieItem key={movie.id} movie={movie} />
+              ))}
+            </HomeUI.MovieCarousel>
           ) : (
             <HomeUI.MovieAlert>Sin resultados</HomeUI.MovieAlert>
           )}
         </HomeUI.SectionContent>
       </HomeUI.SectionContainer>
+      {/* Favorite Section */}
       <HomeUI.SectionContainer>
         <HomeUI.SectionContent>
           <HomeUI.SectionTitle>Tus películas favoritas:</HomeUI.SectionTitle>
           {favoriteMovies.length ? (
-            <HomeUI.MovieCarousel movies={favoriteMovies} isFavorite />
+            <HomeUI.MovieCarousel>
+              {favoriteMovies.map((movie) => (
+                <HomeUI.MovieItem key={movie.id} movie={movie} isFavorite />
+              ))}
+            </HomeUI.MovieCarousel>
           ) : (
             <HomeUI.MovieAlert>Aún no tienes películas favoritas</HomeUI.MovieAlert>
           )}
