@@ -12,10 +12,15 @@ import { SchemaWithID } from '@/lib/validations'
 export const createOne = authClient
   .schema(SchemaWithID)
   .action(async ({ parsedInput: { id }, ctx: { user } }): Promise<Models.FavoriteMovieDB> => {
-    const existingFavorite = await db.favoriteMovie.findFirst({ where: { userId: user.id, movieId: id } })
+    const existingFavorite = await db.favoriteMovie.findFirst({
+      where: { userId: user.id, movieId: id },
+      select: { movie: { select: { title: true } } },
+    })
 
     if (existingFavorite) {
-      returnValidationErrors(SchemaWithID, { _errors: ['La película ya está en tus favoritos'] })
+      returnValidationErrors(SchemaWithID, {
+        _errors: [`La película "${existingFavorite.movie.title}" ya está en tus favoritos'`],
+      })
     }
 
     const favoriteMovie: Models.FavoriteMovieDB = await db.favoriteMovie.create({
