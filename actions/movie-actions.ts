@@ -7,27 +7,23 @@ import { cache } from 'react'
 import { toListWithPlaceholders, toPlayingMovie, toTrendingMovie } from '@/lib/adapters'
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
-import { ItemSchemaWithID } from '@/lib/validations'
+import { SchemaWithID } from '@/lib/validations'
 
-export const createFavorite = authClient
-  .schema(ItemSchemaWithID)
-  .action(async ({ parsedInput: { id }, ctx: { user } }) => {
-    const existingFavorite = await db.favoriteMovie.findFirst({ where: { userId: user.id, movieId: id } })
+export const createFavorite = authClient.schema(SchemaWithID).action(async ({ parsedInput: { id }, ctx: { user } }) => {
+  const existingFavorite = await db.favoriteMovie.findFirst({ where: { userId: user.id, movieId: id } })
 
-    if (existingFavorite) {
-      returnValidationErrors(ItemSchemaWithID, { _errors: ['La película ya está en tus favoritos'] })
-    }
+  if (existingFavorite) {
+    returnValidationErrors(SchemaWithID, { _errors: ['La película ya está en tus favoritos'] })
+  }
 
-    await db.favoriteMovie.create({ data: { userId: user.id, movieId: id } })
-    refreshHomePage()
-  })
+  await db.favoriteMovie.create({ data: { userId: user.id, movieId: id } })
+  refreshHomePage()
+})
 
-export const deleteFavorite = authClient
-  .schema(ItemSchemaWithID)
-  .action(async ({ parsedInput: { id }, ctx: { user } }) => {
-    await db.favoriteMovie.delete({ where: { userId_movieId: { userId: user.id, movieId: id } } })
-    refreshHomePage()
-  })
+export const deleteFavorite = authClient.schema(SchemaWithID).action(async ({ parsedInput: { id }, ctx: { user } }) => {
+  await db.favoriteMovie.delete({ where: { userId_movieId: { userId: user.id, movieId: id } } })
+  refreshHomePage()
+})
 
 export const findFavorites = authClient.action(
   cache(async ({ ctx: { user } }): Promise<Models.PlayingMovie[]> => {

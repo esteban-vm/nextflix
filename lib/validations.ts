@@ -1,7 +1,7 @@
 import { isEmail, isStrongPassword } from 'validator'
 import { z } from 'zod'
 
-const EmailSchema = z.object({
+export const EmailSchema = z.object({
   email: z
     .string()
     .trim()
@@ -25,8 +25,6 @@ const EmailSchema = z.object({
       }
     }),
 })
-
-export const ItemSchemaWithID = z.object({ id: z.string() })
 
 export const LoginSchema = EmailSchema.extend({
   password: z
@@ -86,3 +84,5 @@ export const RegisterSchema = EmailSchema.extend({
   path: ['repeatPassword'],
   message: 'Las contraseñas deben coincidir',
 })
+
+export const SchemaWithID = z.object({ id: z.string() })

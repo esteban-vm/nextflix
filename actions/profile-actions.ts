@@ -7,7 +7,7 @@ import { cache } from 'react'
 import { toListWithPlaceholders } from '@/lib/adapters'
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
-import { ProfileSchema, ItemSchemaWithID } from '@/lib/validations'
+import { ProfileSchema, SchemaWithID } from '@/lib/validations'
 
 export const createOne = authClient
   .schema(ProfileSchema)
@@ -28,7 +28,7 @@ export const createOne = authClient
     refreshProfilesPage()
   })
 
-export const deleteOne = authClient.schema(ItemSchemaWithID).action(async ({ parsedInput: { id }, ctx: { user } }) => {
+export const deleteOne = authClient.schema(SchemaWithID).action(async ({ parsedInput: { id }, ctx: { user } }) => {
   await db.profile.delete({ where: { id, userId: user.id } })
   refreshProfilesPage()
 })
