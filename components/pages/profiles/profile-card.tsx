@@ -25,17 +25,17 @@ export function ProfileCard({ profile }: ProfileCardProps) {
   const { id, name, avatarUrl, placeholder } = profile
 
   const { execute, isPending } = useAction(ProfileActions.deleteOne, {
-    onSuccess({ input }) {
-      if (id === input.id) {
+    onSuccess({ data }) {
+      if (id === data?.id) {
         setCurrentProfile(null)
       }
 
       end('isDeleting')
       start('isCompleted')
-      toast({ title: 'Perfil eliminado correctamente' })
+      toast({ title: `El perfil de ${data?.name} ha sido eliminado correctamente` })
     },
-    onError() {
-      toast({ title: 'Error al eliminar perfil', variant: 'destructive' })
+    onError({ error }) {
+      toast({ title: error.serverError, variant: 'destructive' })
     },
     onExecute() {
       toast({ title: 'Eliminando perfil', description: 'Un momento…' })

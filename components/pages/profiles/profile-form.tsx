@@ -17,18 +17,13 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
     zodResolver(ProfileSchema),
     {
       actionProps: {
-        // currentState: { profiles } as ProfileFormState,
-        // updateFn(state, input) {
-        //   return { profiles: [...state.profiles, input] }
-        // },
-        onSuccess() {
+        onSuccess({ data }) {
           end('isAdding')
           start('isCompleted')
-          toast({ title: 'Perfil creado correctamente' })
+          toast({ title: `El perfil de ${data?.name} ha sido creado correctamente` })
         },
         onError({ error }) {
-          const title = error.validationErrors?._errors?.[0] ?? error.serverError
-          toast({ title, variant: 'destructive' })
+          toast({ title: error.validationErrors?._errors?.[0], variant: 'destructive' })
         },
         onSettled() {
           resetFormAndAction()
