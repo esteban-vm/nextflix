@@ -1,5 +1,5 @@
 import { LuInfo, LuPlay } from 'react-icons/lu'
-import { MovieActions } from '@/actions'
+import { FavoriteMovieActions, MovieActions } from '@/actions'
 import { HomeUI } from '@/components/pages'
 import { Button } from '@/components/ui'
 import { verifySession } from '@/lib/auth'
@@ -13,7 +13,7 @@ export default async function HomePage() {
   const playingResults = await MovieActions.findPlaying()
   const playingMovies = playingResults?.data ?? []
 
-  const favoriteResults = await MovieActions.findFavorites()
+  const favoriteResults = await FavoriteMovieActions.findAll()
   const favoriteMovies = favoriteResults?.data ?? []
 
   return (

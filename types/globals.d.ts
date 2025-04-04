@@ -31,6 +31,10 @@ declare global {
     type Profile = Utils.WithPlaceholder<ProfileDB>
     type PlayingMovie = Omit<Movie, 'type' | 'rankingUrl'>
     type TrendingMovie = Omit<Movie, 'type'>
+
+    interface FavoriteMovieDB {
+      movie: MovieDB
+    }
   }
 
   namespace Validations {

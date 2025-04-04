@@ -2,19 +2,14 @@ import { redirect } from 'next/navigation'
 import { auth } from '@/auth'
 import { CustomAuthError } from '@/lib/errors'
 
-export const getUserEmail = async () => {
-  const session = await auth()
-  return session?.user?.email ?? 'no session'
-}
-
-export const getUserId = async () => {
+export const getSession = async () => {
   const session = await auth()
 
-  if (!session?.user.id) {
+  if (!session?.user) {
     throw new CustomAuthError('No autorizado')
   }
 
-  return session.user.id
+  return session
 }
 
 export const verifyNoSession = async () => {

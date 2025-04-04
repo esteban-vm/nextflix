@@ -4,7 +4,7 @@ import type { CarouselApi } from '@/components/ui'
 import Autoplay from 'embla-carousel-autoplay'
 import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useRef, useState } from 'react'
-import { MovieActions } from '@/actions'
+import { FavoriteMovieActions } from '@/actions'
 import { FullImage } from '@/components/pages/common'
 import { MovieItemUI } from '@/components/pages/home'
 import { Carousel, CarouselContent, CarouselNext, CarouselPrevious } from '@/components/ui'
@@ -49,13 +49,12 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     execute: like,
     reset: resetLike,
     isPending: isPendingLike,
-  } = useAction(MovieActions.createFavorite, {
-    onSuccess() {
-      toast({ title: 'Película añadida correctamente a tus favoritos' })
+  } = useAction(FavoriteMovieActions.createOne, {
+    onSuccess({ data }) {
+      toast({ title: `La película "${data?.movie.title}" ha sido añadida a tus favoritos` })
     },
     onError({ error }) {
-      const title = error.validationErrors?._errors?.[0] ?? error.serverError
-      toast({ title, variant: 'destructive' })
+      toast({ title: error.validationErrors?._errors?.[0], variant: 'destructive' })
     },
     onExecute() {
       toast({ title: 'Añadiendo película a tus favoritos', description: 'Un momento…' })
@@ -69,12 +68,12 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     execute: dislike,
     reset: resetDislike,
     isPending: isPendingDislike,
-  } = useAction(MovieActions.deleteFavorite, {
-    onSuccess() {
-      toast({ title: 'Película eliminada correctamente de tus favoritos' })
+  } = useAction(FavoriteMovieActions.deleteOne, {
+    onSuccess({ data }) {
+      toast({ title: `La película "${data?.movie.title}" ha sido eliminada de tus favoritos` })
     },
-    onError() {
-      toast({ title: 'Error al eliminar favorito', variant: 'destructive' })
+    onError({ error }) {
+      toast({ title: error.serverError, variant: 'destructive' })
     },
     onExecute() {
       toast({ title: 'Eliminando película de tus favoritos', description: 'Un momento…' })

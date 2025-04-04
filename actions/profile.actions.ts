@@ -7,38 +7,40 @@ import { cache } from 'react'
 import { toListWithPlaceholders } from '@/lib/adapters'
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
-import { ProfileSchema, ItemSchemaWithID } from '@/lib/validations'
+import { ProfileSchema, SchemaWithID } from '@/lib/validations'
 
 export const createOne = authClient
   .schema(ProfileSchema)
-  .action(async ({ parsedInput: { name, avatarUrl }, ctx: { userId } }) => {
-    const userProfiles = await db.profile.count({ where: { userId } })
+  .action(async ({ parsedInput: { name, avatarUrl }, ctx: { user } }): Promise<Models.ProfileDB> => {
+    const userProfiles = await db.profile.count({ where: { userId: user.id } })
 
     if (userProfiles === 4) {
       returnValidationErrors(ProfileSchema, { _errors: ['Ya no puedes crear más perfiles'] })
     }
 
-    const existingProfile = await db.profile.findFirst({ where: { name, userId } })
+    const existingProfile = await db.profile.findFirst({ where: { name, userId: user.id } })
 
     if (existingProfile) {
       returnValidationErrors(ProfileSchema, { _errors: ['Ya existe un perfil con el nombre ingresado'] })
     }
 
-    await db.profile.create({ data: { userId, name, avatarUrl } })
+    const profile = await db.profile.create({ data: { userId: user.id, name, avatarUrl } })
     refreshProfilesPage()
+    return profile
   })
 
 export const deleteOne = authClient
-  .schema(ItemSchemaWithID)
-  .action(async ({ parsedInput: { id }, ctx: { userId } }) => {
-    await db.profile.delete({ where: { id, userId } })
+  .schema(SchemaWithID)
+  .action(async ({ parsedInput: { id }, ctx: { user } }): Promise<Models.ProfileDB> => {
+    const profile = await db.profile.delete({ where: { id, userId: user.id } })
     refreshProfilesPage()
+    return profile
   })
 
 export const findAll = authClient.action(
-  cache(async ({ ctx: { userId } }): Promise<Models.Profile[]> => {
+  cache(async ({ ctx: { user } }): Promise<Models.Profile[]> => {
     const results: Models.ProfileDB[] = await db.profile.findMany({
-      where: { userId },
+      where: { userId: user.id },
       orderBy: { name: 'asc' },
     })
 
