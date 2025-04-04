@@ -11,28 +11,28 @@ import { ItemSchemaWithID } from '@/lib/validations'
 
 export const createFavorite = authClient
   .schema(ItemSchemaWithID)
-  .action(async ({ parsedInput: { id }, ctx: { userId } }) => {
-    const existingFavorite = await db.favoriteMovie.findFirst({ where: { userId, movieId: id } })
+  .action(async ({ parsedInput: { id }, ctx: { user } }) => {
+    const existingFavorite = await db.favoriteMovie.findFirst({ where: { userId: user.id, movieId: id } })
 
     if (existingFavorite) {
       returnValidationErrors(ItemSchemaWithID, { _errors: ['La película ya está en tus favoritos'] })
     }
 
-    await db.favoriteMovie.create({ data: { userId, movieId: id } })
+    await db.favoriteMovie.create({ data: { userId: user.id, movieId: id } })
     refreshHomePage()
   })
 
 export const deleteFavorite = authClient
   .schema(ItemSchemaWithID)
-  .action(async ({ parsedInput: { id }, ctx: { userId } }) => {
-    await db.favoriteMovie.delete({ where: { userId_movieId: { userId, movieId: id } } })
+  .action(async ({ parsedInput: { id }, ctx: { user } }) => {
+    await db.favoriteMovie.delete({ where: { userId_movieId: { userId: user.id, movieId: id } } })
     refreshHomePage()
   })
 
 export const findFavorites = authClient.action(
-  cache(async ({ ctx: { userId } }): Promise<Models.PlayingMovie[]> => {
+  cache(async ({ ctx: { user } }): Promise<Models.PlayingMovie[]> => {
     const results: { movie: Models.MovieDB }[] = await db.favoriteMovie.findMany({
-      where: { userId, movie: { type: 'playing', rankingUrl: { equals: null } } },
+      where: { userId: user.id, movie: { type: 'playing', rankingUrl: { equals: null } } },
       orderBy: { movie: { title: 'asc' } },
       select: { movie: true },
     })

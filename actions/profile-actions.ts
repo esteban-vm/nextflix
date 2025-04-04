@@ -11,34 +11,32 @@ import { ProfileSchema, ItemSchemaWithID } from '@/lib/validations'
 
 export const createOne = authClient
   .schema(ProfileSchema)
-  .action(async ({ parsedInput: { name, avatarUrl }, ctx: { userId } }) => {
-    const userProfiles = await db.profile.count({ where: { userId } })
+  .action(async ({ parsedInput: { name, avatarUrl }, ctx: { user } }) => {
+    const userProfiles = await db.profile.count({ where: { userId: user.id } })
 
     if (userProfiles === 4) {
       returnValidationErrors(ProfileSchema, { _errors: ['Ya no puedes crear más perfiles'] })
     }
 
-    const existingProfile = await db.profile.findFirst({ where: { name, userId } })
+    const existingProfile = await db.profile.findFirst({ where: { name, userId: user.id } })
 
     if (existingProfile) {
       returnValidationErrors(ProfileSchema, { _errors: ['Ya existe un perfil con el nombre ingresado'] })
     }
 
-    await db.profile.create({ data: { userId, name, avatarUrl } })
+    await db.profile.create({ data: { userId: user.id, name, avatarUrl } })
     refreshProfilesPage()
   })
 
-export const deleteOne = authClient
-  .schema(ItemSchemaWithID)
-  .action(async ({ parsedInput: { id }, ctx: { userId } }) => {
-    await db.profile.delete({ where: { id, userId } })
-    refreshProfilesPage()
-  })
+export const deleteOne = authClient.schema(ItemSchemaWithID).action(async ({ parsedInput: { id }, ctx: { user } }) => {
+  await db.profile.delete({ where: { id, userId: user.id } })
+  refreshProfilesPage()
+})
 
 export const findAll = authClient.action(
-  cache(async ({ ctx: { userId } }): Promise<Models.Profile[]> => {
+  cache(async ({ ctx: { user } }): Promise<Models.Profile[]> => {
     const results: Models.ProfileDB[] = await db.profile.findMany({
-      where: { userId },
+      where: { userId: user.id },
       orderBy: { name: 'asc' },
     })
 
