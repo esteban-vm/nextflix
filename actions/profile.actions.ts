@@ -18,13 +18,21 @@ export const createOne = authClient
       returnValidationErrors(ProfileSchema, { _errors: ['Ya no puedes crear más perfiles'] })
     }
 
-    const existingProfile = await db.profile.findFirst({ where: { name, userId: user.id } })
+    const existingProfile = await db.profile.findFirst({
+      where: { name, userId: user.id },
+      select: { name: true },
+    })
 
     if (existingProfile) {
-      returnValidationErrors(ProfileSchema, { _errors: ['Ya existe un perfil con el nombre ingresado'] })
+      returnValidationErrors(ProfileSchema, {
+        _errors: [`El perfil de ${existingProfile.name} ya existe`],
+      })
     }
 
-    const profile = await db.profile.create({ data: { userId: user.id, name, avatarUrl } })
+    const profile: Models.ProfileDB = await db.profile.create({
+      data: { userId: user.id, name, avatarUrl },
+    })
+
     refreshProfilesPage()
     return profile
   })
@@ -32,7 +40,7 @@ export const createOne = authClient
 export const deleteOne = authClient
   .schema(SchemaWithID)
   .action(async ({ parsedInput: { id }, ctx: { user } }): Promise<Models.ProfileDB> => {
-    const profile = await db.profile.delete({ where: { id, userId: user.id } })
+    const profile: Models.ProfileDB = await db.profile.delete({ where: { id, userId: user.id } })
     refreshProfilesPage()
     return profile
   })

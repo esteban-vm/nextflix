@@ -19,7 +19,7 @@ export const createOne = authClient
 
     if (existingFavorite) {
       returnValidationErrors(SchemaWithID, {
-        _errors: [`La película "${existingFavorite.movie.title}" ya está en tus favoritos'`],
+        _errors: [`La película "${existingFavorite.movie.title}" ya está en tus favoritos`],
       })
     }
 
