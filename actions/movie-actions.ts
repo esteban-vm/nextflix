@@ -9,25 +9,39 @@ import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
 import { SchemaWithID } from '@/lib/validations'
 
-export const createFavorite = authClient.schema(SchemaWithID).action(async ({ parsedInput: { id }, ctx: { user } }) => {
-  const existingFavorite = await db.favoriteMovie.findFirst({ where: { userId: user.id, movieId: id } })
+export const createFavorite = authClient
+  .schema(SchemaWithID)
+  .action(async ({ parsedInput: { id }, ctx: { user } }): Promise<Models.FavoriteMovieDB> => {
+    const existingFavorite = await db.favoriteMovie.findFirst({ where: { userId: user.id, movieId: id } })
 
-  if (existingFavorite) {
-    returnValidationErrors(SchemaWithID, { _errors: ['La película ya está en tus favoritos'] })
-  }
+    if (existingFavorite) {
+      returnValidationErrors(SchemaWithID, { _errors: ['La película ya está en tus favoritos'] })
+    }
 
-  await db.favoriteMovie.create({ data: { userId: user.id, movieId: id } })
-  refreshHomePage()
-})
+    const favoriteMovie: Models.FavoriteMovieDB = await db.favoriteMovie.create({
+      data: { userId: user.id, movieId: id },
+      select: { movie: true },
+    })
 
-export const deleteFavorite = authClient.schema(SchemaWithID).action(async ({ parsedInput: { id }, ctx: { user } }) => {
-  await db.favoriteMovie.delete({ where: { userId_movieId: { userId: user.id, movieId: id } } })
-  refreshHomePage()
-})
+    refreshHomePage()
+    return favoriteMovie
+  })
+
+export const deleteFavorite = authClient
+  .schema(SchemaWithID)
+  .action(async ({ parsedInput: { id }, ctx: { user } }): Promise<Models.FavoriteMovieDB> => {
+    const favoriteMovie: Models.FavoriteMovieDB = await db.favoriteMovie.delete({
+      where: { userId_movieId: { userId: user.id, movieId: id } },
+      select: { movie: true },
+    })
+
+    refreshHomePage()
+    return favoriteMovie
+  })
 
 export const findFavorites = authClient.action(
   cache(async ({ ctx: { user } }): Promise<Models.PlayingMovie[]> => {
-    const results: { movie: Models.MovieDB }[] = await db.favoriteMovie.findMany({
+    const results: Models.FavoriteMovieDB[] = await db.favoriteMovie.findMany({
       where: { userId: user.id, movie: { type: 'playing', rankingUrl: { equals: null } } },
       orderBy: { movie: { title: 'asc' } },
       select: { movie: true },
