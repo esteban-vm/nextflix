@@ -29,6 +29,17 @@ async function insertInitialData() {
 async function insertRelationalData() {
   const user1 = await db.user.findUniqueOrThrow({ where: { email: users[0].email } })
 
+  const [profile1, profile2] = await db.profile.createManyAndReturn({
+    data: [
+      { name: 'Sergio', avatarUrl: avatarUrls[0], userId: user1.id },
+      { name: 'Clara', avatarUrl: avatarUrls[1], userId: user1.id },
+      { name: 'Carlos', avatarUrl: avatarUrls[2], userId: user1.id },
+      { name: 'Ana', avatarUrl: avatarUrls[3], userId: user1.id },
+    ],
+  })
+
+  await db.currentProfile.create({ data: { userId: user1.id, profileId: profile1.id } })
+
   const movie1 = await db.movie.findUniqueOrThrow({ where: { title: movies.playing[0].title } })
   const movie2 = await db.movie.findUniqueOrThrow({ where: { title: movies.playing[2].title } })
   const movie3 = await db.movie.findUniqueOrThrow({ where: { title: movies.playing[5].title } })

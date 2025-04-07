@@ -1,5 +1,4 @@
 import type { NavLinkProps } from '@/components/navigation/atoms'
-import localFont from 'next/font/local'
 
 export type AvatarUrl = `/images/avatars/avatar${1 | 2 | 3 | 4}.webp`
 
@@ -9,18 +8,6 @@ export const avatarUrls = (<const>[
   '/images/avatars/avatar3.webp',
   '/images/avatars/avatar4.webp',
 ]) satisfies AvatarUrl[]
-
-export const geistMono = localFont({
-  src: '../public/fonts/geist-mono.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
-})
-
-export const geistSans = localFont({
-  src: '../public/fonts/geist-sans.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-})
 
 export const navLinks: NavLinkProps[] = [
   { name: 'Inicio', href: '/' },
