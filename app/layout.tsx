@@ -2,7 +2,7 @@ import '@/styles/globals.css'
 import type { Metadata } from 'next'
 import { Navigation } from '@/components/navigation'
 import { Toaster, TooltipProvider } from '@/components/ui'
-import { geistMono, geistSans } from '@/lib/constants'
+import { geistMono, geistSans } from '@/lib/fonts'
 import { cn } from '@/lib/utils'
 
 export const metadata: Metadata = {
