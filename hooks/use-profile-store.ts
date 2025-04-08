@@ -13,7 +13,7 @@ const currentProfileSlice: StateCreator<ProfileStore, [['zustand/devtools', neve
   return {
     currentProfile: null,
     setCurrentProfile(value) {
-      set({ currentProfile: value }, undefined, 'current-profile:set')
+      set({ currentProfile: value }, undefined, 'current-profile-state:set')
     },
   }
 }
@@ -32,13 +32,13 @@ const profileManagementSlice: StateCreator<ProfileStore, [['zustand/devtools', n
     isDeleting: false,
     isCompleted: false,
     start(value) {
-      set({ [value]: true }, undefined, 'profile-management:start')
+      set({ [value]: true }, undefined, 'profile-management-state:start')
     },
     end(value) {
-      set({ [value]: false }, undefined, 'profile-management:end')
+      set({ [value]: false }, undefined, 'profile-management-state:end')
     },
     toggle(value) {
-      set((state) => ({ [value]: !state[value] }), undefined, 'profile-management:toggle')
+      set((state) => ({ [value]: !state[value] }), undefined, 'profile-management-state:toggle')
     },
   }
 }
