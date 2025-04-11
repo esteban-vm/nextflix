@@ -7,24 +7,24 @@ import { cache } from 'react'
 import { toListWithPlaceholders, toPlayingMovie } from '@/lib/adapters'
 import { db } from '@/lib/db'
 import { authClient } from '@/lib/safe-action'
-import { SchemaWithID } from '@/lib/validations'
+import { FavoriteMovieSchema, SchemaWithID } from '@/lib/validations'
 
 export const createOne = authClient
-  .schema(SchemaWithID)
-  .action(async ({ parsedInput: { id }, ctx: { user } }): Promise<Models.FavoriteMovieDB> => {
+  .schema(FavoriteMovieSchema)
+  .action(async ({ parsedInput: { profileId, movieId }, ctx: { user } }): Promise<Models.FavoriteMovieDB> => {
     const existingFavorite = await db.favoriteMovie.findFirst({
-      where: { userId: user.id, movieId: id },
+      where: { profileId, movieId, profile: { userId: user.id } },
       select: { movie: { select: { title: true } } },
     })
 
     if (existingFavorite) {
-      returnValidationErrors(SchemaWithID, {
+      returnValidationErrors(FavoriteMovieSchema, {
         _errors: [`La película "${existingFavorite.movie.title}" ya está en tus favoritos`],
       })
     }
 
     const favoriteMovie: Models.FavoriteMovieDB = await db.favoriteMovie.create({
-      data: { userId: user.id, movieId: id },
+      data: { profileId, movieId },
       select: { movie: true },
     })
 
@@ -33,10 +33,10 @@ export const createOne = authClient
   })
 
 export const deleteOne = authClient
-  .schema(SchemaWithID)
-  .action(async ({ parsedInput: { id }, ctx: { user } }): Promise<Models.FavoriteMovieDB> => {
+  .schema(FavoriteMovieSchema)
+  .action(async ({ parsedInput: { profileId, movieId }, ctx: { user } }): Promise<Models.FavoriteMovieDB> => {
     const favoriteMovie: Models.FavoriteMovieDB = await db.favoriteMovie.delete({
-      where: { userId_movieId: { userId: user.id, movieId: id } },
+      where: { profileId_movieId: { profileId, movieId }, profile: { userId: user.id } },
       select: { movie: true },
     })
 
@@ -44,10 +44,10 @@ export const deleteOne = authClient
     return favoriteMovie
   })
 
-export const findAll = authClient.action(
-  cache(async ({ ctx: { user } }): Promise<Models.PlayingMovie[]> => {
+export const findAllById = authClient.schema(SchemaWithID).action(
+  cache(async ({ parsedInput: { id }, ctx: { user } }): Promise<Models.PlayingMovie[]> => {
     const results: Models.FavoriteMovieDB[] = await db.favoriteMovie.findMany({
-      where: { userId: user.id, movie: { type: 'playing', rankingUrl: { equals: null } } },
+      where: { profileId: id, profile: { userId: user.id }, movie: { type: 'playing', rankingUrl: { equals: null } } },
       orderBy: { movie: { title: 'asc' } },
       select: { movie: true },
     })
