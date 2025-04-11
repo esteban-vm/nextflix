@@ -21,15 +21,11 @@ import { cn } from '@/lib/utils'
 
 export function ProfileCard({ profile }: ProfileCardProps) {
   const { push } = useRouter()
-  const { start, end, isDeleting, setCurrentProfile } = useProfileStore()
+  const { start, end, isDeleting, setCurrentProfile, currentProfile } = useProfileStore()
   const { id, name, avatarUrl, placeholder } = profile
 
   const { execute, isPending } = useAction(ProfileActions.deleteOne, {
     onSuccess({ data }) {
-      if (id === data?.id) {
-        setCurrentProfile(null)
-      }
-
       end('isDeleting')
       start('isCompleted')
       toast({ title: `El perfil de ${data?.name} ha sido eliminado correctamente` })
@@ -45,19 +41,21 @@ export function ProfileCard({ profile }: ProfileCardProps) {
     },
   })
 
-  const onChangeProfile = () => {
-    if (!isDeleting) {
-      setCurrentProfile(profile)
-      push('/')
-    }
+  const onSelectProfile = () => {
+    if (isDeleting) return
+    setCurrentProfile(profile)
+    push('/')
   }
 
   const onDeleteProfile = () => {
     execute({ id })
+    if (currentProfile?.id === id) {
+      setCurrentProfile(null)
+    }
   }
 
   return (
-    <ProfileCardUI.CardContainer aria-hidden='true' id={id} onClick={onChangeProfile}>
+    <ProfileCardUI.CardContainer aria-hidden='true' id={id} onClick={onSelectProfile}>
       <ProfileCardUI.CardContent>
         <FullImage
           alt={`Perfil de ${name}`}
