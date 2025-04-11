@@ -6,8 +6,12 @@ export function ImageItem({ profile }: ImageItemProps) {
   const { name, id, avatarUrl, placeholder } = profile
   const { setCurrentProfile } = useProfileStore()
 
+  const onChangeProfile = () => {
+    setCurrentProfile(profile)
+  }
+
   return (
-    <DropdownMenuItem className='w-52 cursor-pointer' id={id} onClick={() => setCurrentProfile(profile)}>
+    <DropdownMenuItem className='w-52 cursor-pointer' id={id} onClick={onChangeProfile}>
       <div className='relative aspect-square size-12 rounded-sm border-2 border-primary'>
         <Image alt={`Perfil de ${name}`} blurDataURL={placeholder} placeholder='blur' src={avatarUrl} fill />
       </div>

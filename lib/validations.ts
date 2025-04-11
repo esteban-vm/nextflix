@@ -26,6 +26,11 @@ export const EmailSchema = z.object({
     }),
 })
 
+export const FavoriteMovieSchema = z.object({
+  profileId: z.string(),
+  movieId: z.string(),
+})
+
 export const LoginSchema = EmailSchema.extend({
   password: z
     .string()

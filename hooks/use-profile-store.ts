@@ -5,6 +5,8 @@ import { devtools, persist, createJSONStorage } from 'zustand/middleware'
 interface CurrentProfileSlice {
   currentProfile: Utils.Nullable<Models.Profile>
   setCurrentProfile: (value: Utils.Nullable<Models.Profile>) => void
+  refetchFavorites: boolean
+  setRefetchFavorites: (value: boolean) => void
 }
 
 const currentProfileSlice: StateCreator<ProfileStore, [['zustand/devtools', never]], [], CurrentProfileSlice> = (
@@ -13,37 +15,39 @@ const currentProfileSlice: StateCreator<ProfileStore, [['zustand/devtools', neve
   return {
     currentProfile: null,
     setCurrentProfile(value) {
-      set({ currentProfile: value }, undefined, 'current-profile:set')
+      set({ currentProfile: value }, undefined, 'current-profile-state:set')
+    },
+    refetchFavorites: false,
+    setRefetchFavorites(value) {
+      set({ refetchFavorites: value })
     },
   }
 }
 
-type ProfileManagementState = `is${'Adding' | 'Deleting' | 'Completed'}`
-type ProfileManagementStates = Record<ProfileManagementState, boolean>
-type ProfileManagementAction = 'start' | 'end' | 'toggle'
-type ProfileManagementActions = Record<ProfileManagementAction, (value: ProfileManagementState) => void>
-interface ProfileManagementSlice extends ProfileManagementStates, ProfileManagementActions {}
+type ProfileUIState = `is${'Adding' | 'Deleting' | 'Completed'}`
+type ProfileUIStates = Record<ProfileUIState, boolean>
+type ProfileUIAction = 'start' | 'end' | 'toggle'
+type ProfileUIActions = Record<ProfileUIAction, (value: ProfileUIState) => void>
+type ProfileUISlice = ProfileUIStates & ProfileUIActions
 
-const profileManagementSlice: StateCreator<ProfileStore, [['zustand/devtools', never]], [], ProfileManagementSlice> = (
-  set
-) => {
+const profileUISlice: StateCreator<ProfileStore, [['zustand/devtools', never]], [], ProfileUISlice> = (set) => {
   return {
     isAdding: false,
     isDeleting: false,
     isCompleted: false,
     start(value) {
-      set({ [value]: true }, undefined, 'profile-management:start')
+      set({ [value]: true }, undefined, 'profile-management-state:start')
     },
     end(value) {
-      set({ [value]: false }, undefined, 'profile-management:end')
+      set({ [value]: false }, undefined, 'profile-management-state:end')
     },
     toggle(value) {
-      set((state) => ({ [value]: !state[value] }), undefined, 'profile-management:toggle')
+      set((state) => ({ [value]: !state[value] }), undefined, 'profile-management-state:toggle')
     },
   }
 }
 
-type ProfileStore = CurrentProfileSlice & ProfileManagementSlice
+type ProfileStore = CurrentProfileSlice & ProfileUISlice
 
 export const useProfileStore = create<ProfileStore>()(
   devtools(
@@ -51,7 +55,7 @@ export const useProfileStore = create<ProfileStore>()(
       (...args) => {
         return {
           ...currentProfileSlice(...args),
-          ...profileManagementSlice(...args),
+          ...profileUISlice(...args),
         }
       },
       {

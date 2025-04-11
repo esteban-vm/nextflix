@@ -6,9 +6,9 @@ import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useRef, useState } from 'react'
 import { FavoriteMovieActions } from '@/actions'
 import { FullImage } from '@/components/pages/common'
-import { MovieItemUI } from '@/components/pages/home'
+import { MovieCarouselItemUI } from '@/components/pages/home'
 import { Carousel, CarouselContent, CarouselNext, CarouselPrevious } from '@/components/ui'
-import { toast } from '@/hooks'
+import { toast, useProfileStore } from '@/hooks'
 
 export function MovieCarousel({ children }: Props.WithChildren) {
   const [api, setApi] = useState<CarouselApi>()
@@ -23,12 +23,14 @@ export function MovieCarousel({ children }: Props.WithChildren) {
 
   const scrollNext = useCallback(() => {
     if (!api) return
+
     api.scrollNext()
     autoplay.current.reset()
   }, [api])
 
   const scrollPrev = useCallback(() => {
     if (!api) return
+
     api.scrollPrev()
     autoplay.current.reset()
   }, [api])
@@ -42,8 +44,9 @@ export function MovieCarousel({ children }: Props.WithChildren) {
   )
 }
 
-export function MovieItem({ movie, isFavorite }: MovieItemProps) {
+export function MovieCarouselItem({ movie, isFavorite }: MovieCarouselItemProps) {
   const { id, title, placeholder, posterUrl } = movie
+  const { currentProfile, setRefetchFavorites } = useProfileStore()
 
   const {
     execute: like,
@@ -51,6 +54,7 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     isPending: isPendingLike,
   } = useAction(FavoriteMovieActions.createOne, {
     onSuccess({ data }) {
+      setRefetchFavorites(true)
       toast({ title: `La película "${data?.movie.title}" ha sido añadida a tus favoritos` })
     },
     onError({ error }) {
@@ -70,6 +74,7 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     isPending: isPendingDislike,
   } = useAction(FavoriteMovieActions.deleteOne, {
     onSuccess({ data }) {
+      setRefetchFavorites(true)
       toast({ title: `La película "${data?.movie.title}" ha sido eliminada de tus favoritos` })
     },
     onError({ error }) {
@@ -83,40 +88,50 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     },
   })
 
+  const onLikeMovie = () => {
+    if (!currentProfile) return
+    like({ movieId: id, profileId: currentProfile.id })
+  }
+
+  const onDislikeMovie = () => {
+    if (!currentProfile) return
+    dislike({ movieId: id, profileId: currentProfile.id })
+  }
+
   return (
-    <MovieItemUI.ItemContainer id={id}>
-      <MovieItemUI.ItemCard>
-        <MovieItemUI.ItemContent>
+    <MovieCarouselItemUI.ItemContainer id={id}>
+      <MovieCarouselItemUI.ItemCard>
+        <MovieCarouselItemUI.ItemContent>
           <FullImage
             alt={`Imagen de "${title}"`}
             blurDataURL={placeholder}
             className='rounded-md contrast-125'
             src={posterUrl}
           />
-          <MovieItemUI.MovieInfo>
-            <MovieItemUI.ButtonGroup>
-              <MovieItemUI.StyledButton size='icon' title='Reproducir' variant='ghost'>
-                <MovieItemUI.IconPlay />
-              </MovieItemUI.StyledButton>
-              <MovieItemUI.StyledButton
+          <MovieCarouselItemUI.MovieInfo>
+            <MovieCarouselItemUI.ButtonGroup>
+              <MovieCarouselItemUI.StyledButton size='icon' title='Reproducir' variant='ghost'>
+                <MovieCarouselItemUI.IconPlay />
+              </MovieCarouselItemUI.StyledButton>
+              <MovieCarouselItemUI.StyledButton
                 disabled={isFavorite ? isPendingDislike : isPendingLike}
                 size='icon'
                 title={isFavorite ? 'Eliminar de mis favoritos' : 'Agregar a mis favoritos'}
                 variant='ghost'
-                onClick={isFavorite ? () => dislike({ id }) : () => like({ id })}
+                onClick={isFavorite ? onDislikeMovie : onLikeMovie}
               >
-                {isFavorite ? <MovieItemUI.IconDelete /> : <MovieItemUI.IconAdd />}
-              </MovieItemUI.StyledButton>
-            </MovieItemUI.ButtonGroup>
-            <MovieItemUI.MovieTitle>{title}</MovieItemUI.MovieTitle>
-          </MovieItemUI.MovieInfo>
-        </MovieItemUI.ItemContent>
-      </MovieItemUI.ItemCard>
-    </MovieItemUI.ItemContainer>
+                {isFavorite ? <MovieCarouselItemUI.IconDelete /> : <MovieCarouselItemUI.IconAdd />}
+              </MovieCarouselItemUI.StyledButton>
+            </MovieCarouselItemUI.ButtonGroup>
+            <MovieCarouselItemUI.MovieTitle>{title}</MovieCarouselItemUI.MovieTitle>
+          </MovieCarouselItemUI.MovieInfo>
+        </MovieCarouselItemUI.ItemContent>
+      </MovieCarouselItemUI.ItemCard>
+    </MovieCarouselItemUI.ItemContainer>
   )
 }
 
-export interface MovieItemProps {
+export interface MovieCarouselItemProps {
   isFavorite?: boolean
   movie: Models.PlayingMovie
 }

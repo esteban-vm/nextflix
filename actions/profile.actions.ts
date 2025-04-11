@@ -40,6 +40,7 @@ export const createOne = authClient
 export const deleteOne = authClient
   .schema(SchemaWithID)
   .action(async ({ parsedInput: { id }, ctx: { user } }): Promise<Models.ProfileDB> => {
+    await db.favoriteMovie.deleteMany({ where: { profileId: id, profile: { userId: user.id } } })
     const profile: Models.ProfileDB = await db.profile.delete({ where: { id, userId: user.id } })
     refreshProfilesPage()
     return profile
