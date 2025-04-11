@@ -10,11 +10,11 @@ import {
 } from '@/components/ui'
 import { useProfileStore } from '@/hooks'
 
-export function NavAvatar(props: Props.WithClassName) {
+export function NavAvatar({ className }: Props.WithClassName) {
   const { currentProfile } = useProfileStore()
 
   return (
-    <DropdownMenuTrigger {...props}>
+    <DropdownMenuTrigger className={className}>
       <Tooltip>
         <TooltipTrigger asChild>
           <Avatar className='size-10 cursor-pointer border-2 border-primary'>
