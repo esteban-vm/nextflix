@@ -1,5 +1,6 @@
 import { LuInfo, LuPlay } from 'react-icons/lu'
-import { FavoriteMovieActions, MovieActions } from '@/actions'
+import { MovieActions } from '@/actions'
+import { FavoriteMovieList, PlayingMovieList } from '@/components/containers'
 import { HomeUI } from '@/components/pages'
 import { Button } from '@/components/ui'
 import { verifySession } from '@/lib/auth'
@@ -9,12 +10,6 @@ export default async function HomePage() {
 
   const trendingResults = await MovieActions.findTrending()
   const trendingMovies = trendingResults?.data ?? []
-
-  const playingResults = await MovieActions.findPlaying()
-  const playingMovies = playingResults?.data ?? []
-
-  const favoriteResults = await FavoriteMovieActions.findAll()
-  const favoriteMovies = favoriteResults?.data ?? []
 
   return (
     <>
@@ -57,30 +52,14 @@ export default async function HomePage() {
       <HomeUI.SectionContainer>
         <HomeUI.SectionContent>
           <HomeUI.SectionTitle>Películas más recientes:</HomeUI.SectionTitle>
-          {playingMovies.length ? (
-            <HomeUI.MovieCarousel>
-              {playingMovies.map((movie) => (
-                <HomeUI.MovieItem key={movie.id} movie={movie} />
-              ))}
-            </HomeUI.MovieCarousel>
-          ) : (
-            <HomeUI.MovieAlert>Sin resultados</HomeUI.MovieAlert>
-          )}
+          <PlayingMovieList />
         </HomeUI.SectionContent>
       </HomeUI.SectionContainer>
       {/* Favorite Section */}
       <HomeUI.SectionContainer>
         <HomeUI.SectionContent>
           <HomeUI.SectionTitle>Tus películas favoritas:</HomeUI.SectionTitle>
-          {favoriteMovies.length ? (
-            <HomeUI.MovieCarousel>
-              {favoriteMovies.map((movie) => (
-                <HomeUI.MovieItem key={movie.id} movie={movie} isFavorite />
-              ))}
-            </HomeUI.MovieCarousel>
-          ) : (
-            <HomeUI.MovieAlert>Aún no tienes películas favoritas</HomeUI.MovieAlert>
-          )}
+          <FavoriteMovieList />
         </HomeUI.SectionContent>
       </HomeUI.SectionContainer>
     </>
