@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
+import { LoadingSpinner } from '@/components/common'
 import { FullImage } from '@/components/pages/common'
 import { MovieCardUI } from '@/components/pages/home/styled'
 import { rankingPlaceholder } from '@/lib/constants'
@@ -68,7 +69,7 @@ const ReactPlayer = dynamic(() => import('react-player'), {
   ssr: false,
   loading({ isLoading, error }) {
     if (error) return <span className='text-destructive'>{error.message}</span>
-    if (isLoading) return <MovieCardUI.LoadingSpinner aria-label='Indicador de carga' />
+    if (isLoading) return <LoadingSpinner className='h-2/5' />
     return null
   },
 })

@@ -58,24 +58,6 @@ export const IconUp = tw(LuChevronUpCircle)`
 
 `
 
-export const LoadingSpinner = tw.div`
-
-  aspect-square
-
-  h-2/5
-
-  animate-spin
-
-  rounded-full
-
-  border-4
-
-  border-secondary-foreground/50
-
-  border-t-transparent
-
-`
-
 export const MovieTitle = tw.span`
 
   w-3/5
