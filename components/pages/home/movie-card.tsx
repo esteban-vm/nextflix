@@ -2,8 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
-import { LoadingSpinner } from '@/components/common'
-import { FullImage } from '@/components/pages/common'
+import { LoadingSpinner, FullImage } from '@/components/common'
 import { MovieCardUI } from '@/components/pages/home/styled'
 import { rankingPlaceholder } from '@/lib/constants'
 import { cn } from '@/lib/utils'

@@ -1,5 +1,5 @@
+import { FullImage } from '@/components/common'
 import { AuthUI } from '@/components/pages'
-import { FullImage } from '@/components/pages/common'
 import moviesWP from '@/images/backgrounds/movies-wp.jpg'
 import { verifyNoSession } from '@/lib/auth'
 

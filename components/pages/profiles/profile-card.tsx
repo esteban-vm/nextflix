@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation'
 import { useAction } from 'next-safe-action/hooks'
 import { LuTrash2 } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
-import { FullImage } from '@/components/pages/common'
+import { FullImage } from '@/components/common'
 import { ProfileCardUI } from '@/components/pages/profiles/styled'
 import {
   AlertDialog,
