@@ -51,9 +51,6 @@ export function FormRadioGroup<T extends Validations.Profile>({
                 defaultValue={value}
                 onValueChange={onChange}
               >
-                {/* {Object.values(Avatar).map((avatar) => (
-                  <FormRadioButton key={avatar} avatar={avatar} isActive={value === avatar} />
-                ))} */}
                 {children}
               </RadioGroup>
             </FormControl>

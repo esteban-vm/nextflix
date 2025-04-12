@@ -1,5 +1,6 @@
 import { ProfileActions } from '@/actions'
-import { ProfilesUI } from '@/components/pages'
+import { ProfileButton, ProfileCard, ProfileForm } from '@/components/pages'
+import { ProfilesUI as UI } from '@/components/styled'
 import { verifySession } from '@/lib/auth'
 
 export default async function ProfilesPage() {
@@ -14,16 +15,16 @@ export default async function ProfilesPage() {
   const displayProfileButton = total > 0
 
   return (
-    <ProfilesUI.PageContainer>
-      <ProfilesUI.PageTitle>Elige tu perfil</ProfilesUI.PageTitle>
-      <ProfilesUI.PageSubtitle>¿Quién eres?</ProfilesUI.PageSubtitle>
-      <ProfilesUI.ProfileList>
+    <UI.Page.PageContainer>
+      <UI.Page.PageTitle>Elige tu perfil</UI.Page.PageTitle>
+      <UI.Page.PageSubtitle>¿Quién eres?</UI.Page.PageSubtitle>
+      <UI.Page.ProfileList>
         {profiles.map((profile) => (
-          <ProfilesUI.ProfileCard key={profile.id} profile={profile} />
+          <ProfileCard key={profile.id} profile={profile} />
         ))}
-        {displayProfileForm && <ProfilesUI.ProfileForm remaining={remaining} />}
-      </ProfilesUI.ProfileList>
-      {displayProfileButton && <ProfilesUI.ProfileButton />}
-    </ProfilesUI.PageContainer>
+        {displayProfileForm && <ProfileForm remaining={remaining} />}
+      </UI.Page.ProfileList>
+      {displayProfileButton && <ProfileButton />}
+    </UI.Page.PageContainer>
   )
 }

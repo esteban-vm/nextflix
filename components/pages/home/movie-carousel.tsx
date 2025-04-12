@@ -5,8 +5,8 @@ import Autoplay from 'embla-carousel-autoplay'
 import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useRef, useState } from 'react'
 import { FavoriteMovieActions } from '@/actions'
-import { FullImage } from '@/components/pages/common'
-import { MovieCarouselItemUI } from '@/components/pages/home'
+import { FullImage } from '@/components/common'
+import { HomeUI as UI } from '@/components/styled'
 import { Carousel, CarouselContent, CarouselNext, CarouselPrevious } from '@/components/ui'
 import { toast, useProfileStore } from '@/hooks'
 
@@ -44,7 +44,7 @@ export function MovieCarousel({ children }: Props.WithChildren) {
   )
 }
 
-export function MovieCarouselItem({ movie, isFavorite }: MovieCarouselItemProps) {
+export function MovieItem({ movie, isFavorite }: MovieItemProps) {
   const { id, title, placeholder, posterUrl } = movie
   const { currentProfile, setRefetchFavorites } = useProfileStore()
 
@@ -99,39 +99,39 @@ export function MovieCarouselItem({ movie, isFavorite }: MovieCarouselItemProps)
   }
 
   return (
-    <MovieCarouselItemUI.ItemContainer id={id}>
-      <MovieCarouselItemUI.ItemCard>
-        <MovieCarouselItemUI.ItemContent>
+    <UI.MovieItem.ItemContainer id={id}>
+      <UI.MovieItem.ItemCard>
+        <UI.MovieItem.ItemContent>
           <FullImage
             alt={`Imagen de "${title}"`}
             blurDataURL={placeholder}
             className='rounded-md contrast-125'
             src={posterUrl}
           />
-          <MovieCarouselItemUI.MovieInfo>
-            <MovieCarouselItemUI.ButtonGroup>
-              <MovieCarouselItemUI.StyledButton size='icon' title='Reproducir' variant='ghost'>
-                <MovieCarouselItemUI.IconPlay />
-              </MovieCarouselItemUI.StyledButton>
-              <MovieCarouselItemUI.StyledButton
+          <UI.MovieItem.MovieInfo>
+            <UI.MovieItem.ButtonGroup>
+              <UI.MovieItem.StyledButton size='icon' title='Reproducir' variant='ghost'>
+                <UI.MovieItem.IconPlay />
+              </UI.MovieItem.StyledButton>
+              <UI.MovieItem.StyledButton
                 disabled={isFavorite ? isPendingDislike : isPendingLike}
                 size='icon'
                 title={isFavorite ? 'Eliminar de mis favoritos' : 'Agregar a mis favoritos'}
                 variant='ghost'
                 onClick={isFavorite ? onDislikeMovie : onLikeMovie}
               >
-                {isFavorite ? <MovieCarouselItemUI.IconDelete /> : <MovieCarouselItemUI.IconAdd />}
-              </MovieCarouselItemUI.StyledButton>
-            </MovieCarouselItemUI.ButtonGroup>
-            <MovieCarouselItemUI.MovieTitle>{title}</MovieCarouselItemUI.MovieTitle>
-          </MovieCarouselItemUI.MovieInfo>
-        </MovieCarouselItemUI.ItemContent>
-      </MovieCarouselItemUI.ItemCard>
-    </MovieCarouselItemUI.ItemContainer>
+                {isFavorite ? <UI.MovieItem.IconDelete /> : <UI.MovieItem.IconAdd />}
+              </UI.MovieItem.StyledButton>
+            </UI.MovieItem.ButtonGroup>
+            <UI.MovieItem.MovieTitle>{title}</UI.MovieItem.MovieTitle>
+          </UI.MovieItem.MovieInfo>
+        </UI.MovieItem.ItemContent>
+      </UI.MovieItem.ItemCard>
+    </UI.MovieItem.ItemContainer>
   )
 }
 
-export interface MovieCarouselItemProps {
+export interface MovieItemProps {
   isFavorite?: boolean
   movie: Models.PlayingMovie
 }

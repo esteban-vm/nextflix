@@ -1,14 +1,15 @@
-import { AuthUI } from '@/components/pages'
+import { RegisterForm } from '@/components/pages'
+import { AuthUI as UI } from '@/components/styled'
 
 export default function RegisterPage() {
   return (
     <>
-      <AuthUI.PageTitle>Registro de usuario</AuthUI.PageTitle>
-      <AuthUI.RegisterForm />
-      <AuthUI.FlexContainer>
+      <UI.Layout.PageTitle>Registro de usuario</UI.Layout.PageTitle>
+      <RegisterForm />
+      <UI.Layout.FlexContainer>
         <span>¿Ya tienes una cuenta?</span>
-        <AuthUI.AuthLink href='/login'>Ingresar</AuthUI.AuthLink>
-      </AuthUI.FlexContainer>
+        <UI.Layout.AuthLink href='/login'>Ingresar</UI.Layout.AuthLink>
+      </UI.Layout.FlexContainer>
     </>
   )
 }

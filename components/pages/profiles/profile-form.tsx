@@ -1,9 +1,11 @@
+'use client'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { LuCheck } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
-import { FormButton, FormInput, FormRadioButton, FormRadioGroup, FormWrapper } from '@/components/pages/common'
-import { ProfileFormUI } from '@/components/pages/profiles/styled'
+import { FormButton, FormInput, FormRadioButton, FormRadioGroup, FormWrapper } from '@/components/common'
+import { ProfilesUI as UI } from '@/components/styled'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Form } from '@/components/ui'
 import { toast, useProfileStore } from '@/hooks'
 import { avatarUrls } from '@/lib/constants'
@@ -50,13 +52,13 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
 
   return (
     <Dialog open={isAdding} onOpenChange={() => toggle('isAdding')}>
-      <ProfileFormUI.StyledTrigger>
-        <ProfileFormUI.IconContainer>
-          <ProfileFormUI.IconCircle />
-        </ProfileFormUI.IconContainer>
-        <ProfileFormUI.TriggerText>Añadir perfil</ProfileFormUI.TriggerText>
-        <ProfileFormUI.RemainingText>({remaining}/4)</ProfileFormUI.RemainingText>
-      </ProfileFormUI.StyledTrigger>
+      <UI.ProfileForm.StyledTrigger>
+        <UI.ProfileForm.IconContainer>
+          <UI.ProfileForm.IconCircle />
+        </UI.ProfileForm.IconContainer>
+        <UI.ProfileForm.TriggerText>Añadir perfil</UI.ProfileForm.TriggerText>
+        <UI.ProfileForm.RemainingText>({remaining}/4)</UI.ProfileForm.RemainingText>
+      </UI.ProfileForm.StyledTrigger>
       <DialogContent className='max-w-md'>
         <DialogHeader>
           <DialogTitle>Añadir perfil</DialogTitle>

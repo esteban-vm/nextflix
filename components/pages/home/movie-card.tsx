@@ -2,9 +2,8 @@
 
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
-import { LoadingSpinner } from '@/components/common'
-import { FullImage } from '@/components/pages/common'
-import { MovieCardUI } from '@/components/pages/home/styled'
+import { LoadingSpinner, FullImage } from '@/components/common'
+import { HomeUI as UI } from '@/components/styled'
 import { rankingPlaceholder } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
@@ -13,51 +12,51 @@ export function MovieCard({ movie }: MovieCardProps) {
   const { age, duration, genres, placeholder, rankingUrl, posterUrl, title, trailerUrl } = movie
 
   return (
-    <MovieCardUI.CardContainer>
-      <MovieCardUI.SideLeft>
+    <UI.MovieCard.CardContainer>
+      <UI.MovieCard.SideLeft>
         <FullImage alt={`Puntuación de "${title}"`} blurDataURL={rankingPlaceholder} src={rankingUrl ?? ''} />
-      </MovieCardUI.SideLeft>
-      <MovieCardUI.SideRight>
+      </UI.MovieCard.SideLeft>
+      <UI.MovieCard.SideRight>
         <FullImage alt={`Portada de "${title}"`} blurDataURL={placeholder} className='contrast-125' src={posterUrl} />
-      </MovieCardUI.SideRight>
-      <MovieCardUI.VideoInfo>
-        <MovieCardUI.PlayerContainer>
+      </UI.MovieCard.SideRight>
+      <UI.MovieCard.VideoInfo>
+        <UI.MovieCard.PlayerContainer>
           <ReactPlayer height='100%' url={trailerUrl} width='100%' loop muted playing />
-        </MovieCardUI.PlayerContainer>
-        <MovieCardUI.FlexContainer $isBetween>
-          <MovieCardUI.MovieTitle>{title}</MovieCardUI.MovieTitle>
-          <MovieCardUI.FlexContainer>
-            <MovieCardUI.StyledButton size='icon' title='Reproducir' variant='ghost'>
-              <MovieCardUI.IconPlay />
-            </MovieCardUI.StyledButton>
-            <MovieCardUI.StyledButton
+        </UI.MovieCard.PlayerContainer>
+        <UI.MovieCard.FlexContainer $isBetween>
+          <UI.MovieCard.MovieTitle>{title}</UI.MovieCard.MovieTitle>
+          <UI.MovieCard.FlexContainer>
+            <UI.MovieCard.StyledButton size='icon' title='Reproducir' variant='ghost'>
+              <UI.MovieCard.IconPlay />
+            </UI.MovieCard.StyledButton>
+            <UI.MovieCard.StyledButton
               size='icon'
               title={`${isShowingInfo ? 'Menos' : 'Más'} información`}
               variant='ghost'
               onClick={() => setIsShowingInfo(!isShowingInfo)}
             >
-              {isShowingInfo ? <MovieCardUI.IconUp /> : <MovieCardUI.IconDown />}
-            </MovieCardUI.StyledButton>
-          </MovieCardUI.FlexContainer>
-        </MovieCardUI.FlexContainer>
+              {isShowingInfo ? <UI.MovieCard.IconUp /> : <UI.MovieCard.IconDown />}
+            </UI.MovieCard.StyledButton>
+          </UI.MovieCard.FlexContainer>
+        </UI.MovieCard.FlexContainer>
         <div className={cn(isShowingInfo ? 'mt-1 block' : 'hidden')}>
           <div className='mb-1'>
-            <MovieCardUI.StyledBadge variant='outline'>HD</MovieCardUI.StyledBadge>
-            <MovieCardUI.StyledBadge variant='secondary' $isMiddle>
+            <UI.MovieCard.StyledBadge variant='outline'>HD</UI.MovieCard.StyledBadge>
+            <UI.MovieCard.StyledBadge variant='secondary' $isMiddle>
               {duration}
-            </MovieCardUI.StyledBadge>
-            <MovieCardUI.StyledBadge variant={age >= 18 ? 'destructive' : 'default'}>+{age}</MovieCardUI.StyledBadge>
+            </UI.MovieCard.StyledBadge>
+            <UI.MovieCard.StyledBadge variant={age >= 18 ? 'destructive' : 'default'}>+{age}</UI.MovieCard.StyledBadge>
           </div>
           <div>
             {genres.map((genre, index) => (
-              <MovieCardUI.StyledBadge key={genre} $isMiddle={index % 2 === 1} variant='outline'>
+              <UI.MovieCard.StyledBadge key={genre} $isMiddle={index % 2 === 1} variant='outline'>
                 {genre}
-              </MovieCardUI.StyledBadge>
+              </UI.MovieCard.StyledBadge>
             ))}
           </div>
         </div>
-      </MovieCardUI.VideoInfo>
-    </MovieCardUI.CardContainer>
+      </UI.MovieCard.VideoInfo>
+    </UI.MovieCard.CardContainer>
   )
 }
 

@@ -3,6 +3,7 @@ import tw from 'tailwind-styled-components'
 import { DialogTrigger } from '@/components/ui'
 
 export const IconCircle = tw(LuPlusCircle)`
+
   size-5/6
 
   stroke-gray-500

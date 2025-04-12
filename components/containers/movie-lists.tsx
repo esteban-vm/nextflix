@@ -2,7 +2,7 @@ import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useEffect } from 'react'
 import { MovieActions, FavoriteMovieActions } from '@/actions'
 import { LoadingSpinner } from '@/components/common'
-import { HomeUI } from '@/components/pages'
+import { MovieAlert, MovieCarousel, MovieItem } from '@/components/pages'
 import { useProfileStore } from '@/hooks'
 
 export function FavoriteMovieList() {
@@ -21,7 +21,7 @@ export function FavoriteMovieList() {
   useEffect(fetchCurrentProfile, [fetchCurrentProfile])
 
   if (!currentProfile) {
-    return <HomeUI.MovieAlert>Hola, empieza seleccionando un perfil.</HomeUI.MovieAlert>
+    return <MovieAlert>Hola, empieza seleccionando un perfil.</MovieAlert>
   }
 
   if (isPending) {
@@ -30,19 +30,19 @@ export function FavoriteMovieList() {
 
   if (isEmpty && hasSucceeded) {
     return (
-      <HomeUI.MovieAlert>
+      <MovieAlert>
         Hola <span className='font-semibold not-italic'>{currentProfile.name}</span>, parece aún no tienes películas
         favoritas.
-      </HomeUI.MovieAlert>
+      </MovieAlert>
     )
   }
 
   return (
-    <HomeUI.MovieCarousel>
+    <MovieCarousel>
       {favoriteMovies.map((movie) => (
-        <HomeUI.MovieCarouselItem key={movie.id} movie={movie} isFavorite />
+        <MovieItem key={movie.id} movie={movie} isFavorite />
       ))}
-    </HomeUI.MovieCarousel>
+    </MovieCarousel>
   )
 }
 
@@ -58,14 +58,14 @@ export function PlayingMovieList() {
   }
 
   if (isEmpty && hasSucceeded) {
-    return <HomeUI.MovieAlert>Sin películas actuales</HomeUI.MovieAlert>
+    return <MovieAlert>Sin películas actuales</MovieAlert>
   }
 
   return (
-    <HomeUI.MovieCarousel>
+    <MovieCarousel>
       {playingMovies.map((movie) => (
-        <HomeUI.MovieCarouselItem key={movie.id} movie={movie} />
+        <MovieItem key={movie.id} movie={movie} />
       ))}
-    </HomeUI.MovieCarousel>
+    </MovieCarousel>
   )
 }
