@@ -99,7 +99,7 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
   }
 
   return (
-    <UI.MovieItem.ItemContainer id={id}>
+    <UI.MovieItem.ItemContainer>
       <UI.MovieItem.ItemCard>
         <UI.MovieItem.ItemContent>
           <FullImage
