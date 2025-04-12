@@ -19,7 +19,7 @@ const currentProfileSlice: StateCreator<ProfileStore, [['zustand/devtools', neve
     },
     refetchFavorites: false,
     setRefetchFavorites(value) {
-      set({ refetchFavorites: value })
+      set({ refetchFavorites: value }, undefined, 'refetch-favorites-state:set')
     },
   }
 }
