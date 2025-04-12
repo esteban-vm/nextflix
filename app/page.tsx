@@ -39,9 +39,9 @@ export default async function HomePage() {
         <UI.Page.BackgroundGradient />
       </UI.Page.HeroContainer>
       {/* Trending Section */}
-      <UI.Page.SectionContainer aria-labelledby='trending-movies'>
+      <UI.Page.SectionContainer>
         <UI.Page.SectionContent>
-          <UI.Page.SectionTitle id='trending-movies'>Las series más populares hoy en tu país:</UI.Page.SectionTitle>
+          <UI.Page.SectionTitle>Las series más populares hoy en tu país:</UI.Page.SectionTitle>
           <UI.Page.MovieList>
             {trendingMovies.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />

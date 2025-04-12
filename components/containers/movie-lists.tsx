@@ -1,3 +1,5 @@
+'use client'
+
 import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useEffect } from 'react'
 import { MovieActions, FavoriteMovieActions } from '@/actions'
