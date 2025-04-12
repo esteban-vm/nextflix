@@ -1,6 +1,6 @@
 import { ProfileActions } from '@/actions'
 import { ProfileButton, ProfileCard, ProfileForm } from '@/components/pages'
-import { ProfilesUI as UI } from '@/components/styled'
+import { Profiles as UI } from '@/components/styled'
 import { verifySession } from '@/lib/auth'
 
 export default async function ProfilesPage() {

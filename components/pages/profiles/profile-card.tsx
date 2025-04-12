@@ -5,7 +5,7 @@ import { useAction } from 'next-safe-action/hooks'
 import { LuTrash2 } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FullImage } from '@/components/common'
-import { ProfilesUI as UI } from '@/components/styled'
+import { Profiles as UI } from '@/components/styled'
 import {
   AlertDialog,
   AlertDialogAction,
