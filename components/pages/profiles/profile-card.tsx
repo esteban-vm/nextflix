@@ -1,9 +1,11 @@
+'use client'
+
 import { useRouter } from 'next/navigation'
 import { useAction } from 'next-safe-action/hooks'
 import { LuTrash2 } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FullImage } from '@/components/common'
-import { ProfileCardUI } from '@/components/pages/profiles/styled'
+import { ProfilesUI as UI } from '@/components/styled'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -55,8 +57,8 @@ export function ProfileCard({ profile }: ProfileCardProps) {
   }
 
   return (
-    <ProfileCardUI.CardContainer aria-hidden='true' id={id} onClick={onSelectProfile}>
-      <ProfileCardUI.CardContent>
+    <UI.ProfileCard.CardContainer aria-hidden='true' id={id} onClick={onSelectProfile}>
+      <UI.ProfileCard.CardContent>
         <FullImage
           alt={`Perfil de ${name}`}
           blurDataURL={placeholder}
@@ -66,7 +68,7 @@ export function ProfileCard({ profile }: ProfileCardProps) {
             isDeleting ? 'blur-md' : 'group-hover:border-gray-500'
           )}
         />
-        <ProfileCardUI.DialogContainer $isHidden={!isDeleting}>
+        <UI.ProfileCard.DialogContainer $isHidden={!isDeleting}>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size='icon' variant='destructive'>
@@ -86,10 +88,10 @@ export function ProfileCard({ profile }: ProfileCardProps) {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-        </ProfileCardUI.DialogContainer>
-      </ProfileCardUI.CardContent>
-      <ProfileCardUI.ProfileName>{name}</ProfileCardUI.ProfileName>
-    </ProfileCardUI.CardContainer>
+        </UI.ProfileCard.DialogContainer>
+      </UI.ProfileCard.CardContent>
+      <UI.ProfileCard.ProfileName>{name}</UI.ProfileCard.ProfileName>
+    </UI.ProfileCard.CardContainer>
   )
 }
 

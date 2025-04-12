@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui'
 import { useProfileStore } from '@/hooks'
 

@@ -1,7 +1,8 @@
 import { LuInfo, LuPlay } from 'react-icons/lu'
 import { MovieActions } from '@/actions'
 import { FavoriteMovieList, PlayingMovieList } from '@/components/containers'
-import { HomeUI } from '@/components/pages'
+import { MovieCard } from '@/components/pages'
+import { HomeUI as UI } from '@/components/styled'
 import { Button } from '@/components/ui'
 import { verifySession } from '@/lib/auth'
 
@@ -13,17 +14,17 @@ export default async function HomePage() {
 
   return (
     <>
-      <HomeUI.HeroContainer>
-        <HomeUI.BackgroundVideo src='/videos/video.mp4' autoPlay loop muted />
-        <HomeUI.CTAContainer>
-          <HomeUI.CTAContent>
-            <HomeUI.HeroTitle>Test</HomeUI.HeroTitle>
-            <HomeUI.CTAText>
+      <UI.Page.HeroContainer>
+        <UI.Page.BackgroundVideo src='/videos/video.mp4' autoPlay loop muted />
+        <UI.Page.CTAContainer>
+          <UI.Page.CTAContent>
+            <UI.Page.HeroTitle>Test</UI.Page.HeroTitle>
+            <UI.Page.CTAText>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptas ab debitis deserunt sit! Enim
               autem voluptatibus itaque, repellat quia est maxime minima possimus voluptas fugiat tempora officiis,
               illum nesciunt!
-            </HomeUI.CTAText>
-            <HomeUI.ButtonGroup>
+            </UI.Page.CTAText>
+            <UI.Page.ButtonGroup>
               <Button>
                 <LuPlay className='fill-black' />
                 &nbsp;Reproducir
@@ -32,36 +33,36 @@ export default async function HomePage() {
                 <LuInfo />
                 &nbsp;Más Información
               </Button>
-            </HomeUI.ButtonGroup>
-          </HomeUI.CTAContent>
-        </HomeUI.CTAContainer>
-        <HomeUI.BackgroundGradient />
-      </HomeUI.HeroContainer>
+            </UI.Page.ButtonGroup>
+          </UI.Page.CTAContent>
+        </UI.Page.CTAContainer>
+        <UI.Page.BackgroundGradient />
+      </UI.Page.HeroContainer>
       {/* Trending Section */}
-      <HomeUI.SectionContainer>
-        <HomeUI.SectionContent>
-          <HomeUI.SectionTitle>Las series más populares hoy en tu país:</HomeUI.SectionTitle>
-          <HomeUI.MovieList>
+      <UI.Page.SectionContainer aria-labelledby='trending-movies'>
+        <UI.Page.SectionContent>
+          <UI.Page.SectionTitle id='trending-movies'>Las series más populares hoy en tu país:</UI.Page.SectionTitle>
+          <UI.Page.MovieList>
             {trendingMovies.map((movie) => (
-              <HomeUI.MovieCard key={movie.id} movie={movie} />
+              <MovieCard key={movie.id} movie={movie} />
             ))}
-          </HomeUI.MovieList>
-        </HomeUI.SectionContent>
-      </HomeUI.SectionContainer>
+          </UI.Page.MovieList>
+        </UI.Page.SectionContent>
+      </UI.Page.SectionContainer>
       {/* Playing Section */}
-      <HomeUI.SectionContainer>
-        <HomeUI.SectionContent>
-          <HomeUI.SectionTitle>Películas más recientes:</HomeUI.SectionTitle>
+      <UI.Page.SectionContainer>
+        <UI.Page.SectionContent>
+          <UI.Page.SectionTitle>Películas más recientes:</UI.Page.SectionTitle>
           <PlayingMovieList />
-        </HomeUI.SectionContent>
-      </HomeUI.SectionContainer>
+        </UI.Page.SectionContent>
+      </UI.Page.SectionContainer>
       {/* Favorite Section */}
-      <HomeUI.SectionContainer>
-        <HomeUI.SectionContent>
-          <HomeUI.SectionTitle>Tus películas favoritas:</HomeUI.SectionTitle>
+      <UI.Page.SectionContainer>
+        <UI.Page.SectionContent>
+          <UI.Page.SectionTitle>Tus películas favoritas:</UI.Page.SectionTitle>
           <FavoriteMovieList />
-        </HomeUI.SectionContent>
-      </HomeUI.SectionContainer>
+        </UI.Page.SectionContent>
+      </UI.Page.SectionContainer>
     </>
   )
 }

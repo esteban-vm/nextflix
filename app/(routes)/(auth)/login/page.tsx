@@ -1,24 +1,25 @@
-import { AuthUI } from '@/components/pages'
+import { LoginForm } from '@/components/pages'
+import { AuthUI as UI } from '@/components/styled'
 import { Checkbox } from '@/components/ui'
 
 export default function LoginPage() {
   return (
     <>
-      <AuthUI.PageTitle>Iniciar sesión</AuthUI.PageTitle>
-      <AuthUI.LoginForm />
-      <AuthUI.FlexContainer $isCol>
-        <AuthUI.FlexContainer>
-          <AuthUI.CheckboxContainer>
+      <UI.Layout.PageTitle>Iniciar sesión</UI.Layout.PageTitle>
+      <LoginForm />
+      <UI.Layout.FlexContainer $isCol>
+        <UI.Layout.FlexContainer>
+          <UI.Layout.CheckboxContainer>
             <Checkbox id='remember' />
-            <AuthUI.CheckboxLabel htmlFor='remember'>&nbsp;Recordarme</AuthUI.CheckboxLabel>
-          </AuthUI.CheckboxContainer>
-          <AuthUI.PasswordLink href='/'>¿Has olvidado tu contraseña?</AuthUI.PasswordLink>
-        </AuthUI.FlexContainer>
-        <AuthUI.FlexContainer>
+            <UI.Layout.CheckboxLabel htmlFor='remember'>&nbsp;Recordarme</UI.Layout.CheckboxLabel>
+          </UI.Layout.CheckboxContainer>
+          <UI.Layout.PasswordLink href='/'>¿Has olvidado tu contraseña?</UI.Layout.PasswordLink>
+        </UI.Layout.FlexContainer>
+        <UI.Layout.FlexContainer>
           <span>¿Aún no tienes una cuenta?</span>
-          <AuthUI.AuthLink href='/register'>¡Suscríbete ahora!</AuthUI.AuthLink>
-        </AuthUI.FlexContainer>
-      </AuthUI.FlexContainer>
+          <UI.Layout.AuthLink href='/register'>¡Suscríbete ahora!</UI.Layout.AuthLink>
+        </UI.Layout.FlexContainer>
+      </UI.Layout.FlexContainer>
     </>
   )
 }
