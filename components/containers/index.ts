@@ -1,1 +1,1 @@
-export * from './movie-lists'
+export * from './favorite-movies'

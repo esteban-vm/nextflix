@@ -1,7 +1,7 @@
 import { LuInfo, LuPlay } from 'react-icons/lu'
 import { MovieActions } from '@/actions'
-import { FavoriteMovieList, PlayingMovieList } from '@/components/containers'
-import { MovieCard } from '@/components/pages'
+import { FavoriteMovies } from '@/components/containers'
+import { MovieCard, MovieCarousel, MovieItem } from '@/components/pages'
 import { Home as UI } from '@/components/styled'
 import { Button } from '@/components/ui'
 import { verifySession } from '@/lib/auth'
@@ -11,6 +11,9 @@ export default async function HomePage() {
 
   const trendingResults = await MovieActions.findTrending()
   const trendingMovies = trendingResults?.data ?? []
+
+  const playingResults = await MovieActions.findPlaying()
+  const playingMovies = playingResults?.data ?? []
 
   return (
     <>
@@ -53,14 +56,18 @@ export default async function HomePage() {
       <UI.Page.SectionContainer>
         <UI.Page.SectionContent>
           <UI.Page.SectionTitle>Películas más recientes:</UI.Page.SectionTitle>
-          <PlayingMovieList />
+          <MovieCarousel>
+            {playingMovies.map((movie) => (
+              <MovieItem key={movie.id} movie={movie} />
+            ))}
+          </MovieCarousel>
         </UI.Page.SectionContent>
       </UI.Page.SectionContainer>
       {/* Favorite Section */}
       <UI.Page.SectionContainer>
         <UI.Page.SectionContent>
           <UI.Page.SectionTitle>Tus películas favoritas:</UI.Page.SectionTitle>
-          <FavoriteMovieList />
+          <FavoriteMovies />
         </UI.Page.SectionContent>
       </UI.Page.SectionContainer>
     </>
