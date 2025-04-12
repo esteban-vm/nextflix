@@ -1,5 +1,5 @@
 import { RegisterForm } from '@/components/pages'
-import { AuthUI as UI } from '@/components/styled'
+import { Auth as UI } from '@/components/styled'
 
 export default function RegisterPage() {
   return (

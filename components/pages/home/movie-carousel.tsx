@@ -6,7 +6,7 @@ import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useRef, useState } from 'react'
 import { FavoriteMovieActions } from '@/actions'
 import { FullImage } from '@/components/common'
-import { HomeUI as UI } from '@/components/styled'
+import { Home as UI } from '@/components/styled'
 import { Carousel, CarouselContent, CarouselNext, CarouselPrevious } from '@/components/ui'
 import { toast, useProfileStore } from '@/hooks'
 

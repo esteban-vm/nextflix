@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { LoadingSpinner, FullImage } from '@/components/common'
-import { HomeUI as UI } from '@/components/styled'
+import { Home as UI } from '@/components/styled'
 import { rankingPlaceholder } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 

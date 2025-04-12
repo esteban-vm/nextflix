@@ -1,3 +1,3 @@
-export * as AuthUI from './auth'
-export * as HomeUI from './home'
-export * as ProfilesUI from './profiles'
+export * as Auth from './auth'
+export * as Home from './home'
+export * as Profiles from './profiles'

@@ -1,5 +1,5 @@
 import { LoginForm } from '@/components/pages'
-import { AuthUI as UI } from '@/components/styled'
+import { Auth as UI } from '@/components/styled'
 import { Checkbox } from '@/components/ui'
 
 export default function LoginPage() {

@@ -5,7 +5,7 @@ import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hoo
 import { LuCheck } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FormButton, FormInput, FormRadioButton, FormRadioGroup, FormWrapper } from '@/components/common'
-import { ProfilesUI as UI } from '@/components/styled'
+import { Profiles as UI } from '@/components/styled'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Form } from '@/components/ui'
 import { toast, useProfileStore } from '@/hooks'
 import { avatarUrls } from '@/lib/constants'

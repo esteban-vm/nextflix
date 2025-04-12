@@ -1,4 +1,4 @@
-import { HomeUI as UI } from '@/components/styled'
+import { Home as UI } from '@/components/styled'
 
 export function MovieAlert({ children }: Props.WithChildren) {
   return (
