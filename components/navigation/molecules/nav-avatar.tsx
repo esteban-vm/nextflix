@@ -8,10 +8,10 @@ import {
   TooltipTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui'
-import { useProfileStore } from '@/hooks'
+import { useCurrentProfile } from '@/hooks'
 
 export function NavAvatar({ className }: Props.WithClassName) {
-  const { currentProfile } = useProfileStore()
+  const { currentProfile } = useCurrentProfile()
 
   return (
     <DropdownMenuTrigger className={className}>

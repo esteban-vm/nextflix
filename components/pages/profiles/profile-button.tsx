@@ -1,13 +1,13 @@
 'use client'
 
 import { Button } from '@/components/ui'
-import { useProfileStore } from '@/hooks'
+import { useUIStore } from '@/hooks'
 
 export function ProfileButton() {
-  const { toggle } = useProfileStore()
+  const { isDeletingProfile, setIsDeletingProfile } = useUIStore()
 
   return (
-    <Button size='lg' variant='outline' onClick={() => toggle('isDeleting')}>
+    <Button size='lg' variant='outline' onClick={() => setIsDeletingProfile(!isDeletingProfile)}>
       Administrar perfiles
     </Button>
   )

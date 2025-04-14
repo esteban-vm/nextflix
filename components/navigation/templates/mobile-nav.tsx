@@ -10,18 +10,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui'
-import { useMobileNav, useScrollPosition } from '@/hooks'
+import { useScrollPosition, useUIStore } from '@/hooks'
 import { navLinks } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 export function MobileNav() {
-  const { isOpen, setIsOpen } = useMobileNav()
+  const { isMobileNavigationOpen, setIsMobileNavigationOpen } = useUIStore()
   const { scrollPosition } = useScrollPosition()
 
   return (
     <div className={cn('flex justify-between p-4 lg:hidden', scrollPosition > 20 ? 'bg-black' : 'bg-transparent')}>
       <LogoLink />
-      <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <Sheet open={isMobileNavigationOpen} onOpenChange={setIsMobileNavigationOpen}>
         <SheetTrigger>
           <LuMenu className='size-6 cursor-pointer' />
         </SheetTrigger>
