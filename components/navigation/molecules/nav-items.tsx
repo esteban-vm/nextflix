@@ -1,17 +1,13 @@
 import Image from 'next/image'
 import { DropdownMenuItem } from '@/components/ui'
-import { useCurrentSession, useProfileStore } from '@/hooks'
+import { useCurrentSession, useCurrentProfile } from '@/hooks'
 
 export function ImageItem({ profile }: ImageItemProps) {
   const { name, id, avatarUrl, placeholder } = profile
-  const { setCurrentProfile } = useProfileStore()
-
-  const onChangeProfile = () => {
-    setCurrentProfile(profile)
-  }
+  const { setCurrentProfile } = useCurrentProfile()
 
   return (
-    <DropdownMenuItem className='w-52 cursor-pointer' id={id} onClick={onChangeProfile}>
+    <DropdownMenuItem className='w-52 cursor-pointer' id={id} onClick={() => setCurrentProfile(profile)}>
       <div className='relative aspect-square size-12 rounded-sm border-2 border-primary'>
         <Image alt={`Perfil de ${name}`} blurDataURL={placeholder} placeholder='blur' src={avatarUrl} fill />
       </div>

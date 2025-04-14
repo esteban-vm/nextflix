@@ -7,37 +7,39 @@ import { ProfileActions } from '@/actions'
 import { MenuWrapper } from '@/components/navigation/atoms'
 import { LogoutButton, ManageButton, NavAvatar, NavIcon, ImageItem, InfoItem } from '@/components/navigation/molecules'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuSeparator } from '@/components/ui'
-import { useCurrentSession, useMobileNav, useProfileStore } from '@/hooks'
+import { useCurrentSession, useUIStore } from '@/hooks'
 
 export function NavMenu() {
   const { push } = useRouter()
-  const { close } = useMobileNav()
   const { status } = useCurrentSession()
   const [isOpen, setIsOpen] = useState(false)
-  const { isCompleted, end } = useProfileStore()
   const { execute, result } = useAction(ProfileActions.findAll)
+  const { isProfileActionCompleted, setIsProfileActionCompleted, setIsMobileNavigationOpen } = useUIStore()
 
   const hasResults = !!result.data?.length
   const isAuthenticated = status === 'authenticated'
 
   const fetchProfiles = useCallback(() => {
     if (isAuthenticated) {
-      if (isCompleted) end('isCompleted')
+      if (isProfileActionCompleted) {
+        setIsProfileActionCompleted(false)
+      }
+
       execute()
     }
-  }, [end, execute, isAuthenticated, isCompleted])
+  }, [execute, isAuthenticated, isProfileActionCompleted, setIsProfileActionCompleted])
 
   useEffect(fetchProfiles, [fetchProfiles])
 
   const onRedirect = () => {
-    close()
     setIsOpen(false)
+    setIsMobileNavigationOpen(false)
     push('/profiles')
   }
 
   const onLogOut = () => {
-    close()
     setIsOpen(false)
+    setIsMobileNavigationOpen(false)
     signOut({ redirectTo: '/login' })
   }
 

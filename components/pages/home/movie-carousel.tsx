@@ -3,15 +3,16 @@
 import type { CarouselApi } from '@/components/ui'
 import Autoplay from 'embla-carousel-autoplay'
 import { useAction } from 'next-safe-action/hooks'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { FavoriteMovieActions } from '@/actions'
 import { FullImage } from '@/components/common'
 import { Home as UI } from '@/components/styled'
 import { Carousel, CarouselContent, CarouselNext, CarouselPrevious } from '@/components/ui'
-import { toast, useProfileStore } from '@/hooks'
+import { toast, useCurrentProfile, useUIStore } from '@/hooks'
 
 export function MovieCarousel({ children }: Props.WithChildren) {
   const [api, setApi] = useState<CarouselApi>()
+  const { isAddingOneFavorite, setIsAddingOneFavorite } = useUIStore()
 
   const autoplay = useRef(
     Autoplay({
@@ -35,6 +36,18 @@ export function MovieCarousel({ children }: Props.WithChildren) {
     autoplay.current.reset()
   }, [api])
 
+  const scrollIntoView = useCallback(async () => {
+    if (api && isAddingOneFavorite) {
+      api.containerNode().scrollIntoView({ block: 'end', behavior: 'smooth' })
+      await new Promise((resolve) => setTimeout(resolve, 1_500))
+      setIsAddingOneFavorite(false)
+    }
+  }, [api, isAddingOneFavorite, setIsAddingOneFavorite])
+
+  useEffect(() => {
+    scrollIntoView()
+  }, [scrollIntoView])
+
   return (
     <Carousel opts={{ loop: true }} plugins={[autoplay.current]} setApi={setApi}>
       <CarouselContent className='-ml-1 active:cursor-grabbing'>{children}</CarouselContent>
@@ -46,7 +59,8 @@ export function MovieCarousel({ children }: Props.WithChildren) {
 
 export function MovieItem({ movie, isFavorite }: MovieItemProps) {
   const { id, title, placeholder, posterUrl } = movie
-  const { currentProfile, setRefetchFavorites } = useProfileStore()
+  const { currentProfile } = useCurrentProfile()
+  const { setIsAddingOneFavorite, setIsFetchingAllFavorites } = useUIStore()
 
   const {
     execute: like,
@@ -54,7 +68,8 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     isPending: isPendingLike,
   } = useAction(FavoriteMovieActions.createOne, {
     onSuccess({ data }) {
-      setRefetchFavorites(true)
+      setIsAddingOneFavorite(true)
+      setIsFetchingAllFavorites(true)
       toast({ title: `La película "${data?.movie.title}" ha sido añadida a tus favoritos` })
     },
     onError({ error }) {
@@ -74,7 +89,7 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     isPending: isPendingDislike,
   } = useAction(FavoriteMovieActions.deleteOne, {
     onSuccess({ data }) {
-      setRefetchFavorites(true)
+      setIsFetchingAllFavorites(true)
       toast({ title: `La película "${data?.movie.title}" ha sido eliminada de tus favoritos` })
     },
     onError({ error }) {

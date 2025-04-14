@@ -18,18 +18,19 @@ import {
   AlertDialogTrigger,
   Button,
 } from '@/components/ui'
-import { toast, useProfileStore } from '@/hooks'
+import { toast, useCurrentProfile, useUIStore } from '@/hooks'
 import { cn } from '@/lib/utils'
 
 export function ProfileCard({ profile }: ProfileCardProps) {
   const { push } = useRouter()
-  const { start, end, isDeleting, setCurrentProfile, currentProfile } = useProfileStore()
+  const { currentProfile, setCurrentProfile } = useCurrentProfile()
+  const { isDeletingProfile, setIsDeletingProfile, setIsProfileActionCompleted } = useUIStore()
   const { id, name, avatarUrl, placeholder } = profile
 
   const { execute, isPending } = useAction(ProfileActions.deleteOne, {
     onSuccess({ data }) {
-      end('isDeleting')
-      start('isCompleted')
+      setIsDeletingProfile(false)
+      setIsProfileActionCompleted(true)
       toast({ title: `El perfil de ${data?.name} ha sido eliminado correctamente` })
     },
     onError({ error }) {
@@ -39,18 +40,20 @@ export function ProfileCard({ profile }: ProfileCardProps) {
       toast({ title: 'Eliminando perfil', description: 'Un momento…' })
     },
     onSettled() {
-      end('isDeleting')
+      setIsDeletingProfile(false)
     },
   })
 
   const onSelectProfile = () => {
-    if (isDeleting) return
+    if (isDeletingProfile) return
+
     setCurrentProfile(profile)
     push('/')
   }
 
   const onDeleteProfile = () => {
     execute({ id })
+
     if (currentProfile?.id === id) {
       setCurrentProfile(null)
     }
@@ -65,10 +68,10 @@ export function ProfileCard({ profile }: ProfileCardProps) {
           src={avatarUrl}
           className={cn(
             'rounded-md border-2 border-transparent bg-cover',
-            isDeleting ? 'blur-md' : 'group-hover:border-gray-500'
+            isDeletingProfile ? 'blur-md' : 'group-hover:border-gray-500'
           )}
         />
-        <UI.ProfileCard.DialogContainer $isHidden={!isDeleting}>
+        <UI.ProfileCard.DialogContainer $isHidden={!isDeletingProfile}>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size='icon' variant='destructive'>

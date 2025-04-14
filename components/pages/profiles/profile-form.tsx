@@ -7,12 +7,12 @@ import { ProfileActions } from '@/actions'
 import { FormButton, FormInput, FormRadioButton, FormRadioGroup, FormWrapper } from '@/components/common'
 import { Profiles as UI } from '@/components/styled'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Form } from '@/components/ui'
-import { toast, useProfileStore } from '@/hooks'
+import { toast, useUIStore } from '@/hooks'
 import { avatarUrls } from '@/lib/constants'
 import { ProfileSchema } from '@/lib/validations'
 
 export function ProfileForm({ remaining }: ProfileFormProps) {
-  const { start, end, toggle, isAdding } = useProfileStore()
+  const { isAddingProfile, setIsAddingProfile, setIsProfileActionCompleted } = useUIStore()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     ProfileActions.createOne,
@@ -20,8 +20,8 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
     {
       actionProps: {
         onSuccess({ data }) {
-          end('isAdding')
-          start('isCompleted')
+          setIsAddingProfile(false)
+          setIsProfileActionCompleted(true)
           toast({ title: `El perfil de ${data?.name} ha sido creado correctamente` })
         },
         onError({ error }) {
@@ -29,7 +29,7 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
         },
         onSettled() {
           resetFormAndAction()
-          end('isAdding')
+          setIsAddingProfile(false)
         },
         onExecute() {
           toast({ title: 'Creando perfil', description: 'Un momento…' })
@@ -51,7 +51,7 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
   } = form
 
   return (
-    <Dialog open={isAdding} onOpenChange={() => toggle('isAdding')}>
+    <Dialog open={isAddingProfile} onOpenChange={() => setIsAddingProfile(!isAddingProfile)}>
       <UI.ProfileForm.StyledTrigger>
         <UI.ProfileForm.IconContainer>
           <UI.ProfileForm.IconCircle />
