@@ -40,7 +40,7 @@ export const ItemCard = tw(Card)`
 
   aspect-video
 
-  max-w-md
+  max-w-sm
 
   overflow-hidden
 
@@ -118,8 +118,8 @@ export const MovieTitle = tw.span`
 
 export const StyledButton = tw(Button)`
 
-  rounded-full
+  size-9
 
-  ~size-8/9
+  rounded-full
 
 `

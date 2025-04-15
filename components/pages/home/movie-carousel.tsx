@@ -51,8 +51,8 @@ export function MovieCarousel({ children }: Props.WithChildren) {
   return (
     <Carousel opts={{ loop: true }} plugins={[autoplay.current]} setApi={setApi}>
       <CarouselContent className='-ml-1 active:cursor-grabbing'>{children}</CarouselContent>
-      <CarouselPrevious onClick={scrollPrev} />
-      <CarouselNext onClick={scrollNext} />
+      <CarouselPrevious className='hidden lg:flex' onClick={scrollPrev} />
+      <CarouselNext className='hidden lg:flex' onClick={scrollNext} />
     </Carousel>
   )
 }
