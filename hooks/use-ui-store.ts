@@ -2,71 +2,75 @@ import type { StateCreator } from 'zustand'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-type ProfileModalsState = `is${`${'Adding' | 'Deleting'}Profile` | 'ProfileActionCompleted'}`
-type ProfileModalsStates = Record<ProfileModalsState, boolean>
-type ProfileModalsAction = `set${Capitalize<ProfileModalsState>}`
-type ProfileModalsActions = Record<ProfileModalsAction, (value: boolean) => void>
-interface ProfileModalsUI extends ProfileModalsStates, ProfileModalsActions {}
-
-const profileModalsSlice: UISlice<ProfileModalsUI> = (set) => {
-  return {
-    isAddingProfile: false,
-    setIsAddingProfile(value) {
-      set({ isAddingProfile: value }, undefined, 'profile-modal-slice:is-adding-profile')
-    },
-    isDeletingProfile: false,
-    setIsDeletingProfile(value) {
-      set({ isDeletingProfile: value }, undefined, 'profile-modal-slice:is-deleting-profile')
-    },
-    isProfileActionCompleted: false,
-    setIsProfileActionCompleted(value) {
-      set({ isProfileActionCompleted: value }, undefined, 'profile-modal-slice:is-completed')
-    },
-  }
-}
-
-type FavoriteMoviesState = `is${'FetchingAllFavorites' | 'AddingOneFavorite'}`
-type FavoriteMoviesStates = Record<FavoriteMoviesState, boolean>
-type FavoriteMoviesAction = `set${Capitalize<FavoriteMoviesState>}`
-type FavoriteMoviesActions = Record<FavoriteMoviesAction, (value: boolean) => void>
-interface FavoriteMoviesUI extends FavoriteMoviesStates, FavoriteMoviesActions {}
-
-const favoriteMoviesSlice: UISlice<FavoriteMoviesUI> = (set) => {
-  return {
-    isFetchingAllFavorites: false,
-    setIsFetchingAllFavorites(value) {
-      set({ isFetchingAllFavorites: value }, undefined, 'favorite-movie-slice:is-fetching-all-favorites')
-    },
-    isAddingOneFavorite: false,
-    setIsAddingOneFavorite(value) {
-      set({ isAddingOneFavorite: value }, undefined, 'favorite-movie-slice:is-adding-one-favorite')
-    },
-  }
-}
-
-interface MobileNavigationUI {
+interface MobileNavigationUIManagement {
   isMobileNavigationOpen: boolean
   setIsMobileNavigationOpen: (value: boolean) => void
 }
 
-const mobileNavigationSlice: UISlice<MobileNavigationUI> = (set) => {
+const mobileNavigationUISlice: UISlice<MobileNavigationUIManagement> = (set) => {
   return {
     isMobileNavigationOpen: false,
     setIsMobileNavigationOpen(value) {
-      set({ isMobileNavigationOpen: value }, undefined, 'mobile-navigation-slice:is-mobile-navigation-open')
+      set({ isMobileNavigationOpen: value })
     },
   }
 }
 
-type UIStore = ProfileModalsUI & FavoriteMoviesUI & MobileNavigationUI
+interface MovieCarouselUIManagement {
+  shouldScrollCarouselIntoView: boolean
+  setShouldScrollCarouselIntoView: (value: boolean) => void
+  shouldRenderFavoriteMovies: boolean
+  setShouldRenderFavoriteMovies: (value: boolean) => void
+}
+
+const movieCarouselUISlice: UISlice<MovieCarouselUIManagement> = (set) => {
+  return {
+    shouldScrollCarouselIntoView: false,
+    setShouldScrollCarouselIntoView(value) {
+      set({ shouldScrollCarouselIntoView: value })
+    },
+    shouldRenderFavoriteMovies: false,
+    setShouldRenderFavoriteMovies(value) {
+      set({ shouldRenderFavoriteMovies: value })
+    },
+  }
+}
+
+interface ProfilesUIManagement {
+  isShowingCreateProfileForm: boolean
+  setIsShowingCreateProfileForm: (value: boolean) => void
+  isShowingDeleteProfileAlert: boolean
+  setIsShowingDeleteProfileAlert: (value: boolean) => void
+  shouldRenderProfiles: boolean
+  setShouldRenderProfiles: (value: boolean) => void
+}
+
+const profilesUISlice: UISlice<ProfilesUIManagement> = (set) => {
+  return {
+    isShowingCreateProfileForm: false,
+    setIsShowingCreateProfileForm(value) {
+      set({ isShowingCreateProfileForm: value })
+    },
+    isShowingDeleteProfileAlert: false,
+    setIsShowingDeleteProfileAlert(value) {
+      set({ isShowingDeleteProfileAlert: value })
+    },
+    shouldRenderProfiles: false,
+    setShouldRenderProfiles(value) {
+      set({ shouldRenderProfiles: value })
+    },
+  }
+}
+
+type UIStore = MobileNavigationUIManagement & MovieCarouselUIManagement & ProfilesUIManagement
 type UISlice<T> = StateCreator<UIStore, [['zustand/devtools', never]], [], T>
 
 export const useUIStore = create<UIStore>()(
   devtools((...args) => {
     return {
-      ...profileModalsSlice(...args),
-      ...favoriteMoviesSlice(...args),
-      ...mobileNavigationSlice(...args),
+      ...mobileNavigationUISlice(...args),
+      ...movieCarouselUISlice(...args),
+      ...profilesUISlice(...args),
     }
   })
 )

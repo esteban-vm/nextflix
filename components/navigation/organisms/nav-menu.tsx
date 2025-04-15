@@ -14,20 +14,20 @@ export function NavMenu() {
   const { status } = useCurrentSession()
   const [isOpen, setIsOpen] = useState(false)
   const { execute, result } = useAction(ProfileActions.findAll)
-  const { isProfileActionCompleted, setIsProfileActionCompleted, setIsMobileNavigationOpen } = useUIStore()
+  const { shouldRenderProfiles, setShouldRenderProfiles, setIsMobileNavigationOpen } = useUIStore()
 
   const hasResults = !!result.data?.length
   const isAuthenticated = status === 'authenticated'
 
   const fetchProfiles = useCallback(() => {
     if (isAuthenticated) {
-      if (isProfileActionCompleted) {
-        setIsProfileActionCompleted(false)
+      if (shouldRenderProfiles) {
+        setShouldRenderProfiles(false)
       }
 
       execute()
     }
-  }, [execute, isAuthenticated, isProfileActionCompleted, setIsProfileActionCompleted])
+  }, [execute, isAuthenticated, setShouldRenderProfiles, shouldRenderProfiles])
 
   useEffect(fetchProfiles, [fetchProfiles])
 

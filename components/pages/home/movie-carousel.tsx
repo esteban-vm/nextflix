@@ -12,7 +12,7 @@ import { toast, useCurrentProfile, useUIStore } from '@/hooks'
 
 export function MovieCarousel({ children }: Props.WithChildren) {
   const [api, setApi] = useState<CarouselApi>()
-  const { isAddingOneFavorite, setIsAddingOneFavorite } = useUIStore()
+  const { shouldScrollCarouselIntoView, setShouldScrollCarouselIntoView } = useUIStore()
 
   const autoplay = useRef(
     Autoplay({
@@ -37,12 +37,12 @@ export function MovieCarousel({ children }: Props.WithChildren) {
   }, [api])
 
   const scrollIntoView = useCallback(async () => {
-    if (api && isAddingOneFavorite) {
+    if (api && shouldScrollCarouselIntoView) {
       api.containerNode().scrollIntoView({ block: 'end', behavior: 'smooth' })
       await new Promise((resolve) => setTimeout(resolve, 1_500))
-      setIsAddingOneFavorite(false)
+      setShouldScrollCarouselIntoView(false)
     }
-  }, [api, isAddingOneFavorite, setIsAddingOneFavorite])
+  }, [api, setShouldScrollCarouselIntoView, shouldScrollCarouselIntoView])
 
   useEffect(() => {
     scrollIntoView()
@@ -58,9 +58,9 @@ export function MovieCarousel({ children }: Props.WithChildren) {
 }
 
 export function MovieItem({ movie, isFavorite }: MovieItemProps) {
-  const { id, title, placeholder, posterUrl } = movie
   const { currentProfile } = useCurrentProfile()
-  const { setIsAddingOneFavorite, setIsFetchingAllFavorites } = useUIStore()
+  const { setShouldScrollCarouselIntoView, setShouldRenderFavoriteMovies } = useUIStore()
+  const { id, title, placeholder, posterUrl } = movie
 
   const {
     execute: like,
@@ -89,7 +89,7 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     isPending: isPendingDislike,
   } = useAction(FavoriteMovieActions.deleteOne, {
     onSuccess({ data }) {
-      setIsFetchingAllFavorites(true)
+      setShouldRenderFavoriteMovies(true)
       toast({ title: `La película "${data?.movie.title}" ha sido eliminada de tus favoritos` })
     },
     onError({ error }) {

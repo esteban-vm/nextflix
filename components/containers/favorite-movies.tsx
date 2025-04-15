@@ -9,20 +9,20 @@ import { useCurrentProfile, useUIStore } from '@/hooks'
 
 export function FavoriteMovies() {
   const { currentProfile } = useCurrentProfile()
-  const { isFetchingAllFavorites, setIsFetchingAllFavorites } = useUIStore()
+  const { shouldRenderFavoriteMovies, setShouldRenderFavoriteMovies } = useUIStore()
   const { execute, result, isPending, hasSucceeded } = useAction(FavoriteMovieActions.findAllById)
   const favoriteMovies = result?.data ?? []
   const isEmpty = favoriteMovies.length === 0
 
   const fetchCurrentProfile = useCallback(() => {
     if (currentProfile) {
-      if (isFetchingAllFavorites) {
-        setIsFetchingAllFavorites(false)
+      if (shouldRenderFavoriteMovies) {
+        setShouldRenderFavoriteMovies(false)
       }
 
       execute({ id: currentProfile.id })
     }
-  }, [execute, currentProfile, isFetchingAllFavorites, setIsFetchingAllFavorites])
+  }, [execute, currentProfile, setShouldRenderFavoriteMovies, shouldRenderFavoriteMovies])
 
   useEffect(fetchCurrentProfile, [fetchCurrentProfile])
 
