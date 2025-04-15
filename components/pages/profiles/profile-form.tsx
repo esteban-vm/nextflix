@@ -12,7 +12,7 @@ import { avatarUrls } from '@/lib/constants'
 import { ProfileSchema } from '@/lib/validations'
 
 export function ProfileForm({ remaining }: ProfileFormProps) {
-  const { isAddingProfile, setIsAddingProfile, setIsProfileActionCompleted } = useUIStore()
+  const { isShowingCreateProfileForm, setIsShowingCreateProfileForm, setShouldRenderProfiles } = useUIStore()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     ProfileActions.createOne,
@@ -20,8 +20,8 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
     {
       actionProps: {
         onSuccess({ data }) {
-          setIsAddingProfile(false)
-          setIsProfileActionCompleted(true)
+          setIsShowingCreateProfileForm(false)
+          setShouldRenderProfiles(true)
           toast({ title: `El perfil de ${data?.name} ha sido creado correctamente` })
         },
         onError({ error }) {
@@ -29,7 +29,7 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
         },
         onSettled() {
           resetFormAndAction()
-          setIsAddingProfile(false)
+          setIsShowingCreateProfileForm(false)
         },
         onExecute() {
           toast({ title: 'Creando perfil', description: 'Un momento…' })
@@ -51,7 +51,10 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
   } = form
 
   return (
-    <Dialog open={isAddingProfile} onOpenChange={() => setIsAddingProfile(!isAddingProfile)}>
+    <Dialog
+      open={isShowingCreateProfileForm}
+      onOpenChange={() => setIsShowingCreateProfileForm(!isShowingCreateProfileForm)}
+    >
       <UI.ProfileForm.StyledTrigger>
         <UI.ProfileForm.IconContainer>
           <UI.ProfileForm.IconCircle />

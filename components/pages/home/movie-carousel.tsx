@@ -12,7 +12,7 @@ import { toast, useCurrentProfile, useUIStore } from '@/hooks'
 
 export function MovieCarousel({ children }: Props.WithChildren) {
   const [api, setApi] = useState<CarouselApi>()
-  const { isAddingOneFavorite, setIsAddingOneFavorite } = useUIStore()
+  const { shouldScrollCarouselIntoView, setShouldScrollCarouselIntoView } = useUIStore()
 
   const autoplay = useRef(
     Autoplay({
@@ -37,12 +37,12 @@ export function MovieCarousel({ children }: Props.WithChildren) {
   }, [api])
 
   const scrollIntoView = useCallback(async () => {
-    if (api && isAddingOneFavorite) {
+    if (api && shouldScrollCarouselIntoView) {
       api.containerNode().scrollIntoView({ block: 'end', behavior: 'smooth' })
       await new Promise((resolve) => setTimeout(resolve, 1_500))
-      setIsAddingOneFavorite(false)
+      setShouldScrollCarouselIntoView(false)
     }
-  }, [api, isAddingOneFavorite, setIsAddingOneFavorite])
+  }, [api, setShouldScrollCarouselIntoView, shouldScrollCarouselIntoView])
 
   useEffect(() => {
     scrollIntoView()
@@ -51,16 +51,16 @@ export function MovieCarousel({ children }: Props.WithChildren) {
   return (
     <Carousel opts={{ loop: true }} plugins={[autoplay.current]} setApi={setApi}>
       <CarouselContent className='-ml-1 active:cursor-grabbing'>{children}</CarouselContent>
-      <CarouselPrevious onClick={scrollPrev} />
-      <CarouselNext onClick={scrollNext} />
+      <CarouselPrevious className='hidden lg:flex' onClick={scrollPrev} />
+      <CarouselNext className='hidden lg:flex' onClick={scrollNext} />
     </Carousel>
   )
 }
 
 export function MovieItem({ movie, isFavorite }: MovieItemProps) {
-  const { id, title, placeholder, posterUrl } = movie
   const { currentProfile } = useCurrentProfile()
-  const { setIsAddingOneFavorite, setIsFetchingAllFavorites } = useUIStore()
+  const { setShouldScrollCarouselIntoView, setShouldRenderFavoriteMovies } = useUIStore()
+  const { id, title, placeholder, posterUrl } = movie
 
   const {
     execute: like,
@@ -68,8 +68,8 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     isPending: isPendingLike,
   } = useAction(FavoriteMovieActions.createOne, {
     onSuccess({ data }) {
-      setIsAddingOneFavorite(true)
-      setIsFetchingAllFavorites(true)
+      setShouldScrollCarouselIntoView(true)
+      setShouldRenderFavoriteMovies(true)
       toast({ title: `La película "${data?.movie.title}" ha sido añadida a tus favoritos` })
     },
     onError({ error }) {
@@ -89,7 +89,7 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     isPending: isPendingDislike,
   } = useAction(FavoriteMovieActions.deleteOne, {
     onSuccess({ data }) {
-      setIsFetchingAllFavorites(true)
+      setShouldRenderFavoriteMovies(true)
       toast({ title: `La película "${data?.movie.title}" ha sido eliminada de tus favoritos` })
     },
     onError({ error }) {
