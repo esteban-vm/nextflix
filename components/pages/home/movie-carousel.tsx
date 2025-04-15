@@ -68,8 +68,8 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     isPending: isPendingLike,
   } = useAction(FavoriteMovieActions.createOne, {
     onSuccess({ data }) {
-      setIsAddingOneFavorite(true)
-      setIsFetchingAllFavorites(true)
+      setShouldScrollCarouselIntoView(true)
+      setShouldRenderFavoriteMovies(true)
       toast({ title: `La película "${data?.movie.title}" ha sido añadida a tus favoritos` })
     },
     onError({ error }) {
