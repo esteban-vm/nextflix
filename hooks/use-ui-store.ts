@@ -2,12 +2,12 @@ import type { StateCreator } from 'zustand'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-interface MobileNavigationUIManagement {
+interface MobileNavigationUISlice {
   isMobileNavigationOpen: boolean
   setIsMobileNavigationOpen: (value: boolean) => void
 }
 
-const mobileNavigationUISlice: UISlice<MobileNavigationUIManagement> = (set) => {
+const mobileNavigationUISlice: UISlice<MobileNavigationUISlice> = (set) => {
   return {
     isMobileNavigationOpen: false,
     setIsMobileNavigationOpen(value) {
@@ -16,14 +16,14 @@ const mobileNavigationUISlice: UISlice<MobileNavigationUIManagement> = (set) => 
   }
 }
 
-interface MovieCarouselUIManagement {
+interface MovieCarouselUISlice {
   shouldScrollCarouselIntoView: boolean
   setShouldScrollCarouselIntoView: (value: boolean) => void
   shouldRenderFavoriteMovies: boolean
   setShouldRenderFavoriteMovies: (value: boolean) => void
 }
 
-const movieCarouselUISlice: UISlice<MovieCarouselUIManagement> = (set) => {
+const movieCarouselUISlice: UISlice<MovieCarouselUISlice> = (set) => {
   return {
     shouldScrollCarouselIntoView: false,
     setShouldScrollCarouselIntoView(value) {
@@ -36,18 +36,18 @@ const movieCarouselUISlice: UISlice<MovieCarouselUIManagement> = (set) => {
   }
 }
 
-interface ProfilesUIManagement {
-  isDeleteProfileAlertOpen: boolean
-  setIsDeleteProfileAlertOpen: (value: boolean) => void
+interface ProfilesUISlice {
+  isDeleteProfileAlertHidden: boolean
+  setIsDeleteProfileAlertHidden: (value: boolean) => void
   shouldRenderProfiles: boolean
   setShouldRenderProfiles: (value: boolean) => void
 }
 
-const profilesUISlice: UISlice<ProfilesUIManagement> = (set) => {
+const profilesUISlice: UISlice<ProfilesUISlice> = (set) => {
   return {
-    isDeleteProfileAlertOpen: false,
-    setIsDeleteProfileAlertOpen(value) {
-      set({ isDeleteProfileAlertOpen: value })
+    isDeleteProfileAlertHidden: true,
+    setIsDeleteProfileAlertHidden(value) {
+      set({ isDeleteProfileAlertHidden: value })
     },
     shouldRenderProfiles: false,
     setShouldRenderProfiles(value) {
@@ -56,7 +56,7 @@ const profilesUISlice: UISlice<ProfilesUIManagement> = (set) => {
   }
 }
 
-type UIStore = MobileNavigationUIManagement & MovieCarouselUIManagement & ProfilesUIManagement
+type UIStore = MobileNavigationUISlice & MovieCarouselUISlice & ProfilesUISlice
 type UISlice<T> = StateCreator<UIStore, [['zustand/devtools', never]], [], T>
 
 export const useUIStore = create<UIStore>()(

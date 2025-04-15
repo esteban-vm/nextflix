@@ -24,12 +24,11 @@ import { cn } from '@/lib/utils'
 export function ProfileCard({ profile }: ProfileCardProps) {
   const { push } = useRouter()
   const { currentProfile, setCurrentProfile } = useCurrentProfile()
-  const { isDeleteProfileAlertOpen, setIsDeleteProfileAlertOpen, setShouldRenderProfiles } = useUIStore()
+  const { isDeleteProfileAlertHidden, setIsDeleteProfileAlertHidden, setShouldRenderProfiles } = useUIStore()
   const { id, name, avatarUrl, placeholder } = profile
 
-  const { execute, isPending } = useAction(ProfileActions.deleteOne, {
+  const { execute, isPending, reset } = useAction(ProfileActions.deleteOne, {
     onSuccess({ data }) {
-      setIsDeleteProfileAlertOpen(false)
       setShouldRenderProfiles(true)
       toast({ title: `El perfil de ${data?.name} ha sido eliminado correctamente` })
     },
@@ -40,12 +39,13 @@ export function ProfileCard({ profile }: ProfileCardProps) {
       toast({ title: 'Eliminando perfil', description: 'Un momento…' })
     },
     onSettled() {
-      setIsDeleteProfileAlertOpen(false)
+      setIsDeleteProfileAlertHidden(true)
+      reset()
     },
   })
 
   const onSelectProfile = () => {
-    if (isDeleteProfileAlertOpen) return
+    if (!isDeleteProfileAlertHidden) return
 
     setCurrentProfile(profile)
     push('/')
@@ -68,10 +68,10 @@ export function ProfileCard({ profile }: ProfileCardProps) {
           src={avatarUrl}
           className={cn(
             'rounded-md border-2 border-transparent bg-cover',
-            isDeleteProfileAlertOpen ? 'blur-md' : 'group-hover:border-gray-500'
+            isDeleteProfileAlertHidden ? 'group-hover:border-gray-500' : 'blur-md'
           )}
         />
-        <UI.ProfileCard.DialogContainer $isHidden={!isDeleteProfileAlertOpen}>
+        <UI.ProfileCard.DialogContainer $isHidden={isDeleteProfileAlertHidden}>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size='icon' variant='destructive'>
