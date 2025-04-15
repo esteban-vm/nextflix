@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
+import { useState } from 'react'
 import { LuCheck } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FormButton, FormInput, FormRadioButton, FormRadioGroup, FormWrapper } from '@/components/common'
@@ -12,7 +13,8 @@ import { avatarUrls } from '@/lib/constants'
 import { ProfileSchema } from '@/lib/validations'
 
 export function ProfileForm({ remaining }: ProfileFormProps) {
-  const { isShowingCreateProfileForm, setIsShowingCreateProfileForm, setShouldRenderProfiles } = useUIStore()
+  const [isOpen, setIsOpen] = useState(false)
+  const { setShouldRenderProfiles } = useUIStore()
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     ProfileActions.createOne,
@@ -20,19 +22,19 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
     {
       actionProps: {
         onSuccess({ data }) {
-          setIsShowingCreateProfileForm(false)
+          setIsOpen(false)
           setShouldRenderProfiles(true)
           toast({ title: `El perfil de ${data?.name} ha sido creado correctamente` })
         },
         onError({ error }) {
           toast({ title: error.validationErrors?._errors?.[0], variant: 'destructive' })
         },
-        onSettled() {
-          resetFormAndAction()
-          setIsShowingCreateProfileForm(false)
-        },
         onExecute() {
           toast({ title: 'Creando perfil', description: 'Un momento…' })
+        },
+        onSettled() {
+          setIsOpen(false)
+          resetFormAndAction()
         },
       },
       formProps: {
@@ -51,10 +53,7 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
   } = form
 
   return (
-    <Dialog
-      open={isShowingCreateProfileForm}
-      onOpenChange={() => setIsShowingCreateProfileForm(!isShowingCreateProfileForm)}
-    >
+    <Dialog open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
       <UI.ProfileForm.StyledTrigger>
         <UI.ProfileForm.IconContainer>
           <UI.ProfileForm.IconCircle />

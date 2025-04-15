@@ -37,23 +37,17 @@ const movieCarouselUISlice: UISlice<MovieCarouselUIManagement> = (set) => {
 }
 
 interface ProfilesUIManagement {
-  isShowingCreateProfileForm: boolean
-  setIsShowingCreateProfileForm: (value: boolean) => void
-  isShowingDeleteProfileAlert: boolean
-  setIsShowingDeleteProfileAlert: (value: boolean) => void
+  isDeleteProfileAlertOpen: boolean
+  setIsDeleteProfileAlertOpen: (value: boolean) => void
   shouldRenderProfiles: boolean
   setShouldRenderProfiles: (value: boolean) => void
 }
 
 const profilesUISlice: UISlice<ProfilesUIManagement> = (set) => {
   return {
-    isShowingCreateProfileForm: false,
-    setIsShowingCreateProfileForm(value) {
-      set({ isShowingCreateProfileForm: value })
-    },
-    isShowingDeleteProfileAlert: false,
-    setIsShowingDeleteProfileAlert(value) {
-      set({ isShowingDeleteProfileAlert: value })
+    isDeleteProfileAlertOpen: false,
+    setIsDeleteProfileAlertOpen(value) {
+      set({ isDeleteProfileAlertOpen: value })
     },
     shouldRenderProfiles: false,
     setShouldRenderProfiles(value) {
