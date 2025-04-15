@@ -22,7 +22,6 @@ export function ProfileForm({ remaining }: ProfileFormProps) {
     {
       actionProps: {
         onSuccess({ data }) {
-          setIsOpen(false)
           setShouldRenderProfiles(true)
           toast({ title: `El perfil de ${data?.name} ha sido creado correctamente` })
         },

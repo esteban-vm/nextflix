@@ -4,10 +4,10 @@ import { Button } from '@/components/ui'
 import { useUIStore } from '@/hooks'
 
 export function ProfileButton() {
-  const { isDeleteProfileAlertOpen, setIsDeleteProfileAlertOpen } = useUIStore()
+  const { isDeleteProfileAlertHidden, setIsDeleteProfileAlertHidden } = useUIStore()
 
   return (
-    <Button size='lg' variant='outline' onClick={() => setIsDeleteProfileAlertOpen(!isDeleteProfileAlertOpen)}>
+    <Button size='lg' variant='outline' onClick={() => setIsDeleteProfileAlertHidden(!isDeleteProfileAlertHidden)}>
       Administrar perfiles
     </Button>
   )
