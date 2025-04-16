@@ -21,14 +21,6 @@ interface MovieCarouselUISlice {
   setShouldScrollCarouselIntoView: (value: boolean) => void
   shouldRenderFavoriteMovies: boolean
   setShouldRenderFavoriteMovies: (value: boolean) => void
-
-  // isScrollingCarouselIntoView: boolean
-  // startScrollingCarouselIntoView: () => void
-  // endScrollingCarouselIntoView: () => void
-
-  // isRenderingFavoriteMovies: boolean
-  // startRenderingFavoriteMovies: () => void
-  // endRenderingFavoriteMovies: () => void
 }
 
 const movieCarouselUISlice: UISlice<MovieCarouselUISlice> = (set) => {
@@ -49,12 +41,6 @@ interface ProfilesUISlice {
   setIsDeleteProfileAlertHidden: (value: boolean) => void
   shouldRenderProfiles: boolean
   setShouldRenderProfiles: (value: boolean) => void
-
-  // openDeleteProfileAlert: () => void
-  // hideDeleteProfileAlert: () => void
-  // isRenderingProfiles: boolean
-  // startRenderingProfiles: () => void
-  // endRenderingProfiles: () => void
 }
 
 const profilesUISlice: UISlice<ProfilesUISlice> = (set) => {
