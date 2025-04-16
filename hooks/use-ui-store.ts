@@ -11,7 +11,7 @@ const mobileNavigationUISlice: UISlice<MobileNavigationUISlice> = (set) => {
   return {
     isMobileNavigationOpen: false,
     setIsMobileNavigationOpen(value) {
-      set({ isMobileNavigationOpen: value }, undefined, 'set-is-mobile-navigation-open')
+      set({ isMobileNavigationOpen: value }, undefined, 'ui:mobile-navigation/set-is-mobile-navigation-open')
     },
   }
 }
@@ -21,17 +21,25 @@ interface MovieCarouselUISlice {
   setShouldScrollCarouselIntoView: (value: boolean) => void
   shouldRenderFavoriteMovies: boolean
   setShouldRenderFavoriteMovies: (value: boolean) => void
+
+  // isScrollingCarouselIntoView: boolean
+  // startScrollingCarouselIntoView: () => void
+  // endScrollingCarouselIntoView: () => void
+
+  // isRenderingFavoriteMovies: boolean
+  // startRenderingFavoriteMovies: () => void
+  // endRenderingFavoriteMovies: () => void
 }
 
 const movieCarouselUISlice: UISlice<MovieCarouselUISlice> = (set) => {
   return {
     shouldScrollCarouselIntoView: false,
     setShouldScrollCarouselIntoView(value) {
-      set({ shouldScrollCarouselIntoView: value }, undefined, 'should-scroll-carousel-into-view')
+      set({ shouldScrollCarouselIntoView: value }, undefined, 'ui:movie-carousel/set-should-scroll-carousel-into-view')
     },
     shouldRenderFavoriteMovies: false,
     setShouldRenderFavoriteMovies(value) {
-      set({ shouldRenderFavoriteMovies: value }, undefined, 'should-render-favorite-movies')
+      set({ shouldRenderFavoriteMovies: value }, undefined, 'ui:movie-carousel/set-should-render-favorite-movies')
     },
   }
 }
@@ -41,17 +49,23 @@ interface ProfilesUISlice {
   setIsDeleteProfileAlertHidden: (value: boolean) => void
   shouldRenderProfiles: boolean
   setShouldRenderProfiles: (value: boolean) => void
+
+  // openDeleteProfileAlert: () => void
+  // hideDeleteProfileAlert: () => void
+  // isRenderingProfiles: boolean
+  // startRenderingProfiles: () => void
+  // endRenderingProfiles: () => void
 }
 
 const profilesUISlice: UISlice<ProfilesUISlice> = (set) => {
   return {
     isDeleteProfileAlertHidden: true,
     setIsDeleteProfileAlertHidden(value) {
-      set({ isDeleteProfileAlertHidden: value }, undefined, 'set-is-delete-profile-alert-hidden')
+      set({ isDeleteProfileAlertHidden: value }, undefined, 'ui:profiles/set-is-delete-profile-alert-hidden')
     },
     shouldRenderProfiles: false,
     setShouldRenderProfiles(value) {
-      set({ shouldRenderProfiles: value }, undefined, 'set-should-render-profiles')
+      set({ shouldRenderProfiles: value }, undefined, 'ui:profiles/set-should-render-profiles')
     },
   }
 }

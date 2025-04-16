@@ -8,7 +8,7 @@ interface CurrentProfileStore {
   setCurrentProfile: (value: CurrentProfile) => void
 }
 
-export const useCurrentProfile = create<CurrentProfile>()(
+export const useCurrentProfile = create<CurrentProfileStore>()(
   devtools(
     persist(
       (set) => {
@@ -27,8 +27,6 @@ export const useCurrentProfile = create<CurrentProfile>()(
         },
       }
     ),
-    {
-      name: 'current-profile',
-    }
+    { name: 'current-profile/set-current-profile' }
   )
 )
