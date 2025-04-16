@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation'
 import { useAction } from 'next-safe-action/hooks'
+import { useCallback } from 'react'
 import { LuTrash2 } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FullImage } from '@/components/common'
@@ -44,20 +45,18 @@ export function ProfileCard({ profile }: ProfileCardProps) {
     },
   })
 
-  const onSelectProfile = () => {
+  const onSelectProfile = useCallback(() => {
     if (!isDeleteProfileAlertHidden) return
-
     setCurrentProfile(profile)
     push('/')
-  }
+  }, [isDeleteProfileAlertHidden, profile, push, setCurrentProfile])
 
-  const onDeleteProfile = () => {
+  const onDeleteProfile = useCallback(() => {
     execute({ id })
-
     if (currentProfile?.id === id) {
       setCurrentProfile(null)
     }
-  }
+  }, [currentProfile?.id, execute, id, setCurrentProfile])
 
   return (
     <UI.ProfileCard.CardContainer aria-hidden='true' id={id} onClick={onSelectProfile}>
