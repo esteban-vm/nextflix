@@ -1,9 +1,11 @@
 import { create } from 'zustand'
 import { devtools, persist, createJSONStorage } from 'zustand/middleware'
 
-interface CurrentProfile {
-  currentProfile: Utils.Nullable<Models.Profile>
-  setCurrentProfile: (value: Utils.Nullable<Models.Profile>) => void
+type CurrentProfile = Utils.Nullable<Models.Profile>
+
+interface CurrentProfileStore {
+  currentProfile: CurrentProfile
+  setCurrentProfile: (value: CurrentProfile) => void
 }
 
 export const useCurrentProfile = create<CurrentProfile>()(
