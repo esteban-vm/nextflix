@@ -103,15 +103,15 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     },
   })
 
-  const onLikeMovie = () => {
+  const onLikeMovie = useCallback(() => {
     if (!currentProfile) return
     like({ movieId: id, profileId: currentProfile.id })
-  }
+  }, [currentProfile, id, like])
 
-  const onDislikeMovie = () => {
+  const onDislikeMovie = useCallback(() => {
     if (!currentProfile) return
     dislike({ movieId: id, profileId: currentProfile.id })
-  }
+  }, [currentProfile, dislike, id])
 
   return (
     <UI.MovieItem.ItemContainer>

@@ -11,7 +11,7 @@ const mobileNavigationUISlice: UISlice<MobileNavigationUISlice> = (set) => {
   return {
     isMobileNavigationOpen: false,
     setIsMobileNavigationOpen(value) {
-      set({ isMobileNavigationOpen: value })
+      set({ isMobileNavigationOpen: value }, undefined, 'set-is-mobile-navigation-open')
     },
   }
 }
@@ -27,11 +27,11 @@ const movieCarouselUISlice: UISlice<MovieCarouselUISlice> = (set) => {
   return {
     shouldScrollCarouselIntoView: false,
     setShouldScrollCarouselIntoView(value) {
-      set({ shouldScrollCarouselIntoView: value })
+      set({ shouldScrollCarouselIntoView: value }, undefined, 'should-scroll-carousel-into-view')
     },
     shouldRenderFavoriteMovies: false,
     setShouldRenderFavoriteMovies(value) {
-      set({ shouldRenderFavoriteMovies: value })
+      set({ shouldRenderFavoriteMovies: value }, undefined, 'should-render-favorite-movies')
     },
   }
 }
@@ -47,11 +47,11 @@ const profilesUISlice: UISlice<ProfilesUISlice> = (set) => {
   return {
     isDeleteProfileAlertHidden: true,
     setIsDeleteProfileAlertHidden(value) {
-      set({ isDeleteProfileAlertHidden: value })
+      set({ isDeleteProfileAlertHidden: value }, undefined, 'set-is-delete-profile-alert-hidden')
     },
     shouldRenderProfiles: false,
     setShouldRenderProfiles(value) {
-      set({ shouldRenderProfiles: value })
+      set({ shouldRenderProfiles: value }, undefined, 'set-should-render-profiles')
     },
   }
 }

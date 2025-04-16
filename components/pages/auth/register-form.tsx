@@ -4,7 +4,7 @@ import type { HTMLInputTypeAttribute } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { LuAtSign, LuEye, LuEyeOff } from 'react-icons/lu'
 import { AuthActions } from '@/actions'
 import { FormButton, FormInput, FormWrapper } from '@/components/common'
@@ -55,9 +55,9 @@ export function RegisterForm() {
   const passInputPlaceholder = isShowingPassword ? undefined : '********'
   const passInputType: HTMLInputTypeAttribute = isShowingPassword ? 'text' : 'password'
 
-  const togglePassShowing = () => {
+  const togglePassShowing = useCallback(() => {
     setIsShowingPassword(!isShowingPassword)
-  }
+  }, [isShowingPassword])
 
   return (
     <Form {...form}>
