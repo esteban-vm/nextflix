@@ -6,7 +6,7 @@ import { getSession } from 'next-auth/react'
 import { useState, useEffect, useCallback } from 'react'
 
 type CurrentSession = Utils.Nullable<Session>
-type SessionStatus = 'authenticated' | 'loading' | 'unauthenticated'
+type SessionStatus = 'unauthenticated' | 'authenticated' | 'loading'
 
 /**
  * @see {@link https://github.com/nextauthjs/next-auth/issues/9504#issuecomment-1901351841 | useSession only getting the session after manually reloading the page #9504}
