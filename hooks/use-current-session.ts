@@ -5,14 +5,16 @@ import { usePathname } from 'next/navigation'
 import { getSession } from 'next-auth/react'
 import { useState, useEffect, useCallback } from 'react'
 
+type CurrentSession = Utils.Nullable<Session>
+type SessionStatus = 'unauthenticated' | 'loading' | 'authenticated'
+
 /**
  * @see {@link https://github.com/nextauthjs/next-auth/issues/9504#issuecomment-1901351841 | useSession only getting the session after manually reloading the page #9504}
  */
 
-// This hook doesn't rely on the session provider
 export const useCurrentSession = () => {
-  const [session, setSession] = useState<Session | null>(null)
-  const [status, setStatus] = useState<'authenticated' | 'loading' | 'unauthenticated'>('unauthenticated')
+  const [session, setSession] = useState<CurrentSession>(null)
+  const [status, setStatus] = useState<SessionStatus>('unauthenticated')
   const pathname = usePathname()
 
   const getCurrentSession = useCallback(async () => {
@@ -21,15 +23,12 @@ export const useCurrentSession = () => {
       const sessionData = await getSession()
 
       if (sessionData) {
-        setSession(sessionData)
         setStatus('authenticated')
-        return
+        setSession(sessionData)
       }
-
-      setStatus('unauthenticated')
     } catch {
-      setSession(null)
       setStatus('unauthenticated')
+      setSession(null)
     }
   }, [])
 
