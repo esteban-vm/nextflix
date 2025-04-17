@@ -15,8 +15,8 @@ export function NavMenu() {
   const [isOpen, setIsOpen] = useState(false)
   const { execute, result } = useAction(ProfileActions.findAll)
   const { shouldRenderProfiles, setShouldRenderProfiles, setIsMobileNavigationOpen } = useUIStore()
-
-  const hasResults = !!result.data?.length
+  const profiles = result?.data ?? []
+  const isEmpty = profiles.length === 0
   const isAuthenticated = status === 'authenticated'
 
   const fetchProfiles = useCallback(() => {
@@ -31,17 +31,17 @@ export function NavMenu() {
 
   useEffect(fetchProfiles, [fetchProfiles])
 
-  const onRedirect = () => {
+  const onRedirect = useCallback(() => {
     setIsOpen(false)
     setIsMobileNavigationOpen(false)
     push('/profiles')
-  }
+  }, [push, setIsMobileNavigationOpen])
 
-  const onLogOut = () => {
+  const onLogOut = useCallback(() => {
     setIsOpen(false)
     setIsMobileNavigationOpen(false)
     signOut({ redirectTo: '/login' })
-  }
+  }, [setIsMobileNavigationOpen])
 
   return (
     <MenuWrapper>
@@ -53,10 +53,10 @@ export function NavMenu() {
           <DropdownMenuContent className='text-sm'>
             <InfoItem />
             <DropdownMenuSeparator />
-            {hasResults && (
+            {!isEmpty && (
               <>
                 <DropdownMenuGroup>
-                  {result.data!.map((profile) => (
+                  {profiles.map((profile) => (
                     <ImageItem key={profile.id} profile={profile} />
                   ))}
                 </DropdownMenuGroup>
