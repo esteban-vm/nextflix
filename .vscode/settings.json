@@ -9,7 +9,7 @@
   "eslint.validate": ["typescript"],
   "prettier.configPath": ".prettierrc",
   "editor.quickSuggestions": {
-    "strings": true
+    "strings": "on"
   },
   "tailwindCSS.includeLanguages": {
     "typescript": "javascript",
