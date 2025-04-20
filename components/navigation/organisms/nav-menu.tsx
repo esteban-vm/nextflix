@@ -29,7 +29,9 @@ export function NavMenu() {
     }
   }, [execute, isAuthenticated, setShouldRenderProfiles, shouldRenderProfiles])
 
-  useEffect(fetchProfiles, [fetchProfiles])
+  useEffect(() => {
+    fetchProfiles()
+  }, [fetchProfiles])
 
   const onRedirect = useCallback(() => {
     setIsOpen(false)
