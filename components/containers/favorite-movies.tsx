@@ -14,7 +14,7 @@ export function FavoriteMovies() {
   const favoriteMovies = result?.data ?? []
   const isEmpty = favoriteMovies.length === 0
 
-  const fetchCurrentProfile = useCallback(() => {
+  const fetchFavorites = useCallback(() => {
     if (currentProfile) {
       if (shouldRenderFavoriteMovies) {
         setShouldRenderFavoriteMovies(false)
@@ -24,7 +24,9 @@ export function FavoriteMovies() {
     }
   }, [execute, currentProfile, setShouldRenderFavoriteMovies, shouldRenderFavoriteMovies])
 
-  useEffect(fetchCurrentProfile, [fetchCurrentProfile])
+  useEffect(() => {
+    fetchFavorites()
+  }, [fetchFavorites])
 
   if (!currentProfile) {
     return <MovieAlert>Hola, empieza seleccionando un perfil.</MovieAlert>
