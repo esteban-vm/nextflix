@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { LoadingSpinner, FullImage } from '@/components/common'
 import { Home as UI } from '@/components/styled'
@@ -8,8 +9,9 @@ import { rankingPlaceholder } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 export function MovieCard({ movie }: MovieCardProps) {
+  const { push } = useRouter()
   const [isShowingInfo, setIsShowingInfo] = useState(false)
-  const { age, duration, genres, placeholder, rankingUrl, posterUrl, title, trailerUrl } = movie
+  const { id, age, duration, genres, placeholder, rankingUrl, posterUrl, title, trailerUrl } = movie
 
   return (
     <UI.MovieCard.CardContainer>
@@ -17,7 +19,7 @@ export function MovieCard({ movie }: MovieCardProps) {
         <FullImage alt={`Puntuación de "${title}"`} blurDataURL={rankingPlaceholder} src={rankingUrl ?? ''} />
       </UI.MovieCard.SideLeft>
       <UI.MovieCard.SideRight>
-        <FullImage alt={`Portada de "${title}"`} blurDataURL={placeholder} className='contrast-125' src={posterUrl} />
+        <FullImage alt={`Portada de "${title}"`} blurDataURL={placeholder} src={posterUrl} />
       </UI.MovieCard.SideRight>
       <UI.MovieCard.VideoInfo>
         <UI.MovieCard.PlayerContainer>
@@ -26,7 +28,12 @@ export function MovieCard({ movie }: MovieCardProps) {
         <UI.MovieCard.FlexContainer $isBetween>
           <UI.MovieCard.MovieTitle>{title}</UI.MovieCard.MovieTitle>
           <UI.MovieCard.FlexContainer>
-            <UI.MovieCard.StyledButton size='icon' title='Reproducir' variant='ghost'>
+            <UI.MovieCard.StyledButton
+              size='icon'
+              title='Reproducir'
+              variant='ghost'
+              onClick={() => push(`/movie/${id}`)}
+            >
               <UI.MovieCard.IconPlay />
             </UI.MovieCard.StyledButton>
             <UI.MovieCard.StyledButton

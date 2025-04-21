@@ -44,6 +44,10 @@
     @apply select-none;
   }
 
+  img {
+    @apply contrast-125;
+  }
+
   form {
     &#register-form,
     &#login-form {
