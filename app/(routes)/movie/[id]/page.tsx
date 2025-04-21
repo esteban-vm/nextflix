@@ -1,6 +1,6 @@
-import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { MovieActions } from '@/actions'
+import { FullImage } from '@/components/common'
 import { verifySession } from '@/lib/auth'
 import { cn } from '@/lib/utils'
 
@@ -18,7 +18,7 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
     <div className='flex size-full flex-col items-center justify-center'>
       <span>Movie name: {title}</span>
       <div className={cn('relative w-80', type === 'playing' ? 'aspect-video' : 'aspect-[3/4]')}>
-        <Image alt={title} blurDataURL={placeholder} placeholder='blur' src={posterUrl} fill />
+        <FullImage alt={title} blurDataURL={placeholder} src={posterUrl} />
       </div>
     </div>
   )

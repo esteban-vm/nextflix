@@ -19,7 +19,7 @@ export function MovieCard({ movie }: MovieCardProps) {
         <FullImage alt={`Puntuación de "${title}"`} blurDataURL={rankingPlaceholder} src={rankingUrl ?? ''} />
       </UI.MovieCard.SideLeft>
       <UI.MovieCard.SideRight>
-        <FullImage alt={`Portada de "${title}"`} blurDataURL={placeholder} className='contrast-125' src={posterUrl} />
+        <FullImage alt={`Portada de "${title}"`} blurDataURL={placeholder} src={posterUrl} />
       </UI.MovieCard.SideRight>
       <UI.MovieCard.VideoInfo>
         <UI.MovieCard.PlayerContainer>

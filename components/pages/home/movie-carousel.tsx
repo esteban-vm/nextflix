@@ -119,12 +119,7 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
     <UI.MovieItem.ItemContainer>
       <UI.MovieItem.ItemCard>
         <UI.MovieItem.ItemContent>
-          <FullImage
-            alt={`Imagen de "${title}"`}
-            blurDataURL={placeholder}
-            className='rounded-md contrast-125'
-            src={posterUrl}
-          />
+          <FullImage alt={`Imagen de "${title}"`} blurDataURL={placeholder} className='rounded-md' src={posterUrl} />
           <UI.MovieItem.MovieInfo>
             <UI.MovieItem.ButtonGroup>
               <UI.MovieItem.StyledButton
