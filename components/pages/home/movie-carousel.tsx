@@ -2,6 +2,7 @@
 
 import type { CarouselApi } from '@/components/ui'
 import Autoplay from 'embla-carousel-autoplay'
+import { useRouter } from 'next/navigation'
 import { useAction } from 'next-safe-action/hooks'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { FavoriteMovieActions } from '@/actions'
@@ -58,6 +59,7 @@ export function MovieCarousel({ children }: Props.WithChildren) {
 }
 
 export function MovieItem({ movie, isFavorite }: MovieItemProps) {
+  const { push } = useRouter()
   const { currentProfile } = useCurrentProfile()
   const { setShouldScrollCarouselIntoView, setShouldRenderFavoriteMovies } = useUIStore()
   const { id, title, placeholder, posterUrl } = movie
@@ -125,7 +127,12 @@ export function MovieItem({ movie, isFavorite }: MovieItemProps) {
           />
           <UI.MovieItem.MovieInfo>
             <UI.MovieItem.ButtonGroup>
-              <UI.MovieItem.StyledButton size='icon' title='Reproducir' variant='ghost'>
+              <UI.MovieItem.StyledButton
+                size='icon'
+                title='Reproducir'
+                variant='ghost'
+                onClick={() => push(`/movie/${id}`)}
+              >
                 <UI.MovieItem.IconPlay />
               </UI.MovieItem.StyledButton>
               <UI.MovieItem.StyledButton
