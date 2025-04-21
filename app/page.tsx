@@ -10,10 +10,12 @@ export default async function HomePage() {
   await verifySession()
 
   const trendingResults = await MovieActions.findTrending()
-  const trendingMovies = trendingResults?.data ?? []
+  const trendingMovies = trendingResults?.data
 
   const playingResults = await MovieActions.findPlaying()
-  const playingMovies = playingResults?.data ?? []
+  const playingMovies = playingResults?.data
+
+  if (!trendingMovies || !playingMovies) return null
 
   return (
     <>
