@@ -15,7 +15,7 @@ export function MoviePlayer({ movie }: MoviePlayerProps) {
 
   return (
     <UI.MoviePlayer.PlayerContainer>
-      <UI.MoviePlayer.SideLeft>
+      <UI.MoviePlayer.SideUp>
         <UI.MoviePlayer.StyledButton
           size='icon'
           title='Regresar a la página principal'
@@ -28,8 +28,8 @@ export function MoviePlayer({ movie }: MoviePlayerProps) {
           Estás viendo: <span className='font-semibold'>{title}</span>
         </p>
         <UI.MoviePlayer.IconMovie />
-      </UI.MoviePlayer.SideLeft>
-      <UI.MoviePlayer.SideRight>
+      </UI.MoviePlayer.SideUp>
+      <UI.MoviePlayer.SideDown>
         <ReactPlayer
           fallback={<LoadingSpinner className='mx-auto size-16' />}
           height='100%'
@@ -38,7 +38,7 @@ export function MoviePlayer({ movie }: MoviePlayerProps) {
           width='100%'
           controls
         />
-      </UI.MoviePlayer.SideRight>
+      </UI.MoviePlayer.SideDown>
     </UI.MoviePlayer.PlayerContainer>
   )
 }
