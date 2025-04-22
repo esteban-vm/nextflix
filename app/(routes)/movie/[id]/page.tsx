@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
 import { MovieActions } from '@/actions'
-import { FullImage } from '@/components/common'
+import { MoviePlayer } from '@/components/pages'
+import { Movie } from '@/components/styled'
 import { verifySession } from '@/lib/auth'
-import { cn } from '@/lib/utils'
 
 export default async function MoviePage({ params }: { params: { id: string } }) {
   await verifySession()
@@ -12,14 +12,9 @@ export default async function MoviePage({ params }: { params: { id: string } }) 
 
   if (!movie) redirect('/')
 
-  const { title, posterUrl, placeholder, type } = movie
-
   return (
-    <div className='flex size-full flex-col items-center justify-center'>
-      <span>Movie name: {title}</span>
-      <div className={cn('relative w-80', type === 'playing' ? 'aspect-video' : 'aspect-[3/4]')}>
-        <FullImage alt={title} blurDataURL={placeholder} src={posterUrl} />
-      </div>
-    </div>
+    <Movie.Page.PageContainer>
+      <MoviePlayer movie={movie} />
+    </Movie.Page.PageContainer>
   )
 }

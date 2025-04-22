@@ -1,9 +1,8 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { LoadingSpinner, FullImage } from '@/components/common'
+import { FullImage, LoadingSpinner, ReactPlayer } from '@/components/common'
 import { Home as UI } from '@/components/styled'
 import { rankingPlaceholder } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -23,7 +22,15 @@ export function MovieCard({ movie }: MovieCardProps) {
       </UI.MovieCard.SideRight>
       <UI.MovieCard.VideoInfo>
         <UI.MovieCard.PlayerContainer>
-          <ReactPlayer height='100%' url={trailerUrl} width='100%' loop muted playing />
+          <ReactPlayer
+            fallback={<LoadingSpinner className='h-2/5' />}
+            height='100%'
+            url={trailerUrl}
+            width='100%'
+            loop
+            muted
+            playing
+          />
         </UI.MovieCard.PlayerContainer>
         <UI.MovieCard.FlexContainer $isBetween>
           <UI.MovieCard.MovieTitle>{title}</UI.MovieCard.MovieTitle>
@@ -70,12 +77,3 @@ export function MovieCard({ movie }: MovieCardProps) {
 export interface MovieCardProps {
   movie: Models.TrendingMovie
 }
-
-const ReactPlayer = dynamic(() => import('react-player'), {
-  ssr: false,
-  loading({ isLoading, error }) {
-    if (error) return <span className='text-destructive'>{error.message}</span>
-    if (isLoading) return <LoadingSpinner className='h-2/5' />
-    return null
-  },
-})
