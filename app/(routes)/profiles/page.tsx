@@ -1,7 +1,12 @@
+import type { Metadata } from 'next'
 import { ProfileActions } from '@/actions'
 import { ProfileButton, ProfileCard, ProfileForm } from '@/components/pages'
 import { Profiles as UI } from '@/components/styled'
 import { verifySession } from '@/lib/auth'
+
+export const metadata: Metadata = {
+  title: 'Mis perfiles',
+}
 
 export default async function ProfilesPage() {
   await verifySession()
