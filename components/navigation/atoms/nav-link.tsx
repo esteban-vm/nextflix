@@ -8,7 +8,7 @@ export function NavLink({ name, ...rest }: NavLinkProps) {
   return (
     <Link
       {...rest}
-      className='capitalize transition-all duration-300 hover:text-foreground/80'
+      className='uppercase decoration-rose-500 decoration-4 underline-offset-2 transition-all duration-300 active:scale-95 hover:underline'
       onClick={() => setIsMobileNavigationOpen(false)}
     >
       {name}
