@@ -1,5 +1,10 @@
+import type { Metadata } from 'next'
 import { RegisterForm } from '@/components/pages'
 import { Auth as UI } from '@/components/styled'
+
+export const metadata: Metadata = {
+  title: 'Registro de usuario',
+}
 
 export default function RegisterPage() {
   return (
