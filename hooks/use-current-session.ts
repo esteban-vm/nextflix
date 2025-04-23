@@ -12,12 +12,14 @@ interface CurrentSessionStore {
 export const useCurrentSession = create<CurrentSessionStore>()(
   devtools(
     persist(
-      (set) => ({
-        currentSession: null,
-        setCurrentSession(value) {
-          set({ currentSession: value })
-        },
-      }),
+      (set) => {
+        return {
+          currentSession: null,
+          setCurrentSession(value) {
+            set({ currentSession: value })
+          },
+        }
+      },
       {
         name: 'current-session-storage',
         storage: createJSONStorage(() => sessionStorage),
