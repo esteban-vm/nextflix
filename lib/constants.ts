@@ -14,9 +14,7 @@ export const avatarUrls = (<const>[
 
 export const navLinks: NavLinkProps[] = [
   { name: 'Inicio', href: '/' },
-  { name: 'Películas', href: '/' },
-  { name: 'Series', href: '/profiles' },
-  { name: 'Mi lista', href: '/login' },
+  { name: 'Mis perfiles', href: '/profiles' },
 ]
 
 export const rankingPlaceholder =
