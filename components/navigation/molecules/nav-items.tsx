@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { DropdownMenuItem } from '@/components/ui'
-import { useCurrentSession, useCurrentProfile } from '@/hooks'
+import { useCurrentProfile, useCurrentSession } from '@/hooks'
 
 export function ImageItem({ profile }: ImageItemProps) {
   const { name, id, avatarUrl, placeholder } = profile
@@ -21,8 +21,8 @@ export interface ImageItemProps {
 }
 
 export function InfoItem() {
-  const { session } = useCurrentSession()
-  const userEmail = session?.user.email
+  const { currentSession } = useCurrentSession()
+  const userEmail = currentSession?.user.email
 
   return <DropdownMenuItem>{userEmail}</DropdownMenuItem>
 }

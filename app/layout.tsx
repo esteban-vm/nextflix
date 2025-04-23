@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import type { Metadata } from 'next'
+import { auth } from '@/auth'
 import { Navigation } from '@/components/navigation'
 import { Toaster, TooltipProvider } from '@/components/ui'
 import { geistMono, geistSans } from '@/lib/fonts'
@@ -13,7 +14,9 @@ export const metadata: Metadata = {
   generator: 'Next.js',
 }
 
-export default function RootLayout({ children }: Props.WithChildren) {
+export default async function RootLayout({ children }: Props.WithChildren) {
+  const currentSession = await auth()
+
   return (
     <html lang='en'>
       <body
@@ -25,7 +28,7 @@ export default function RootLayout({ children }: Props.WithChildren) {
         suppressHydrationWarning
       >
         <TooltipProvider>
-          <Navigation />
+          <Navigation currentSession={currentSession} />
           {children}
           <Toaster />
         </TooltipProvider>
