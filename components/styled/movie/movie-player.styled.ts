@@ -5,9 +5,9 @@ import { Button } from '@/components/ui'
 
 export const IconArrow = tw(LuArrowLeftCircle)`
 
-  stroke-neutral-70
-
   !size-full
+
+  stroke-neutral-700
 
 `
 
