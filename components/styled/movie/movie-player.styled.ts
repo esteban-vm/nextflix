@@ -5,9 +5,9 @@ import { Button } from '@/components/ui'
 
 export const IconArrow = tw(LuArrowLeftCircle)`
 
-  stroke-neutral-70
-
   !size-full
+
+  stroke-neutral-700
 
 `
 
@@ -39,19 +39,7 @@ export const PlayerContainer = tw.div`
 
 `
 
-export const SideLeft = tw.div`
-
-  flex
-
-  items-center
-
-  gap-2
-
-  p-1
-
-`
-
-export const SideRight = tw.div`
+export const SideDown = tw.div`
 
   aspect-video
 
@@ -62,6 +50,18 @@ export const SideRight = tw.div`
   contrast-125
 
   hover:opacity-90
+
+`
+
+export const SideUp = tw.div`
+
+  flex
+
+  items-center
+
+  gap-2
+
+  p-1
 
 `
 

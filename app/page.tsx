@@ -43,7 +43,7 @@ export default async function HomePage() {
         </UI.Page.CTAContainer>
         <UI.Page.BackgroundGradient />
       </UI.Page.HeroContainer>
-      {/* Trending Section */}
+      {/* Trending Movies Section */}
       <UI.Page.SectionContainer>
         <UI.Page.SectionContent>
           <UI.Page.SectionTitle>Las series más populares hoy en tu país:</UI.Page.SectionTitle>
@@ -54,7 +54,7 @@ export default async function HomePage() {
           </UI.Page.MovieList>
         </UI.Page.SectionContent>
       </UI.Page.SectionContainer>
-      {/* Playing Section */}
+      {/* Playing Movies Section */}
       <UI.Page.SectionContainer>
         <UI.Page.SectionContent>
           <UI.Page.SectionTitle>Películas más recientes:</UI.Page.SectionTitle>
@@ -65,7 +65,7 @@ export default async function HomePage() {
           </MovieCarousel>
         </UI.Page.SectionContent>
       </UI.Page.SectionContainer>
-      {/* Favorite Section */}
+      {/* Favorite Movies Section */}
       <UI.Page.SectionContainer>
         <UI.Page.SectionContent>
           <UI.Page.SectionTitle>Tus películas favoritas:</UI.Page.SectionTitle>

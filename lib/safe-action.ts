@@ -1,7 +1,7 @@
 import { AuthError } from 'next-auth'
 import { createSafeActionClient, DEFAULT_SERVER_ERROR_MESSAGE } from 'next-safe-action'
 import { Prisma } from 'prisma/prisma-client'
-import { getSession } from '@/lib/auth'
+import { auth } from '@/auth'
 import { CustomAuthError } from '@/lib/errors'
 
 export const actionClient = createSafeActionClient({
@@ -43,6 +43,11 @@ export const actionClient = createSafeActionClient({
 })
 
 export const authClient = actionClient.use(async ({ next }) => {
-  const session = await getSession()
+  const session = await auth()
+
+  if (!session?.user) {
+    throw new CustomAuthError('No autorizado')
+  }
+
   return next({ ctx: { user: session.user } })
 })
