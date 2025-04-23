@@ -3,6 +3,7 @@ import type { NavLinkProps } from '@/components/navigation/atoms'
 export type AvatarUrl = `/images/avatars/avatar${1 | 2 | 3 | 4}.webp`
 
 export const appName = 'Nextflix'
+export const authorName = 'Esteban V.M.'
 
 export const avatarUrls = (<const>[
   '/images/avatars/avatar1.webp',
