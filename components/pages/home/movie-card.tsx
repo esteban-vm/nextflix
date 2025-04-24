@@ -23,7 +23,7 @@ export function MovieCard({ movie }: MovieCardProps) {
       <UI.MovieCard.VideoInfo>
         <UI.MovieCard.PlayerContainer>
           <ReactPlayer
-            fallback={<LoadingSpinner className='h-2/5' />}
+            fallback={<LoadingSpinner className='~size-10/12' />}
             height='100%'
             url={trailerUrl}
             width='100%'
