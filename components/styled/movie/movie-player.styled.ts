@@ -41,6 +41,8 @@ export const PlayerContainer = tw.div`
 
 export const SideDown = tw.div`
 
+  relative
+
   aspect-video
 
   overflow-hidden

@@ -74,15 +74,11 @@ export const MovieTitle = tw.span`
 
 export const PlayerContainer = tw.div`
 
+  relative
+
   mb-1
 
-  flex
-
   aspect-video
-
-  items-center
-
-  justify-center
 
   overflow-hidden
 

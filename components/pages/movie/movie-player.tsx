@@ -31,7 +31,7 @@ export function MoviePlayer({ movie }: MoviePlayerProps) {
       </UI.MoviePlayer.SideUp>
       <UI.MoviePlayer.SideDown>
         <ReactPlayer
-          fallback={<LoadingSpinner className='mx-auto size-16' />}
+          fallback={<LoadingSpinner className='~size-14/16' />}
           height='100%'
           light={posterUrl}
           url={trailerUrl}
