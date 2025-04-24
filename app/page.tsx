@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { LuInfo, LuPlay } from 'react-icons/lu'
 import { MovieActions } from '@/actions'
 import { FavoriteMovies } from '@/components/containers'
@@ -9,13 +10,13 @@ import { verifySession } from '@/lib/auth'
 export default async function HomePage() {
   await verifySession()
 
-  const trendingResults = await MovieActions.findTrending()
-  const trendingMovies = trendingResults?.data
+  const trendingResult = await MovieActions.findTrending()
+  const trendingMovies = trendingResult?.data
 
-  const playingResults = await MovieActions.findPlaying()
-  const playingMovies = playingResults?.data
+  const playingResult = await MovieActions.findPlaying()
+  const playingMovies = playingResult?.data
 
-  if (!trendingMovies || !playingMovies) return null
+  if (!trendingMovies || !playingMovies) notFound()
 
   return (
     <>

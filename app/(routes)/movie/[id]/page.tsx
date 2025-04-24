@@ -10,8 +10,8 @@ interface MoviePageProps {
 }
 
 export async function generateMetadata({ params }: MoviePageProps): Promise<Metadata> {
-  const movieResult = await MovieActions.findOneById({ id: params.id })
-  const movie = movieResult?.data
+  const result = await MovieActions.findOneById({ id: params.id })
+  const movie = result?.data
 
   if (!movie) {
     return { title: 'Película no encontrada' }
@@ -23,8 +23,8 @@ export async function generateMetadata({ params }: MoviePageProps): Promise<Meta
 export default async function MoviePage({ params }: MoviePageProps) {
   await verifySession()
 
-  const movieResult = await MovieActions.findOneById({ id: params.id })
-  const movie = movieResult?.data
+  const result = await MovieActions.findOneById({ id: params.id })
+  const movie = result?.data
 
   if (!movie) redirect('/')
 
