@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { ProfileActions } from '@/actions'
 import { ProfileButton, ProfileCard, ProfileForm } from '@/components/pages'
 import { Profiles as UI } from '@/components/styled'
@@ -11,10 +12,10 @@ export const metadata: Metadata = {
 export default async function ProfilesPage() {
   await verifySession()
 
-  const profileResults = await ProfileActions.findAll()
-  const profiles = profileResults?.data
+  const result = await ProfileActions.findAll()
+  const profiles = result?.data
 
-  if (!profiles) return null
+  if (!profiles) notFound()
 
   const total = profiles.length
   const remaining = 4 - total
