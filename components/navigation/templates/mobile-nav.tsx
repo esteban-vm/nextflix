@@ -10,13 +10,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui'
-import { useScrollPosition, useUIStore } from '@/hooks'
+import { useCurrentSession, useScrollPosition, useUIStore } from '@/hooks'
 import { navLinks } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 export function MobileNav() {
-  const { isMobileNavigationOpen, setIsMobileNavigationOpen } = useUIStore()
+  const { currentSession } = useCurrentSession()
   const { scrollPosition } = useScrollPosition()
+  const { isMobileNavigationOpen, setIsMobileNavigationOpen } = useUIStore()
 
   return (
     <div className={cn('flex justify-between p-4 lg:hidden', scrollPosition > 20 ? 'bg-black' : 'bg-transparent')}>
@@ -29,9 +30,7 @@ export function MobileNav() {
           <SheetHeader>
             <SheetTitle className='pt-4'>Menu</SheetTitle>
             <SheetDescription className='flex flex-col gap-4'>
-              {navLinks.map((link) => (
-                <NavLink key={link.name} {...link} />
-              ))}
+              {currentSession && navLinks.map((link) => <NavLink key={link.name} {...link} />)}
             </SheetDescription>
           </SheetHeader>
           <SheetFooter className='border-t border-white pt-4'>

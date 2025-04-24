@@ -1,10 +1,11 @@
 import { LogoLink, NavLink } from '@/components/navigation/atoms'
 import { NavMenu } from '@/components/navigation/organisms'
-import { useScrollPosition } from '@/hooks'
+import { useCurrentSession, useScrollPosition } from '@/hooks'
 import { navLinks } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 
 export function DesktopNav() {
+  const { currentSession } = useCurrentSession()
   const { scrollPosition } = useScrollPosition()
 
   return (
@@ -13,9 +14,7 @@ export function DesktopNav() {
         <div className='flex items-center gap-4'>
           <LogoLink />
           <div />
-          {navLinks.map((link) => (
-            <NavLink key={link.name} {...link} />
-          ))}
+          {currentSession && navLinks.map((link) => <NavLink key={link.name} {...link} />)}
         </div>
         <NavMenu />
       </div>
