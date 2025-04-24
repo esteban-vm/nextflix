@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
-import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { LuAtSign, LuEye, LuEyeOff } from 'react-icons/lu'
 import { AuthActions } from '@/actions'
@@ -12,7 +11,6 @@ import { toast } from '@/hooks'
 import { LoginSchema } from '@/lib/validations'
 
 export function LoginForm() {
-  const { push, refresh } = useRouter()
   const [isShowingPassword, setIsShowingPassword] = useState(false)
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
@@ -21,8 +19,6 @@ export function LoginForm() {
     {
       actionProps: {
         onSuccess() {
-          push('/profiles')
-          refresh()
           toast({ title: 'Has iniciado sesión correctamente', description: '¡Bienvenido/a!' })
         },
         onError({ error }) {

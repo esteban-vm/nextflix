@@ -3,7 +3,6 @@
 import type { HTMLInputTypeAttribute } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
-import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import { LuAtSign, LuEye, LuEyeOff } from 'react-icons/lu'
 import { AuthActions } from '@/actions'
@@ -13,7 +12,6 @@ import { toast } from '@/hooks'
 import { RegisterSchema } from '@/lib/validations'
 
 export function RegisterForm() {
-  const { push } = useRouter()
   const [isShowingPassword, setIsShowingPassword] = useState(false)
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
@@ -22,7 +20,6 @@ export function RegisterForm() {
     {
       actionProps: {
         onSuccess() {
-          push('/login')
           toast({ title: 'Te has registrado correctamente', description: '¡Bienvenido/a!' })
         },
         onError({ error }) {
