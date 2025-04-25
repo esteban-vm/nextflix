@@ -1,6 +1,11 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { PiMaskSadDuotone } from 'react-icons/pi'
 import { Button } from '@/components/ui'
+
+export const metadata: Metadata = {
+  title: 'Página no encontrada',
+}
 
 export default function NotFound() {
   return (
