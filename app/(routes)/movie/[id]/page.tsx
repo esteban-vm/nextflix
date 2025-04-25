@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
+import { notFound } from 'next/navigation'
 import { MovieActions } from '@/actions'
 import { MoviePlayer } from '@/components/pages'
 import { Movie } from '@/components/styled'
@@ -26,7 +26,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
   const result = await MovieActions.findOneById({ id: params.id })
   const movie = result?.data
 
-  if (!movie) redirect('/')
+  if (!movie) notFound()
 
   return (
     <Movie.Page.PageContainer>
