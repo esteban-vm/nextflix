@@ -1,4 +1,4 @@
-import { Auth as UI } from '@/components/styled'
+import { AuthUI as UI } from '@/components/styled'
 import { Tooltip, TooltipTrigger } from '@/components/ui'
 
 export function PrivacyTerms({ children }: Props.WithChildren) {

@@ -6,7 +6,7 @@ import { useCallback } from 'react'
 import { LuTrash2 } from 'react-icons/lu'
 import { ProfileActions } from '@/actions'
 import { FullImage } from '@/components/common'
-import { Profiles as UI } from '@/components/styled'
+import { ProfilesUI as UI } from '@/components/styled'
 import {
   AlertDialog,
   AlertDialogAction,

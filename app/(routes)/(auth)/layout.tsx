@@ -1,6 +1,6 @@
 import { FullImage } from '@/components/common'
 import { PrivacyTerms } from '@/components/pages'
-import { Auth as UI } from '@/components/styled'
+import { AuthUI as UI } from '@/components/styled'
 import moviesWP from '@/images/backgrounds/movies-wp.jpg'
 import { verifyNoSession } from '@/lib/auth'
 

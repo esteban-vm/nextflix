@@ -1,4 +1,4 @@
-export * as Auth from './auth'
-export * as Home from './home'
-export * as Movie from './movie'
-export * as Profiles from './profiles'
+export * as AuthUI from './auth'
+export * as HomeUI from './home'
+export * as MovieUI from './movie'
+export * as ProfilesUI from './profiles'
