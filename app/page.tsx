@@ -3,7 +3,7 @@ import { LuInfo, LuPlay } from 'react-icons/lu'
 import { MovieActions } from '@/actions'
 import { FavoriteMovies } from '@/components/containers'
 import { MovieCard, MovieCarousel, MovieItem } from '@/components/pages'
-import { Home as UI } from '@/components/styled'
+import { HomeUI as UI } from '@/components/styled'
 import { Button } from '@/components/ui'
 import { verifySession } from '@/lib/auth'
 

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { FullImage, LoadingSpinner, ReactPlayer } from '@/components/common'
-import { Home as UI } from '@/components/styled'
+import { HomeUI as UI } from '@/components/styled'
 import { rankingPlaceholder } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 

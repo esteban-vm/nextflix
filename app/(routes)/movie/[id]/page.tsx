@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 import { MovieActions } from '@/actions'
 import { MoviePlayer } from '@/components/pages'
-import { Movie as UI } from '@/components/styled'
+import { MovieUI as UI } from '@/components/styled'
 import { verifySession } from '@/lib/auth'
 
 interface MoviePageProps {

@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ProfileActions } from '@/actions'
 import { ProfileButton, ProfileCard, ProfileForm } from '@/components/pages'
-import { Profiles as UI } from '@/components/styled'
+import { ProfilesUI as UI } from '@/components/styled'
 import { verifySession } from '@/lib/auth'
 
 export const metadata: Metadata = {

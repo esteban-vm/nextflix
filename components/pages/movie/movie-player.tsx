@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import { LoadingSpinner, ReactPlayer } from '@/components/common'
-import { Movie as UI } from '@/components/styled'
+import { MovieUI as UI } from '@/components/styled'
 
 export function MoviePlayer({ movie }: MoviePlayerProps) {
   const { push } = useRouter()
