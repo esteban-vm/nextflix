@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className='absolute left-1/2 top-1/2 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 border-4 border-primary/30 py-5 text-center'>
+    <div className='absolute w-full max-w-lg border-4 border-primary/30 py-5 text-center centered'>
       <PiMaskSadDuotone className='inline fill-destructive ~size-20/24' />
       <h2 className='~text-lg/xl'>Página no encontrada</h2>
       <Button className='motion-safe:animate-pulse' variant='link' asChild>

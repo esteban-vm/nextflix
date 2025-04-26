@@ -4,8 +4,20 @@ import type { Config } from 'tailwindcss'
 import twTextShadow from '@designbycode/tailwindcss-text-shadow'
 import twFluid, { extract, fontSize, screens } from 'fluid-tailwind'
 import twMobileHover from 'tailwind-mobile-hover'
+import plugin from 'tailwindcss/plugin'
 import twAnimate from 'tailwindcss-animate'
 import twTouch from 'tailwindcss-touch'
+
+const utils = plugin(function ({ addUtilities }) {
+  addUtilities({
+    '.centered': {
+      position: 'absolute',
+      left: '50%',
+      top: '50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  })
+})
 
 const tailwindConfig: Config = {
   content: {
@@ -70,7 +82,7 @@ const tailwindConfig: Config = {
       },
     },
   },
-  plugins: [twFluid, twAnimate, twTextShadow, twTouch(), twMobileHover],
+  plugins: [twFluid, twAnimate, twTextShadow, twTouch(), twMobileHover, utils],
 }
 
 export default tailwindConfig
