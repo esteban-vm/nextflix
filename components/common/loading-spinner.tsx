@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 
 export function LoadingSpinner({ className }: Props.WithClassName) {
   return (
-    <div className='absolute left-1/2 top-1/2 size-fit -translate-x-1/2 -translate-y-1/2'>
+    <div className='size-fit centered'>
       <div
         aria-label='Indicador de carga'
         className={cn(
