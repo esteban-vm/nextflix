@@ -12,6 +12,8 @@ export const avatarUrls = (<const>[
   '/images/avatars/avatar4.webp',
 ]) satisfies AvatarUrl[]
 
+export const contentType = 'image/png'
+
 export const navLinks: NavLinkProps[] = [
   { name: 'Inicio', href: '/' },
   { name: 'Mis perfiles', href: '/profiles' },
@@ -19,3 +21,8 @@ export const navLinks: NavLinkProps[] = [
 
 export const rankingPlaceholder =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAACaCAQAAACUawf0AAAAfElEQVR42u3OMQEAAAgDoK1/GxMaQw9IQDN5rYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCdxYTjmuvxCQergAAAABJRU5ErkJggg=='
+
+export const size = <const>{
+  width: 32,
+  height: 32,
+}
