@@ -1,17 +1,13 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useCallback } from 'react'
 import { LoadingSpinner, ReactPlayer } from '@/components/common'
 import { MovieUI as UI } from '@/components/styled'
+import { randomize } from '@/lib/utils'
 
 export function MoviePlayer({ movie }: MoviePlayerProps) {
   const { push } = useRouter()
-  const { title, posterUrl, trailerUrl } = movie
-
-  const onNavigateHome = useCallback(() => {
-    push('/', { scroll: false })
-  }, [push])
+  const { title, trailerUrl } = movie
 
   return (
     <UI.MoviePlayer.PlayerContainer>
@@ -20,20 +16,20 @@ export function MoviePlayer({ movie }: MoviePlayerProps) {
           size='icon'
           title='Regresar a la página principal'
           variant='ghost'
-          onClick={onNavigateHome}
+          onClick={() => push('/', { scroll: false })}
         >
           <UI.MoviePlayer.IconArrow />
         </UI.MoviePlayer.StyledButton>
         <p className='grow'>
           Estás viendo: <span className='font-semibold'>{title}</span>
         </p>
-        <UI.MoviePlayer.IconMovie />
+        <UI.MoviePlayer.IconPopcorn />
       </UI.MoviePlayer.SideUp>
       <UI.MoviePlayer.SideDown>
         <ReactPlayer
           fallback={<LoadingSpinner className='~size-14/16' />}
           height='100%'
-          light={posterUrl}
+          light={`/images/thumbnails/thumbnail${randomize()}.webp`}
           url={trailerUrl}
           width='100%'
           controls

@@ -1,5 +1,4 @@
-import { LuArrowLeftCircle } from 'react-icons/lu'
-import { TbMovie } from 'react-icons/tb'
+import { LuArrowLeftCircle, LuPopcorn } from 'react-icons/lu'
 import tw from 'tailwind-styled-components'
 import { Button } from '@/components/ui'
 
@@ -11,11 +10,11 @@ export const IconArrow = tw(LuArrowLeftCircle)`
 
 `
 
-export const IconMovie = tw(TbMovie)`
+export const IconPopcorn = tw(LuPopcorn)`
 
   stroke-rose-600
 
-  ~size-7/8
+  ~size-6/7
 
 `
 
