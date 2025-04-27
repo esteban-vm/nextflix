@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { LoadingSpinner, ReactPlayer } from '@/components/common'
 import { MovieUI as UI } from '@/components/styled'
+import { randomize } from '@/lib/utils'
 
 export function MoviePlayer({ movie }: MoviePlayerProps) {
   const { push } = useRouter()
@@ -28,7 +29,7 @@ export function MoviePlayer({ movie }: MoviePlayerProps) {
         <ReactPlayer
           fallback={<LoadingSpinner className='~size-14/16' />}
           height='100%'
-          light={posterUrl}
+          light={`/images/thumbnails/thumbnail${randomize()}.webp`}
           url={trailerUrl}
           width='100%'
           controls

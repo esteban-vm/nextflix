@@ -8,3 +8,7 @@ const twMerge = extendTailwindMerge(withFluid)
 export function cn(...classes: ClassValue[]) {
   return twMerge(clsx(classes))
 }
+
+export function randomize() {
+  return Math.floor(Math.random() * 5 + 1)
+}
