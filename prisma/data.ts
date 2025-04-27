@@ -11,6 +11,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/flash.webp',
       trailerUrl: '/videos/flash.mp4',
       videoUrl: '/videos/flash.mp4',
+      // trailerUrl: 'https://youtu.be/hebWYacbdvc?si=iNs1OlXA6j61eCEs',
+      // videoUrl: 'https://youtu.be/hebWYacbdvc?si=iNs1OlXA6j61eCEs',
     },
     {
       title: 'Los feos',
@@ -21,6 +23,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/los-feos.webp',
       trailerUrl: '/videos/los-feos.mp4',
       videoUrl: '/videos/los-feos.mp4',
+      // trailerUrl: 'https://youtu.be/1S3CH69dSWg?si=Gv-k5JEcuk6hIguw',
+      // videoUrl: 'https://youtu.be/1S3CH69dSWg?si=Gv-k5JEcuk6hIguw',
     },
     {
       title: 'Karate Kid',
@@ -31,6 +35,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/karate-kid.webp',
       trailerUrl: '/videos/karate-kid.mp4',
       videoUrl: '/videos/karate-kid.mp4',
+      // trailerUrl: 'https://youtu.be/r_8Rw16uscg?si=mSTx4uyLKU-xRH4T',
+      // videoUrl: 'https://youtu.be/r_8Rw16uscg?si=mSTx4uyLKU-xRH4T',
     },
     {
       title: 'Super detective en Hollywood',
@@ -41,6 +47,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/super-detective-en-hollywood.webp',
       trailerUrl: '/videos/super-detective-en-hollywood.mp4',
       videoUrl: '/videos/super-detective-en-hollywood.mp4',
+      // trailerUrl: 'https://youtu.be/1UV-lUZIyQk?si=ZowIke7IN8QaJIyf',
+      // videoUrl: 'https://youtu.be/1UV-lUZIyQk?si=ZowIke7IN8QaJIyf',
     },
     {
       title: 'Fracture',
@@ -51,6 +59,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/fracture.webp',
       trailerUrl: '/videos/fracture.mp4',
       videoUrl: '/videos/fracture.mp4',
+      // trailerUrl: 'https://youtu.be/UG1Lxnn8Qa8?si=IbWiaqtsDHXP2Z_L',
+      // videoUrl: 'https://youtu.be/UG1Lxnn8Qa8?si=IbWiaqtsDHXP2Z_L',
     },
     {
       title: 'Spiderman',
@@ -61,6 +71,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/spiderman.webp',
       trailerUrl: '/videos/spiderman.mp4',
       videoUrl: '/videos/spiderman.mp4',
+      // trailerUrl: 'https://youtu.be/rk-dF1lIbIg?si=h9XMfVNyWWhHENk7',
+      // videoUrl: 'https://youtu.be/rk-dF1lIbIg?si=h9XMfVNyWWhHENk7',
     },
     {
       title: 'Al filo del mañana',
@@ -71,6 +83,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/al-filo-del-mañana.webp',
       trailerUrl: '/videos/al-filo-del-mañana.mp4',
       videoUrl: '/videos/al-filo-del-mañana.mp4',
+      // trailerUrl: 'https://youtu.be/Qd0_qYIhMZA?si=uLfjQRBuRG88bZC3',
+      // videoUrl: 'https://youtu.be/Qd0_qYIhMZA?si=uLfjQRBuRG88bZC3',
     },
     {
       title: 'Top Gun',
@@ -81,6 +95,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/top-gun.webp',
       trailerUrl: '/videos/top-gun.mp4',
       videoUrl: '/videos/top-gun.mp4',
+      // trailerUrl: 'https://youtu.be/zmFdhZ6gyUM?si=RZGSU3cXyuSOYdTJ',
+      // videoUrl: 'https://youtu.be/zmFdhZ6gyUM?si=RZGSU3cXyuSOYdTJ',
     },
     {
       title: 'Jack Reacher',
@@ -91,6 +107,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/jack-reacher.webp',
       trailerUrl: '/videos/jack-reacher.mp4',
       videoUrl: '/videos/jack-reacher.mp4',
+      // trailerUrl: 'https://youtu.be/UwLsJ54wa6w?si=mIT63FFSCkUaOpLj',
+      // videoUrl: 'https://youtu.be/UwLsJ54wa6w?si=mIT63FFSCkUaOpLj',
     },
     {
       title: 'Sonic',
@@ -101,6 +119,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/sonic.webp',
       trailerUrl: '/videos/sonic.mp4',
       videoUrl: '/videos/sonic.mp4',
+      // trailerUrl: 'https://youtu.be/XPqAai3WBag?si=v9YFDIK0EcHBnS4I',
+      // videoUrl: 'https://youtu.be/XPqAai3WBag?si=v9YFDIK0EcHBnS4I',
     },
   ],
   trending: [
@@ -113,6 +133,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/la-pareja-perfecta.webp',
       trailerUrl: '/videos/la-pareja-perfecta.mp4',
       videoUrl: '/videos/la-pareja-perfecta.mp4',
+      // trailerUrl: 'https://youtu.be/h8W8ugbD5_Y?si=UVzQ_3jR18PjNbto',
+      // videoUrl: 'https://youtu.be/h8W8ugbD5_Y?si=UVzQ_3jR18PjNbto',
       rankingUrl: '/images/rankings/ranking1.webp',
     },
     {
@@ -124,6 +146,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/respira.webp',
       trailerUrl: '/videos/respira.mp4',
       videoUrl: '/videos/respira.mp4',
+      // trailerUrl: 'https://youtu.be/PEoPYfmwFLw?si=leUKyQ76x-Iqkkyk',
+      // videoUrl: 'https://youtu.be/PEoPYfmwFLw?si=leUKyQ76x-Iqkkyk',
       rankingUrl: '/images/rankings/ranking2.webp',
     },
     {
@@ -135,6 +159,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/prison-break.webp',
       trailerUrl: '/videos/prison-break.mp4',
       videoUrl: '/videos/prison-break.mp4',
+      // trailerUrl: 'https://youtu.be/m1W7fkFmY2Q?si=XXBqq0sS9-telgiF',
+      // videoUrl: 'https://youtu.be/m1W7fkFmY2Q?si=XXBqq0sS9-telgiF',
       rankingUrl: '/images/rankings/ranking3.webp',
     },
     {
@@ -146,6 +172,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/kaos.webp',
       trailerUrl: '/videos/kaos.mp4',
       videoUrl: '/videos/kaos.mp4',
+      // trailerUrl: 'https://youtu.be/AhRwWksi2jk?si=saYL0fO4d0H3j9Ze',
+      // videoUrl: 'https://youtu.be/AhRwWksi2jk?si=saYL0fO4d0H3j9Ze',
       rankingUrl: '/images/rankings/ranking4.webp',
     },
     {
@@ -157,6 +185,8 @@ export const movies = (<const>{
       posterUrl: '/images/posters/accidente.webp',
       trailerUrl: '/videos/accidente.mp4',
       videoUrl: '/videos/accidente.mp4',
+      // trailerUrl: 'https://youtu.be/3y1t25LUJ-g?si=lYArmbcbkZkgGJ4L',
+      // videoUrl: 'https://youtu.be/3y1t25LUJ-g?si=lYArmbcbkZkgGJ4L',
       rankingUrl: '/images/rankings/ranking5.webp',
     },
   ],
