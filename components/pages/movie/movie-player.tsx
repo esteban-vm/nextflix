@@ -1,17 +1,12 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { useCallback } from 'react'
 import { LoadingSpinner, ReactPlayer } from '@/components/common'
 import { MovieUI as UI } from '@/components/styled'
 
 export function MoviePlayer({ movie }: MoviePlayerProps) {
   const { push } = useRouter()
-  const { title, posterUrl, trailerUrl } = movie
-
-  const onNavigateHome = useCallback(() => {
-    push('/', { scroll: false })
-  }, [push])
+  const { title, trailerUrl } = movie
 
   return (
     <UI.MoviePlayer.PlayerContainer>
@@ -20,7 +15,7 @@ export function MoviePlayer({ movie }: MoviePlayerProps) {
           size='icon'
           title='Regresar a la página principal'
           variant='ghost'
-          onClick={onNavigateHome}
+          onClick={() => push('/', { scroll: false })}
         >
           <UI.MoviePlayer.IconArrow />
         </UI.MoviePlayer.StyledButton>
