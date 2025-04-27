@@ -27,7 +27,7 @@ export function MoviePlayer({ movie }: MoviePlayerProps) {
         <p className='grow'>
           Estás viendo: <span className='font-semibold'>{title}</span>
         </p>
-        <UI.MoviePlayer.IconMovie />
+        <UI.MoviePlayer.IconPopcorn />
       </UI.MoviePlayer.SideUp>
       <UI.MoviePlayer.SideDown>
         <ReactPlayer
