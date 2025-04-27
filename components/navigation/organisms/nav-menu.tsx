@@ -38,12 +38,12 @@ export function NavMenu() {
     push('/profiles')
   }, [push, setIsMobileNavigationOpen])
 
-  const onLogOut = useCallback(() => {
+  const onLogOut = useCallback(async () => {
     setIsOpen(false)
     setIsMobileNavigationOpen(false)
+    await signOut({ redirectTo: '/login' })
     setCurrentProfile(null)
     setCurrentSession(null)
-    signOut({ redirectTo: '/login' })
   }, [setCurrentProfile, setCurrentSession, setIsMobileNavigationOpen])
 
   return (
