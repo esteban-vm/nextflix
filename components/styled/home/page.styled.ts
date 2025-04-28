@@ -82,9 +82,9 @@ export const CTAText = tw.p`
 
   line-clamp-4
 
-  max-w-md
+  max-w-lg
 
-  text-balance
+  text-pretty
 
 `
 
