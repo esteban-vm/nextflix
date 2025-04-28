@@ -31,6 +31,7 @@ export function MoviePlayer({ movie }: MoviePlayerProps) {
           height='100%'
           light={`/images/thumbnails/thumbnail${randomize()}.webp`}
           url={trailerUrl}
+          volume={0.5}
           width='100%'
           controls
         />
