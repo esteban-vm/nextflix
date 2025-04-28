@@ -24,11 +24,12 @@ export default async function HomePage() {
         <UI.Page.BackgroundVideo src='/videos/video.mp4' autoPlay loop muted />
         <UI.Page.CTAContainer>
           <UI.Page.CTAContent>
-            <UI.Page.HeroTitle>Test</UI.Page.HeroTitle>
+            <UI.Page.HeroTitle>¡Bienvenido/a!</UI.Page.HeroTitle>
+            <UI.Page.HeroSubtitle>¿Qué vamos a ver hoy?</UI.Page.HeroSubtitle>
             <UI.Page.CTAText>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores voluptas ab debitis deserunt sit! Enim
-              autem voluptatibus itaque, repellat quia est maxime minima possimus voluptas fugiat tempora officiis,
-              illum nesciunt!
+              Aprende a crear desde cero un clon de Netflix con todas sus funciones clave, desde la gestión de usuarios
+              hasta la reproducción de videos, mientras descubres los secretos detrás de una plataforma de streaming
+              exitosa.
             </UI.Page.CTAText>
             <UI.Page.ButtonGroup>
               <Button>
