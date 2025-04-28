@@ -100,6 +100,20 @@ export const HeroContainer = tw.header`
 
 `
 
+export const HeroSubtitle = tw.h2`
+
+  font-geist-mono
+
+  font-semibold
+
+  tracking-tighter
+
+  drop-shadow-xl
+
+  ~text-xl/5xl
+
+`
+
 export const HeroTitle = tw.h1`
 
   font-geist-mono
