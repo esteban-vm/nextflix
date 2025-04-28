@@ -9,9 +9,11 @@ import { FormButton, FormInput, FormWrapper } from '@/components/common'
 import { Form } from '@/components/ui'
 import { toast } from '@/hooks'
 import { LoginSchema } from '@/lib/validations'
+import { users } from '@/prisma/data'
 
 export function LoginForm() {
   const [isShowingPassword, setIsShowingPassword] = useState(false)
+  const [{ email, password }] = users
 
   const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
     AuthActions.login,
@@ -32,10 +34,7 @@ export function LoginForm() {
         },
       },
       formProps: {
-        defaultValues: {
-          email: '',
-          password: '',
-        },
+        defaultValues: { email, password },
       },
     }
   )
