@@ -23,7 +23,7 @@ export default async function RootLayout({ children }: Props.WithChildren) {
   const currentSession = await auth()
 
   return (
-    <html lang='en'>
+    <html lang='es'>
       <body
         className={cn(
           'dark relative h-screen min-h-[28rem] w-full antialiased bg-background',
