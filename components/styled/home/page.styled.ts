@@ -82,9 +82,9 @@ export const CTAText = tw.p`
 
   line-clamp-4
 
-  max-w-md
+  max-w-lg
 
-  text-balance
+  text-pretty
 
 `
 
@@ -97,6 +97,20 @@ export const HeroContainer = tw.header`
   md:h-[56.25vw]
 
   lg:h-[45vw]
+
+`
+
+export const HeroSubtitle = tw.h2`
+
+  font-geist-mono
+
+  font-semibold
+
+  tracking-tighter
+
+  drop-shadow-xl
+
+  ~text-xl/5xl
 
 `
 
