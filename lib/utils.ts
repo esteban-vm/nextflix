@@ -10,5 +10,5 @@ export function cn(...classes: ClassValue[]) {
 }
 
 export function randomize() {
-  return Math.floor(Math.random() * 5 + 1)
+  return Math.floor(Math.random() * 5)
 }
