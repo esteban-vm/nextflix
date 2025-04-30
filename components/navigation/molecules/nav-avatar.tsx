@@ -1,3 +1,4 @@
+import { getCldImageUrl } from 'next-cloudinary'
 import { LuUser } from 'react-icons/lu'
 import {
   Avatar,
@@ -18,7 +19,10 @@ export function NavAvatar({ className }: Props.WithClassName) {
       <Tooltip>
         <TooltipTrigger asChild>
           <Avatar className='size-10 cursor-pointer border-2 border-primary'>
-            <AvatarImage alt={`Perfil de ${currentProfile?.name}`} src={currentProfile?.avatarUrl} />
+            <AvatarImage
+              alt={currentProfile ? `Perfil de ${currentProfile.name}` : undefined}
+              src={currentProfile ? getCldImageUrl({ src: currentProfile.avatarUrl }) : undefined}
+            />
             <AvatarFallback>
               <LuUser className='size-3/4' />
             </AvatarFallback>
