@@ -19,9 +19,6 @@ export const navLinks: NavLinkProps[] = [
   { name: 'Mis perfiles', href: '/profiles' },
 ]
 
-export const rankingPlaceholder =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAACaCAQAAACUawf0AAAAfElEQVR42u3OMQEAAAgDoK1/GxMaQw9IQDN5rYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCdxYTjmuvxCQergAAAABJRU5ErkJggg=='
-
 export const size = <const>{
   width: 32,
   height: 32,
