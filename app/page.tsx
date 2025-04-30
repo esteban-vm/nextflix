@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation'
+import { getCldImageUrl } from 'next-cloudinary'
 import { LuInfo, LuPlay } from 'react-icons/lu'
 import { MovieActions } from '@/actions'
 import { FavoriteMovies } from '@/components/containers'
@@ -18,10 +19,12 @@ export default async function HomePage() {
 
   if (!trendingMovies || !playingMovies) notFound()
 
+  const videoUrl = getCldImageUrl({ src: 'nextflix/videos/video', assetType: 'video' })
+
   return (
     <>
       <UI.Page.HeroContainer>
-        <UI.Page.BackgroundVideo src='/videos/video.mp4' autoPlay loop muted />
+        <UI.Page.BackgroundVideo src={videoUrl} autoPlay loop muted />
         <UI.Page.CTAContainer>
           <UI.Page.CTAContent>
             <UI.Page.HeroTitle>¡Bienvenido/a!</UI.Page.HeroTitle>
