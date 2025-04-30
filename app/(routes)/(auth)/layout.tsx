@@ -1,7 +1,6 @@
 import { FullImage } from '@/components/common'
 import { PrivacyTerms } from '@/components/pages'
 import { AuthUI as UI } from '@/components/styled'
-import moviesWP from '@/images/backgrounds/movies-wp.webp'
 import { verifyNoSession } from '@/lib/auth'
 
 export default async function AuthLayout({ children }: Props.WithChildren) {
@@ -9,7 +8,12 @@ export default async function AuthLayout({ children }: Props.WithChildren) {
 
   return (
     <UI.Layout.LayoutContainer>
-      <FullImage alt='Imagen de fondo' className='object-cover object-center opacity-30' src={moviesWP} />
+      <FullImage
+        alt='Imagen de fondo'
+        className='object-cover object-center opacity-30'
+        src='nextflix/backgrounds/movies-wp'
+        noBlur
+      />
       <UI.Layout.PageContainer>
         {children}
         <UI.Layout.TermsContainer>
