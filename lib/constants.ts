@@ -6,10 +6,10 @@ export const appName = 'Nextflix'
 export const authorName = 'Esteban V.M.'
 
 export const avatarUrls = (<const>[
-  '/images/avatars/avatar1.webp',
-  '/images/avatars/avatar2.webp',
-  '/images/avatars/avatar3.webp',
-  '/images/avatars/avatar4.webp',
+  'nextflix/avatars/avatar1',
+  'nextflix/avatars/avatar2',
+  'nextflix/avatars/avatar3',
+  'nextflix/avatars/avatar4',
 ]) satisfies AvatarUrl[]
 
 export const contentType = 'image/png'
