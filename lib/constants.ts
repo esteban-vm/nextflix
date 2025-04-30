@@ -1,6 +1,7 @@
 import type { NavLinkProps } from '@/components/navigation/atoms'
 
-export type AvatarUrl = `/images/avatars/avatar${1 | 2 | 3 | 4}.webp`
+export type AvatarUrl = `${Lowercase<typeof appName>}/avatars/avatar${1 | 2 | 3 | 4}`
+export type ThumbnailUrl = `${Lowercase<typeof appName>}/thumbnails/thumbnail${1 | 2 | 3 | 4 | 5}`
 
 export const appName = 'Nextflix'
 export const authorName = 'Esteban V.M.'
