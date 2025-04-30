@@ -23,3 +23,11 @@ export const size = <const>{
   width: 32,
   height: 32,
 }
+
+export const thumbnailUrls = (<const>[
+  'nextflix/thumbnails/thumbnail1',
+  'nextflix/thumbnails/thumbnail2',
+  'nextflix/thumbnails/thumbnail3',
+  'nextflix/thumbnails/thumbnail4',
+  'nextflix/thumbnails/thumbnail5',
+]) satisfies ThumbnailUrl[]
