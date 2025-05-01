@@ -1,8 +1,15 @@
-import { LuArrowLeftCircle, LuPopcorn } from 'react-icons/lu'
+import { LuArrowLeft, LuRotateCw } from 'react-icons/lu'
 import tw from 'tailwind-styled-components'
-import { Button } from '@/components/ui'
 
-export const IconArrow = tw(LuArrowLeftCircle)`
+export const ButtonContainer = tw.div`
+
+  mb-2
+
+  px-4
+
+`
+
+export const IconArrow = tw(LuArrowLeft)`
 
   !size-full
 
@@ -10,15 +17,15 @@ export const IconArrow = tw(LuArrowLeftCircle)`
 
 `
 
-export const IconPopcorn = tw(LuPopcorn)`
+export const IconReload = tw(LuRotateCw)`
 
-  stroke-rose-600
+  !size-full
 
-  ~size-6/7
+  stroke-neutral-700
 
 `
 
-export const PlayerContainer = tw.div`
+export const MainContainer = tw.div`
 
   mx-auto
 
@@ -30,6 +37,16 @@ export const PlayerContainer = tw.div`
 
   flex-col
 
+`
+
+export const PlayerContainer = tw.div`
+
+  relative
+
+  aspect-video
+
+  overflow-hidden
+
   rounded-lg
 
   border-4
@@ -38,38 +55,12 @@ export const PlayerContainer = tw.div`
 
 `
 
-export const SideDown = tw.div`
+export const TooltipContent = tw.span`
 
-  relative
+  font-semibold
 
-  aspect-video
+  text-primary
 
-  overflow-hidden
-
-  rounded-b-lg
-
-  contrast-125
-
-  hover:opacity-90
-
-`
-
-export const SideUp = tw.div`
-
-  flex
-
-  items-center
-
-  gap-2
-
-  p-1
-
-`
-
-export const StyledButton = tw(Button)`
-
-  rounded-full
-
-  ~size-7/8
+  ~text-xs/sm
 
 `
