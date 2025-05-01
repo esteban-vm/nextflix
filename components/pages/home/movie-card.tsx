@@ -1,11 +1,18 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { FullImage, LoadingSpinner, ReactPlayer } from '@/components/common'
+import { FullImage, LoadingSpinner } from '@/components/common'
 import { HomeUI as UI } from '@/components/styled'
-import { rankingPlaceholder } from '@/lib/constants'
 import { cn } from '@/lib/utils'
+
+const CldVideoPlayer = dynamic(() => import('next-cloudinary').then((mod) => mod.CldVideoPlayer), {
+  ssr: false,
+  loading() {
+    return <LoadingSpinner className='~size-10/12' />
+  },
+})
 
 export function MovieCard({ movie }: MovieCardProps) {
   const { push } = useRouter()
@@ -15,22 +22,14 @@ export function MovieCard({ movie }: MovieCardProps) {
   return (
     <UI.MovieCard.CardContainer>
       <UI.MovieCard.SideLeft>
-        <FullImage alt={`Puntuación de "${title}"`} blurDataURL={rankingPlaceholder} src={rankingUrl ?? ''} />
+        {rankingUrl && <FullImage alt={`Puntuación de "${title}"`} src={rankingUrl} noBlur />}
       </UI.MovieCard.SideLeft>
       <UI.MovieCard.SideRight>
         <FullImage alt={`Portada de "${title}"`} blurDataURL={placeholder} src={posterUrl} />
       </UI.MovieCard.SideRight>
       <UI.MovieCard.VideoInfo>
         <UI.MovieCard.PlayerContainer>
-          <ReactPlayer
-            fallback={<LoadingSpinner className='~size-10/12' />}
-            height='100%'
-            url={trailerUrl}
-            width='100%'
-            loop
-            muted
-            playing
-          />
+          <CldVideoPlayer controls={false} id={id} src={trailerUrl} autoplay loop muted />
         </UI.MovieCard.PlayerContainer>
         <UI.MovieCard.FlexContainer $isBetween>
           <UI.MovieCard.MovieTitle>{title}</UI.MovieCard.MovieTitle>
