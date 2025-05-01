@@ -12,12 +12,12 @@ export default async function HomePage() {
   await verifySession()
 
   const trendingResult = await MovieActions.findTrending()
-  const trendingMovies = trendingResult?.data
+  const trendingData = trendingResult?.data
 
   const playingResult = await MovieActions.findPlaying()
-  const playingMovies = playingResult?.data
+  const playingData = playingResult?.data
 
-  if (!trendingMovies || !playingMovies) notFound()
+  if (!trendingData || !playingData) notFound()
 
   const videoUrl = getCldImageUrl({ src: 'nextflix/videos/video', assetType: 'video' })
 
@@ -53,7 +53,7 @@ export default async function HomePage() {
         <UI.Page.SectionContent>
           <UI.Page.SectionTitle>Las series más populares hoy en tu país:</UI.Page.SectionTitle>
           <UI.Page.MovieList>
-            {trendingMovies.map((movie) => (
+            {trendingData.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
           </UI.Page.MovieList>
@@ -64,7 +64,7 @@ export default async function HomePage() {
         <UI.Page.SectionContent>
           <UI.Page.SectionTitle>Películas más recientes:</UI.Page.SectionTitle>
           <MovieCarousel>
-            {playingMovies.map((movie) => (
+            {playingData.map((movie) => (
               <MovieItem key={movie.id} movie={movie} />
             ))}
           </MovieCarousel>
