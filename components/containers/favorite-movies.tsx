@@ -33,7 +33,11 @@ export function FavoriteMovies() {
   }
 
   if (isPending) {
-    return <LoadingSpinner className='mx-auto h-16' />
+    return (
+      <div className='relative ~h-16/20'>
+        <LoadingSpinner className='~size-14/16' />
+      </div>
+    )
   }
 
   if (isEmpty && hasSucceeded) {
