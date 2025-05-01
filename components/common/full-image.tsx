@@ -1,9 +1,12 @@
-import type { ImageProps } from 'next/image'
-import Image from 'next/image'
+'use client'
 
-export function FullImage(props: FullImageProps) {
-  // eslint-disable-next-line jsx-a11y/alt-text
-  return <Image {...props} placeholder='blur' fill />
+import type { CldImageProps } from 'next-cloudinary'
+import { CldImage } from 'next-cloudinary'
+
+export function FullImage({ noBlur, ...rest }: FullImageProps) {
+  return <CldImage {...rest} placeholder={noBlur ? 'empty' : 'blur'} fill />
 }
 
-export type FullImageProps = Omit<ImageProps, 'placeholder' | 'fill'>
+export interface FullImageProps extends Omit<CldImageProps, 'placeholder' | 'fill'> {
+  noBlur?: boolean
+}

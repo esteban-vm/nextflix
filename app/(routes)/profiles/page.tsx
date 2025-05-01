@@ -12,12 +12,12 @@ export const metadata: Metadata = {
 export default async function ProfilesPage() {
   await verifySession()
 
-  const result = await ProfileActions.findAll()
-  const profiles = result?.data
+  const profilesResult = await ProfileActions.findAll()
+  const profilesData = profilesResult?.data
 
-  if (!profiles) notFound()
+  if (!profilesData) notFound()
 
-  const total = profiles.length
+  const total = profilesData.length
   const remaining = 4 - total
   const shouldDisplayForm = total < 4
   const shouldDisplayButton = total > 0
@@ -27,7 +27,7 @@ export default async function ProfilesPage() {
       <UI.Page.PageTitle>¿Quién eres?</UI.Page.PageTitle>
       <UI.Page.PageSubtitle>Elige tu perfil</UI.Page.PageSubtitle>
       <UI.Page.ProfileList>
-        {profiles.map((profile) => (
+        {profilesData.map((profile) => (
           <ProfileCard key={profile.id} profile={profile} />
         ))}
         {shouldDisplayForm && <ProfileForm remaining={remaining} />}

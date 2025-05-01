@@ -1,15 +1,16 @@
 import type { NavLinkProps } from '@/components/navigation/atoms'
 
-export type AvatarUrl = `/images/avatars/avatar${1 | 2 | 3 | 4}.webp`
+export type AvatarUrl = `${Lowercase<typeof appName>}/avatars/avatar${1 | 2 | 3 | 4}`
+export type ThumbnailUrl = `${Lowercase<typeof appName>}/thumbnails/thumbnail${1 | 2 | 3 | 4 | 5}`
 
 export const appName = 'Nextflix'
 export const authorName = 'Esteban V.M.'
 
 export const avatarUrls = (<const>[
-  '/images/avatars/avatar1.webp',
-  '/images/avatars/avatar2.webp',
-  '/images/avatars/avatar3.webp',
-  '/images/avatars/avatar4.webp',
+  'nextflix/avatars/avatar1',
+  'nextflix/avatars/avatar2',
+  'nextflix/avatars/avatar3',
+  'nextflix/avatars/avatar4',
 ]) satisfies AvatarUrl[]
 
 export const contentType = 'image/png'
@@ -19,10 +20,15 @@ export const navLinks: NavLinkProps[] = [
   { name: 'Mis perfiles', href: '/profiles' },
 ]
 
-export const rankingPlaceholder =
-  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAACaCAQAAACUawf0AAAAfElEQVR42u3OMQEAAAgDoK1/GxMaQw9IQDN5rYKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCdxYTjmuvxCQergAAAABJRU5ErkJggg=='
-
 export const size = <const>{
   width: 32,
   height: 32,
 }
+
+export const thumbnailUrls = (<const>[
+  'nextflix/thumbnails/thumbnail1',
+  'nextflix/thumbnails/thumbnail2',
+  'nextflix/thumbnails/thumbnail3',
+  'nextflix/thumbnails/thumbnail4',
+  'nextflix/thumbnails/thumbnail5',
+]) satisfies ThumbnailUrl[]
