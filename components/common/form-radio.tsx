@@ -1,6 +1,7 @@
 import type { AvatarUrl } from '@/lib/constants'
 import type { Control, FieldPath, FieldValues } from 'react-hook-form'
 import Image from 'next/image'
+import { getCldImageUrl } from 'next-cloudinary'
 import { FormControl, FormError, FormField, FormItem, FormLabel, RadioGroup, RadioGroupItem } from '@/components/ui'
 import { cn } from '@/lib/utils'
 
@@ -11,7 +12,7 @@ export function FormRadioButton({ avatarUrl, isActive }: FormRadioButtonProps) {
         <Image
           alt='Imagen de avatar'
           height={1}
-          src={avatarUrl}
+          src={getCldImageUrl({ src: avatarUrl })}
           width={1}
           className={cn(
             'size-14 cursor-pointer rounded-sm border-2',
