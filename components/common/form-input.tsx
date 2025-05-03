@@ -18,7 +18,7 @@ export function FormInput<T extends Validations.Forms>({
       name={name}
       render={({ field, fieldState: { invalid } }) => {
         return (
-          <FormItem>
+          <FormItem className='flex flex-col justify-center'>
             <FormLabel className='select-none'>{label}:</FormLabel>
             <div className='relative size-full'>
               <FormControl>
