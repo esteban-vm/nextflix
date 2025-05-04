@@ -1,5 +1,5 @@
 import type { LoginSchema, ProfileSchema, RegisterSchema } from '@/lib/validations'
-import type { User as PrismaUser, Movie as PrismaMovie, Profile as PrismaProfile } from 'prisma/prisma-client'
+import type { User as PrismaUser, Movie as PrismaMovie, Profile as PrismaProfile } from '@prisma/client'
 import type { PropsWithChildren } from 'react'
 import type { z } from 'zod'
 
