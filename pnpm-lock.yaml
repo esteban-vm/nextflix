@@ -17,6 +17,9 @@ importers:
       '@next-safe-action/adapter-react-hook-form':
         specifier: ^1.0.13
         version: 1.0.13(@hookform/resolvers@3.9.1(react-hook-form@7.53.1(react@18.3.1)))(next-safe-action@7.9.9(next@14.2.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(zod@3.23.8))(next@14.2.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react-hook-form@7.53.1(react@18.3.1))(react@18.3.1)
+      '@prisma/client':
+        specifier: 6.0.1
+        version: 6.0.1(prisma@6.0.1)
       '@radix-ui/react-alert-dialog':
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -111,9 +114,6 @@ importers:
       '@fluid-tailwind/tailwind-merge':
         specifier: ^0.0.3
         version: 0.0.3(tailwind-merge@2.5.4)
-      '@prisma/client':
-        specifier: ^6.0.1
-        version: 6.0.1(prisma@6.0.1)
       '@types/bcryptjs':
         specifier: ^2.4.6
         version: 2.4.6
