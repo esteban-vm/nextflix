@@ -5,6 +5,7 @@ import { db } from '@/lib/db'
 import { CustomAuthError } from '@/lib/errors'
 
 export default {
+  trustHost: true,
   callbacks: {
     async session({ session, token }) {
       if (token.sub && session.user) {
