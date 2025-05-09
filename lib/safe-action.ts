@@ -1,6 +1,6 @@
 import { AuthError } from 'next-auth'
 import { createSafeActionClient, DEFAULT_SERVER_ERROR_MESSAGE } from 'next-safe-action'
-import { Prisma } from 'prisma/prisma-client'
+import { Prisma } from '@prisma/client'
 import { auth } from '@/auth'
 import { CustomAuthError } from '@/lib/errors'
 
