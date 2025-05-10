@@ -1,49 +1,16 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useState } from 'react'
 import { LuCheck } from 'react-icons/lu'
-import { ProfileActions } from '@/actions'
 import { FormButton, FormInput, FormRadioButton, FormRadioGroup, FormWrapper } from '@/components/common'
 import { ProfilesUI as UI } from '@/components/styled'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Form } from '@/components/ui'
-import { toast, useUIStore } from '@/hooks'
+import { useProfileForm } from '@/hooks'
 import { avatarUrls } from '@/lib/constants'
-import { ProfileSchema } from '@/lib/validations'
 
 export function ProfileForm({ remaining }: ProfileFormProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const { setShouldRenderProfiles } = useUIStore()
-
-  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
-    ProfileActions.createOne,
-    zodResolver(ProfileSchema),
-    {
-      actionProps: {
-        onSuccess({ data }) {
-          setShouldRenderProfiles(true)
-          toast({ title: `El perfil de ${data?.name} ha sido creado correctamente` })
-        },
-        onError({ error }) {
-          toast({ title: error.validationErrors?._errors?.[0], variant: 'destructive' })
-        },
-        onExecute() {
-          toast({ title: 'Creando perfil', description: 'Un momento…' })
-        },
-        onSettled() {
-          setIsOpen(false)
-          resetFormAndAction()
-        },
-      },
-      formProps: {
-        defaultValues: {
-          name: '',
-          avatarUrl: avatarUrls[0],
-        },
-      },
-    }
-  )
+  const { form, handleSubmitWithAction } = useProfileForm()
 
   const {
     watch,
