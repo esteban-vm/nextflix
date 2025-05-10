@@ -1,47 +1,15 @@
 'use client'
 
 import type { HTMLInputTypeAttribute } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useCallback, useState } from 'react'
 import { LuAtSign, LuEye, LuEyeOff } from 'react-icons/lu'
-import { AuthActions } from '@/actions'
 import { FormButton, FormInput, FormWrapper } from '@/components/common'
 import { Form } from '@/components/ui'
-import { toast } from '@/hooks'
-import { RegisterSchema } from '@/lib/validations'
+import { useRegisterForm } from '@/hooks'
 
 export function RegisterForm() {
   const [isShowingPassword, setIsShowingPassword] = useState(false)
-
-  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
-    AuthActions.register,
-    zodResolver(RegisterSchema),
-    {
-      actionProps: {
-        onSuccess() {
-          toast({ title: 'Te has registrado correctamente', description: '¡Bienvenido/a!' })
-        },
-        onError({ error }) {
-          toast({ title: error.serverError, variant: 'destructive' })
-        },
-        onSettled() {
-          resetFormAndAction()
-        },
-        onExecute() {
-          toast({ title: 'Creando cuenta', description: 'Un momento…' })
-        },
-      },
-      formProps: {
-        mode: 'onChange',
-        defaultValues: {
-          email: '',
-          password: '',
-          repeatPassword: '',
-        },
-      },
-    }
-  )
+  const { form, handleSubmitWithAction } = useRegisterForm()
 
   const {
     control,
