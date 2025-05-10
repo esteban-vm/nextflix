@@ -1,43 +1,14 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useHookFormAction } from '@next-safe-action/adapter-react-hook-form/hooks'
 import { useState } from 'react'
 import { LuAtSign, LuEye, LuEyeOff } from 'react-icons/lu'
-import { AuthActions } from '@/actions'
 import { FormButton, FormInput, FormWrapper } from '@/components/common'
 import { Form } from '@/components/ui'
-import { toast } from '@/hooks'
-import { LoginSchema } from '@/lib/validations'
-import { users } from '@/prisma/data'
+import { useLoginForm } from '@/hooks'
 
 export function LoginForm() {
   const [isShowingPassword, setIsShowingPassword] = useState(false)
-  const [{ email, password }] = users
-
-  const { form, handleSubmitWithAction, resetFormAndAction } = useHookFormAction(
-    AuthActions.login,
-    zodResolver(LoginSchema),
-    {
-      actionProps: {
-        onSuccess() {
-          toast({ title: 'Has iniciado sesión correctamente', description: '¡Bienvenido/a!' })
-        },
-        onError({ error }) {
-          toast({ title: error.serverError, variant: 'destructive' })
-        },
-        onSettled() {
-          resetFormAndAction()
-        },
-        onExecute() {
-          toast({ title: 'Iniciando sesión', description: 'Un momento…' })
-        },
-      },
-      formProps: {
-        defaultValues: { email, password },
-      },
-    }
-  )
+  const { form, handleSubmitWithAction } = useLoginForm()
 
   const {
     control,
