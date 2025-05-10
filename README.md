@@ -2,7 +2,7 @@
 
 # 🎞️ Nextflix - Netflix Clone 🍿
 
-## Environment variables:
+## Environment Variables:
 
 <details>
 <summary>
@@ -34,7 +34,7 @@
 
 </details>
 
-## User credentials:
+## User Credentials:
 
 <details>
 <summary>
