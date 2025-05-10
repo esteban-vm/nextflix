@@ -1,5 +1,3 @@
-![Logo](./app/favicon.ico)
-
 # 🎞️ Nextflix - Netflix Clone 🍿
 
 ## Environment Variables:
