@@ -36,4 +36,11 @@ export default {
       },
     }),
   ],
+  logger: {
+    error(error) {
+      if (process.env.NODE_ENV === 'development') {
+        console.log(error.name, error.message)
+      }
+    },
+  },
 } satisfies NextAuthConfig
